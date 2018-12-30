@@ -8,16 +8,27 @@ namespace Mastermind.Tests.Services
 {
     public class AnswerCheckServiceTests
     {
-        private AnswerCheckService serviceUnderTests = new AnswerCheckService();
+        private AnswerCheckService _serviceUnderTests = new AnswerCheckService();
 
-        [TestCase("AAAA", "AAAA", 4, 0)]
-        [TestCase("AAAA", "AAAB", 3, 0)]
-        public void Somemethod(string answer, string correctAnswer, int white, int black)
+
+        [Test]
+        public void CheckAnswer_ThrowsException_WhenAnswerAndCorrectAnswerLengthsDiffer()
         {
-            var result = serviceUnderTests.Somemethod(correctAnswer, answer);
+            Assert.Throws<ArgumentException>(() => _serviceUnderTests.CheckAnswer("AA", "AAA"));
+        }
+
+        [TestCase("AAAA", "AAAA", 4)]
+        [TestCase("AA", "AA", 2)]
+        [TestCase("A", "A", 1)]
+        [TestCase("AAAA", "AAAB", 3)]
+        [TestCase("AAAA", "AABC", 2)]
+        public void CheckAnswer_returnsCountOfCorrectValuesOnCorrectPosition_GivenAnswerAndExpectedAnswer(string answer, string correctAnswer, int white)
+        {
+            var result = _serviceUnderTests.CheckAnswer(correctAnswer, answer);
 
             Assert.AreEqual(result.White, white);
-            Assert.AreEqual(result.Black, black);
         }
+
+
     }
 }
