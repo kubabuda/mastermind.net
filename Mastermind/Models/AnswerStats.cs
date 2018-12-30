@@ -7,14 +7,14 @@ namespace Mastermind.Models
     public class AnswerStats
     {
         // bull: correct value and position
-        public int White { get; private set; }
+        public int WhitePoints { get; private set; }
         // cow: value in incorrect position
-        public int Black { get; private set; }
+        public int BlackPoints { get; private set; }
 
         public AnswerStats(int white, int black)
         {
-            White = white;
-            Black = black;
+            WhitePoints = white;
+            BlackPoints = black;
         }
     }
 }

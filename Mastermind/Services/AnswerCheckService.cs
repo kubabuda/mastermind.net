@@ -15,8 +15,9 @@ namespace Mastermind.Services
             }
 
             int correctValueAndPosition = 0;
-            var incorrects = new List<char>();
-            var corrects = new List<char>();
+            int correctValueOnWrongPosition = 0;
+            var incorrectAnwers = new List<char>();
+            var correctsAnswers = new List<char>();
 
             for (int i = 0; i < answer.Length; ++i)
             {
@@ -26,12 +27,21 @@ namespace Mastermind.Services
                 }
                 else
                 {
-                    incorrects.Add(answer[i]);
-                    corrects.Add(correctAnswer[i]);
+                    incorrectAnwers.Add(answer[i]);
+                    correctsAnswers.Add(correctAnswer[i]);
                 }
             }
 
-            return new AnswerStats(correctValueAndPosition, 0);
+            foreach(var c in incorrectAnwers)
+            {
+                if (correctsAnswers.Contains(c))
+                {
+                    correctValueOnWrongPosition++;
+                    correctsAnswers.Remove(c);
+                }
+            }
+
+            return new AnswerStats(correctValueAndPosition, correctValueOnWrongPosition);
         }
     }
 }
