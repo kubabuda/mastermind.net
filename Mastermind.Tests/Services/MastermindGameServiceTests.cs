@@ -23,34 +23,50 @@ namespace Mastermind.Tests.Services
         }
 
         [Test]
-        public void AnswersCount_ShouldBe0_OnStart()
-        {
-            Assert.AreEqual(0, _serviceUnderTest.Answers.Count());
-        }
-
-        [Test]
         public void AnswerLength_ShouldBeCorrectAnswerLength_OnStart()
         {
             Assert.AreEqual(correctAnswer.Length, _serviceUnderTest.AnswerLength);
         }
 
         [Test]
-        public void IsFinished_ShouldBeFalse_OnStartup()
+        public void Rounds_ShouldBe0_OnStart()
         {
-            Assert.AreEqual(false, _serviceUnderTest.IsFinished);
+            Assert.AreEqual(0, _serviceUnderTest.Rounds);
         }
 
+
         [Test]
-        public void Round_ShouldReturnStatsFromService_GivenAnswerToCheck()
+        public void Rounds_ShouldBe1_AfterOneRound()
         {
             // Arrange
             checkAnswersService.CheckAnswer(correctAnswer, answerToCheck).Returns(answerCheck);
 
             // Act
-            var result = _serviceUnderTest.Round(answerToCheck);
+            _serviceUnderTest.PlayRound(answerToCheck);
 
             // Assert
-            Assert.AreEqual(answerCheck, result);
+            Assert.AreEqual(1, _serviceUnderTest.Rounds);
+        }
+
+
+        [Test]
+        public void Rounds_ShouldBe2_After2Rounds()
+        {
+            // Arrange
+            checkAnswersService.CheckAnswer(correctAnswer, answerToCheck).Returns(answerCheck);
+
+            // Act
+            _serviceUnderTest.PlayRound(answerToCheck);
+            _serviceUnderTest.PlayRound(answerToCheck);
+
+            // Assert
+            Assert.AreEqual(2, _serviceUnderTest.Rounds);
+        }
+
+        [Test]
+        public void IsFinished_ShouldBeFalse_OnStartup()
+        {
+            Assert.AreEqual(false, _serviceUnderTest.IsFinished);
         }
 
         [Test]
@@ -61,7 +77,7 @@ namespace Mastermind.Tests.Services
             checkAnswersService.CheckAnswer(correctAnswer, answerToCheck).Returns(answerCheck);
 
             // Act
-            var result = _serviceUnderTest.Round(answerToCheck);
+            var result = _serviceUnderTest.PlayRound(answerToCheck);
 
             // Assert
             Assert.AreEqual(false, _serviceUnderTest.IsFinished);
@@ -75,64 +91,49 @@ namespace Mastermind.Tests.Services
             checkAnswersService.CheckAnswer(correctAnswer, answerToCheck).Returns(answerCheck);
 
             // Act
-            var result = _serviceUnderTest.Round(answerToCheck);
+            var result = _serviceUnderTest.PlayRound(answerToCheck);
 
             // Assert
             Assert.AreEqual(true, _serviceUnderTest.IsFinished);
         }
 
         [Test]
-        public void Round_ShouldCacheAnswer_GivenAnswerToCheck()
+        public void PlayRound_ShouldReturnStatsFromService_GivenAnswerToCheck()
         {
             // Arrange
             checkAnswersService.CheckAnswer(correctAnswer, answerToCheck).Returns(answerCheck);
 
             // Act
-            var result = _serviceUnderTest.Round(answerToCheck);
+            var result = _serviceUnderTest.PlayRound(answerToCheck);
+
+            // Assert
+            Assert.AreEqual(answerCheck, result);
+        }
+
+        [Test]
+        public void PlayRound_ShouldCacheAnswer_GivenAnswerToCheck()
+        {
+            // Arrange
+            checkAnswersService.CheckAnswer(correctAnswer, answerToCheck).Returns(answerCheck);
+
+            // Act
+            var result = _serviceUnderTest.PlayRound(answerToCheck);
 
             // Assert
             Assert.AreEqual(answerToCheck, _serviceUnderTest.Answers.First());
         }
 
         [Test]
-        public void Round_ShouldRaiseAnswerCount_GivenAnswerToCheck()
+        public void PlayRound_ShouldCacheAnswerCheck_GivenAnswerToCheck()
         {
             // Arrange
             checkAnswersService.CheckAnswer(correctAnswer, answerToCheck).Returns(answerCheck);
 
             // Act
-            _serviceUnderTest.Round(answerToCheck);
-
-            // Assert
-            Assert.AreEqual(1, _serviceUnderTest.Answers.Count());
-        }
-
-        [Test]
-        public void Round_ShouldCacheAnswerCheck_GivenAnswerToCheck()
-        {
-            // Arrange
-            checkAnswersService.CheckAnswer(correctAnswer, answerToCheck).Returns(answerCheck);
-
-            // Act
-            _serviceUnderTest.Round(answerToCheck);
+            _serviceUnderTest.PlayRound(answerToCheck);
 
             // Assert
             Assert.AreEqual(answerCheck, _serviceUnderTest.AnswerChecks[answerToCheck]);
-        }
-
-
-        [Test]
-        public void Round_ShouldRaiseAnswerCountTo2_GivenAnswerToCheckTwice()
-        {
-            // Arrange
-            checkAnswersService.CheckAnswer(correctAnswer, answerToCheck).Returns(answerCheck);
-
-            // Act
-            _serviceUnderTest.Round(answerToCheck);
-            _serviceUnderTest.Round(answerToCheck);
-
-            // Assert
-            Assert.AreEqual(2, _serviceUnderTest.Answers.Count());
         }
 
         [Test]
@@ -142,6 +143,12 @@ namespace Mastermind.Tests.Services
             var checkAnswersService = new AnswerCheckService();
             var serviceUnderTest = new MastermindGameService(correctAnswer, checkAnswersService);
 
+            var answers = new[] { "AACC", "AADD", "ABDD", "ABDC", "ABCD" };
+
+            //foreach(var answer in answers)
+            //{
+            //    if(!serviceUnderTest.IsFinished)
+            //}
             //while(serviceUnderTest.AnswerChecks.Count() == 0 || 
             //    !serviceUnderTest.AnswerChecks[serviceUnderTest.Answers.Last()].IsFinished)
             //{

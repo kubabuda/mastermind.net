@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Mastermind.Models
+﻿namespace Mastermind.Models
 {
     public interface IAnswerCheckDto
     {
