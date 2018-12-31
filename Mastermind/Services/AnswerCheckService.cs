@@ -15,7 +15,6 @@ namespace Mastermind.Services
             }
 
             int correctValueAndPosition = 0;
-            int correctValueOnWrongPosition = 0;
             var incorrectAnwers = new List<char>();
             var correctsAnswers = new List<char>();
 
@@ -32,6 +31,7 @@ namespace Mastermind.Services
                 }
             }
 
+            int correctValueOnWrongPosition = 0;
             foreach(var c in incorrectAnwers)
             {
                 if (correctsAnswers.Contains(c))
