@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Mastermind.Services;
+using System;
 
 namespace Mastermind
 {
