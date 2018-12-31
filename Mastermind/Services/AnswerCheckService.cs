@@ -45,9 +45,7 @@ namespace Mastermind.Services
                 }
             }
 
-            bool isFinished = correctValueAndPosition == correctAnswer.Length;
-
-            return new AnswerCheckDto(correctValueAndPosition, correctValueOnWrongPosition, isFinished);
+            return new AnswerCheckDto(correctValueAndPosition, correctValueOnWrongPosition);
         }
     }
 }

@@ -56,7 +56,7 @@ namespace Mastermind.Tests.Services
         [Test]
         public void IsFinished_ShouldBeFalse_AfterRoundWithWrongAnswer()
         {
-            answerCheck.IsFinished.Returns(false);
+            answerCheck.WhitePoints.Returns(correctAnswer.Length - 1);
             // Arrange
             checkAnswersService.CheckAnswer(correctAnswer, answerToCheck).Returns(answerCheck);
 
@@ -70,7 +70,7 @@ namespace Mastermind.Tests.Services
         [Test]
         public void IsFinished_ShouldBeTrue_AfterRoundWithRightAnswer()
         {
-            answerCheck.IsFinished.Returns(true);
+            answerCheck.WhitePoints.Returns(correctAnswer.Length);
             // Arrange
             checkAnswersService.CheckAnswer(correctAnswer, answerToCheck).Returns(answerCheck);
 

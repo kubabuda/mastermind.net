@@ -17,7 +17,7 @@ namespace Mastermind.Services
         {
             get
             {
-                return _answers.Count != 0 && AnswerChecks[_answers.Last()].IsFinished;
+                return _answers.Count != 0 && AnswerChecks[_answers.Last()].WhitePoints == AnswerLength;
             }
         }
 
