@@ -12,6 +12,9 @@ namespace Mastermind.Tests.Services
         ICheckAnswersService checkAnswersService;
         MastermindGameService _serviceUnderTest;
 
+        string wrongAnswerToCheck = "fooBar";
+        IAnswerCheckDto wrongAnswerCheck = Substitute.For<IAnswerCheckDto>();
+
         [SetUp]
         public void Setup()
         {
@@ -35,61 +38,69 @@ namespace Mastermind.Tests.Services
         public void Round_ShouldReturnStatsFromService_GivenAnswerToCheck()
         {
             // Arrange
-            var answerToCheck = "fooBar";
-            var answerStats = Substitute.For<IAnswerCheckDto>();
-            checkAnswersService.CheckAnswer(correctAnswer, answerToCheck).Returns(answerStats);
+            checkAnswersService.CheckAnswer(correctAnswer, wrongAnswerToCheck).Returns(wrongAnswerCheck);
 
             // Act
-            var result = _serviceUnderTest.Round(answerToCheck);
+            var result = _serviceUnderTest.Round(wrongAnswerToCheck);
 
             // Assert
-            Assert.AreEqual(answerStats, result);
+            Assert.AreEqual(wrongAnswerCheck, result);
         }
 
         [Test]
         public void Round_ShouldCacheAnswer_GivenAnswerToCheck()
         {
             // Arrange
-            var answerToCheck = "fooBar";
-            var answerStats = Substitute.For<IAnswerCheckDto>();
-            checkAnswersService.CheckAnswer(correctAnswer, answerToCheck).Returns(answerStats);
+            checkAnswersService.CheckAnswer(correctAnswer, wrongAnswerToCheck).Returns(wrongAnswerCheck);
 
             // Act
-            var result = _serviceUnderTest.Round(answerToCheck);
+            var result = _serviceUnderTest.Round(wrongAnswerToCheck);
 
             // Assert
-            Assert.AreEqual(answerToCheck, _serviceUnderTest.Answers.First());
+            Assert.AreEqual(wrongAnswerToCheck, _serviceUnderTest.Answers.First());
         }
 
         [Test]
         public void Round_ShouldRaiseAnswerCount_GivenAnswerToCheck()
         {
             // Arrange
-            var answerToCheck = "fooBar";
-            var answerStats = Substitute.For<IAnswerCheckDto>();
-            checkAnswersService.CheckAnswer(correctAnswer, answerToCheck).Returns(answerStats);
+            checkAnswersService.CheckAnswer(correctAnswer, wrongAnswerToCheck).Returns(wrongAnswerCheck);
 
             // Act
-            _serviceUnderTest.Round(answerToCheck);
+            _serviceUnderTest.Round(wrongAnswerToCheck);
 
             // Assert
             Assert.AreEqual(1, _serviceUnderTest.Answers.Count());
         }
 
         [Test]
+        public void Round_ShouldCacheAnswerCheck_GivenAnswerToCheck()
+        {
+            // Arrange
+            checkAnswersService.CheckAnswer(correctAnswer, wrongAnswerToCheck).Returns(wrongAnswerCheck);
+
+            // Act
+            _serviceUnderTest.Round(wrongAnswerToCheck);
+
+            // Assert
+            Assert.AreEqual(wrongAnswerCheck, _serviceUnderTest.AnswerChecks[wrongAnswerToCheck]);
+        }
+
+
+        [Test]
         public void Round_ShouldRaiseAnswerCountTo2_GivenAnswerToCheckTwice()
         {
             // Arrange
-            var answerToCheck = "fooBar";
-            var answerStats = Substitute.For<IAnswerCheckDto>();
-            checkAnswersService.CheckAnswer(correctAnswer, answerToCheck).Returns(answerStats);
+            checkAnswersService.CheckAnswer(correctAnswer, wrongAnswerToCheck).Returns(wrongAnswerCheck);
 
             // Act
-            _serviceUnderTest.Round(answerToCheck);
-            _serviceUnderTest.Round(answerToCheck);
+            _serviceUnderTest.Round(wrongAnswerToCheck);
+            _serviceUnderTest.Round(wrongAnswerToCheck);
 
             // Assert
             Assert.AreEqual(2, _serviceUnderTest.Answers.Count());
         }
+
+        
     }
 }
