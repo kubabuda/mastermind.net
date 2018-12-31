@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace Mastermind.Services
 {
@@ -8,8 +6,9 @@ namespace Mastermind.Services
     {
         private readonly string _correctAnswer;
         private List<string> _answers;
+
         public int AnswersCount { get => _answers.Count; }
-        public double AnswerLength { get; set; }
+        public int AnswerLength { get => _correctAnswer.Length; }
 
         public MastermindGameService(string correctAnswer)
         {

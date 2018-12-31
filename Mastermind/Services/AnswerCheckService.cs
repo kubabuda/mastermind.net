@@ -1,11 +1,15 @@
 ﻿using Mastermind.Models;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Mastermind.Services
 {
-    public class AnswerCheckService
+    public interface ICheckAnswersService
+    {
+        AnswerStats CheckAnswer(string correctAnswer, string answer);
+    }
+
+    public class AnswerCheckService: ICheckAnswersService
     {
         public AnswerStats CheckAnswer(string correctAnswer, string answer)
         {

@@ -26,7 +26,7 @@ namespace Mastermind.Tests.Services
         [Test]
         public void AnswerLength_ShouldBeCorrectAnswerLength_OnStart()
         {
-            Assert.AreEqual(0, _serviceUnderTest.AnswerLength);
+            Assert.AreEqual(correctAnswer.Length, _serviceUnderTest.AnswerLength);
         }
     }
 }
