@@ -1,5 +1,6 @@
 ﻿using Mastermind.Models;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Mastermind.Services
 {
@@ -12,6 +13,13 @@ namespace Mastermind.Services
         public IEnumerable<string> Answers { get => _answers; }
         public Dictionary<string, IAnswerCheckDto> AnswerChecks { get; private set; }
         public int AnswerLength { get => _correctAnswer.Length; }
+        public bool IsFinished
+        {
+            get
+            {
+                return _answers.Count != 0 && AnswerChecks[_answers.Last()].IsFinished;
+            }
+        }
 
         public MastermindGameService(string correctAnswer, ICheckAnswersService checkAnswersService)
         {
