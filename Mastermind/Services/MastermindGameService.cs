@@ -1,10 +1,11 @@
 ﻿using Mastermind.Models;
+using Mastermind.Services.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace Mastermind.Services
 {
-    public class MastermindGameService
+    public class MastermindGameService: IMastermindGamePlay
     {
         private readonly string _correctAnswer;
         private readonly ICheckAnswersService _checkAnswersService;
@@ -16,7 +17,7 @@ namespace Mastermind.Services
         public int AnswerLength { get => _correctAnswer.Length; }
         public bool IsFinished
         {
-            get => _answers.Count >= 0 && AnswerChecks[_answers.Last()].WhitePoints == AnswerLength;
+            get => _answers.Count != 0 && AnswerChecks[_answers.Last()].WhitePoints == AnswerLength;
         }
 
         public MastermindGameService(string correctAnswer, ICheckAnswersService checkAnswersService)

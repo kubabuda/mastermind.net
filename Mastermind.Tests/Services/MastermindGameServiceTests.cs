@@ -1,5 +1,6 @@
 ﻿using Mastermind.Models;
 using Mastermind.Services;
+using Mastermind.Services.Interfaces;
 using NSubstitute;
 using NUnit.Framework;
 using System.Linq;
@@ -134,26 +135,6 @@ namespace Mastermind.Tests.Services
 
             // Assert
             Assert.AreEqual(answerCheck, _serviceUnderTest.AnswerChecks[answerToCheck]);
-        }
-
-        [Test]
-        public void Play()
-        {
-            var correctAnswer = "ABCD";
-            var checkAnswersService = new AnswerCheckService();
-            var serviceUnderTest = new MastermindGameService(correctAnswer, checkAnswersService);
-
-            var answers = new[] { "AACC", "AADD", "ABDD", "ABDC", "ABCD" };
-
-            //foreach(var answer in answers)
-            //{
-            //    if(!serviceUnderTest.IsFinished)
-            //}
-            //while(serviceUnderTest.AnswerChecks.Count() == 0 || 
-            //    !serviceUnderTest.AnswerChecks[serviceUnderTest.Answers.Last()].IsFinished)
-            //{
-
-            //}
         }
     }
 }

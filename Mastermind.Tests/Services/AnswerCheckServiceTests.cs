@@ -1,4 +1,5 @@
 ﻿using Mastermind.Services;
+using Mastermind.Services.Interfaces;
 using NUnit.Framework;
 using System;
 

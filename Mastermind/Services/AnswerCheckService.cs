@@ -1,14 +1,10 @@
 ﻿using Mastermind.Models;
+using Mastermind.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 
 namespace Mastermind.Services
 {
-    public interface ICheckAnswersService
-    {
-        IAnswerCheckDto CheckAnswer(string correctAnswer, string answer);
-    }
-
     public class AnswerCheckService: ICheckAnswersService
     {
         public IAnswerCheckDto CheckAnswer(string correctAnswer, string answer)
