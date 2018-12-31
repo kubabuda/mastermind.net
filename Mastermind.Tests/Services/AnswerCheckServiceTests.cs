@@ -45,14 +45,5 @@ namespace Mastermind.Tests.Services
             Assert.AreEqual(whitePoints, result.WhitePoints);
             Assert.AreEqual(blackPoints, result.BlackPoints);
         }
-
-        [TestCase("AAAA", "AAAA", true)]
-        [TestCase("AAAA", "AAAB", false)]
-        public void CheckAnswer_IsFinished_WhenWhitePtsEqLengthAndBlackPtsEqZero(string answer, string correctAnswer, bool isFinished)
-        {
-            var result = _serviceUnderTests.CheckAnswer(correctAnswer, answer);
-
-            Assert.AreEqual(isFinished, result.IsFinished);
-        }
     }
 }
