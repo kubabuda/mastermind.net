@@ -4,17 +4,27 @@ using System.Text;
 
 namespace Mastermind.Models
 {
-    public class AnswerCheckDto
+    public interface IAnswerCheckDto
     {
         // bull: correct value and position
-        public int WhitePoints { get; private set; }
+        int WhitePoints { get; }
         // cow: value in incorrect position
-        public int BlackPoints { get; private set; }
+        int BlackPoints { get; }
+        // game is finished when white points == answer length & black points == 0, but DTO doesnt know correct answer or its length
+        bool IsFinished { get; }
+    }
 
-        public AnswerCheckDto(int white, int black)
+    public class AnswerCheckDto: IAnswerCheckDto
+    {
+        public int WhitePoints { get; private set; }
+        public int BlackPoints { get; private set; }
+        public bool IsFinished { get; private set; }
+
+        public AnswerCheckDto(int white, int black, bool isFinished)
         {
             WhitePoints = white;
             BlackPoints = black;
+            IsFinished = isFinished;
         }
     }
 }

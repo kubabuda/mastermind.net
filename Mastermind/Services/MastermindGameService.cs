@@ -1,7 +1,5 @@
 ﻿using Mastermind.Models;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Mastermind.Services
 {
@@ -12,7 +10,7 @@ namespace Mastermind.Services
         private readonly List<string> _answers;
 
         public IEnumerable<string> Answers { get => _answers; }
-        public Dictionary<string, AnswerCheckDto> AnswerStats { get; private set; }
+        public Dictionary<string, IAnswerCheckDto> AnswerStats { get; private set; }
         public int AnswerLength { get => _correctAnswer.Length; }
 
         public MastermindGameService(string correctAnswer, ICheckAnswersService checkAnswersService)
@@ -22,7 +20,7 @@ namespace Mastermind.Services
             _answers = new List<string>();
         }
 
-        public AnswerCheckDto Round(string answerToCheck)
+        public IAnswerCheckDto Round(string answerToCheck)
         {
             _answers.Add(answerToCheck);
             var result = _checkAnswersService.CheckAnswer(_correctAnswer, answerToCheck);

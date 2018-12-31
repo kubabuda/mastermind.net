@@ -6,12 +6,12 @@ namespace Mastermind.Services
 {
     public interface ICheckAnswersService
     {
-        AnswerCheckDto CheckAnswer(string correctAnswer, string answer);
+        IAnswerCheckDto CheckAnswer(string correctAnswer, string answer);
     }
 
     public class AnswerCheckService: ICheckAnswersService
     {
-        public AnswerCheckDto CheckAnswer(string correctAnswer, string answer)
+        public IAnswerCheckDto CheckAnswer(string correctAnswer, string answer)
         {
             if(correctAnswer.Length != answer.Length)
             {
@@ -45,7 +45,9 @@ namespace Mastermind.Services
                 }
             }
 
-            return new AnswerCheckDto(correctValueAndPosition, correctValueOnWrongPosition);
+            bool isFinished = correctValueAndPosition == correctAnswer.Length;
+
+            return new AnswerCheckDto(correctValueAndPosition, correctValueOnWrongPosition, isFinished);
         }
     }
 }

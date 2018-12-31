@@ -2,10 +2,7 @@
 using Mastermind.Services;
 using NSubstitute;
 using NUnit.Framework;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace Mastermind.Tests.Services
 {
@@ -39,7 +36,7 @@ namespace Mastermind.Tests.Services
         {
             // Arrange
             var answerToCheck = "fooBar";
-            var answerStats = new AnswerCheckDto(0, 1);
+            var answerStats = Substitute.For<IAnswerCheckDto>();
             checkAnswersService.CheckAnswer(correctAnswer, answerToCheck).Returns(answerStats);
 
             // Act
@@ -54,7 +51,7 @@ namespace Mastermind.Tests.Services
         {
             // Arrange
             var answerToCheck = "fooBar";
-            var answerStats = new AnswerCheckDto(0, 1);
+            var answerStats = Substitute.For<IAnswerCheckDto>();
             checkAnswersService.CheckAnswer(correctAnswer, answerToCheck).Returns(answerStats);
 
             // Act
@@ -69,7 +66,7 @@ namespace Mastermind.Tests.Services
         {
             // Arrange
             var answerToCheck = "fooBar";
-            var answerStats = new AnswerCheckDto(0, 1);
+            var answerStats = Substitute.For<IAnswerCheckDto>();
             checkAnswersService.CheckAnswer(correctAnswer, answerToCheck).Returns(answerStats);
 
             // Act
@@ -84,7 +81,7 @@ namespace Mastermind.Tests.Services
         {
             // Arrange
             var answerToCheck = "fooBar";
-            var answerStats = new AnswerCheckDto(0, 1);
+            var answerStats = Substitute.For<IAnswerCheckDto>();
             checkAnswersService.CheckAnswer(correctAnswer, answerToCheck).Returns(answerStats);
 
             // Act

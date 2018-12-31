@@ -6,7 +6,7 @@ namespace Mastermind.Tests.Services
 {
     public class AnswerCheckServiceTests
     {
-        private AnswerCheckService _serviceUnderTests = new AnswerCheckService();
+        private ICheckAnswersService _serviceUnderTests = new AnswerCheckService();
 
 
         [Test]
@@ -27,7 +27,6 @@ namespace Mastermind.Tests.Services
             Assert.AreEqual(whitePoints, result.WhitePoints);
         }
 
-
         [TestCase("CB", "BC", 2)]
         [TestCase("CAB", "ABC", 3)]
         public void CheckAnswer_returnsCountOfCorrectValuesOnWrongPosition_GivenAnswerAndExpectedAnswer(string answer, string correctAnswer, int blackPoints)
@@ -45,6 +44,15 @@ namespace Mastermind.Tests.Services
 
             Assert.AreEqual(whitePoints, result.WhitePoints);
             Assert.AreEqual(blackPoints, result.BlackPoints);
+        }
+
+        [TestCase("AAAA", "AAAA", true)]
+        [TestCase("AAAA", "AAAB", false)]
+        public void CheckAnswer_IsFinished_WhenWhitePtsEqLengthAndBlackPtsEqZero(string answer, string correctAnswer, bool isFinished)
+        {
+            var result = _serviceUnderTests.CheckAnswer(correctAnswer, answer);
+
+            Assert.AreEqual(isFinished, result.IsFinished);
         }
     }
 }
