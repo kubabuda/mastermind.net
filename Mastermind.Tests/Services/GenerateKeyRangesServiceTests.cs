@@ -35,6 +35,19 @@ namespace Mastermind.Tests.Services
             Assert.AreEqual(new List<string>() { "A", "B", "C" }, result);
         }
 
+
+        [Test]
+        public void GenerateCodes_returnsExpectedCodes_For3And2()
+        {
+            var result = _serviceUnderTests.GenerateCodes(3, 2);
+
+            Assert.AreEqual(new List<string>() {
+                "AA", "BA", "CA",
+                "AB", "BB", "CB",
+                "AC", "BC", "CC",
+            }, result);
+        }
+
         [Test]
         public void GenerateCodes_returnsAbcdeCodes_For5AndOne()
         {
@@ -43,41 +56,20 @@ namespace Mastermind.Tests.Services
             Assert.AreEqual(new List<string>() { "A", "B", "C", "D", "E" }, result);
         }
 
-        //[TestCase(0, 1, 1, "A")]
-        //public void ConvertToCode()
-        //{
-
-        //}
-    }
-
-    public class GenerateKeyRangesService : IGenerateKeyRangesService
-    {
-        private Dictionary<int, string> _charToCodeLetterMappings = new Dictionary<int, string>
+        [TestCase(0, 1, 1, "A")]
+        [TestCase(0, 6, 1, "A")]
+        [TestCase(3, 6, 1, "D")]
+        [TestCase(3, 6, 2, "DA")]
+        [TestCase(0, 6, 2, "AA")]
+        [TestCase(0, 6, 3, "AAA")]
+        [TestCase(1, 6, 3, "BAA")]
+        public void ConvertToCode(int value, int colors, int digits, string expectedCode)
         {
-            { 0, "A" },
-            { 1, "B" },
-            { 2, "C" },
-            { 3, "D" },
-            { 4, "E" },
-            { 5, "F" },
-            { 6, "G" },
-            { 7, "H" },
-            { 8, "I" },
-            { 9, "I" },
-        };
+            var result = _serviceUnderTests.ConvertToCode(value, colors, digits);
 
-        public IEnumerable<string> GenerateCodes(int colors, int digits)
-        {
-            int codesCount = (int)System.Math.Pow(colors, digits);
-
-            return Enumerable.Range(0, codesCount)
-                .Select(c => ConvertToCode(c, colors, digits))
-                .ToList();
-        }
-
-        public string ConvertToCode(int value, int colors, int digits)
-        {
-            return _charToCodeLetterMappings[value];
+            Assert.AreEqual(expectedCode, result);
         }
     }
+
+    
 }

@@ -8,5 +8,7 @@ namespace Mastermind.Services.Interfaces
         // colors - number of allowed variants per socket, eg. 3 for [ A, B, C ]
         // length - code length, eg. 4 for ABCD
         IEnumerable<string> GenerateCodes(int colors, int digits);
+
+        string ConvertToCode(int value, int colors, int digits);
     }
 }
