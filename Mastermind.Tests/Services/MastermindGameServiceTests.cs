@@ -87,8 +87,8 @@ namespace Mastermind.Tests.Services
         [Test]
         public void IsFinished_ShouldBeTrue_AfterRoundWithRightAnswer()
         {
-            answerCheck.WhitePoints.Returns(correctAnswer.Length);
             // Arrange
+            answerCheck.WhitePoints.Returns(correctAnswer.Length);
             checkAnswersService.CheckAnswer(correctAnswer, answerToCheck).Returns(answerCheck);
 
             // Act
