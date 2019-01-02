@@ -7,6 +7,7 @@ namespace Mastermind.Services.Interfaces
     {
         IEnumerable<string> Answers { get; }
         Dictionary<string, IAnswerCheckDto> AnswerChecks { get; }
+        IAnswerCheckDto InitialCheckState { get; }
         int Rounds { get; }
         int AnswerLength { get; }
         bool IsFinished { get; }

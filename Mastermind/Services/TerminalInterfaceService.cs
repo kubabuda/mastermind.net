@@ -4,7 +4,7 @@ using System;
 
 namespace Mastermind.Services
 {
-    public class TerminalInterfaceService: ITerminalInterfaceService
+    public class TerminalInterfaceService: IInterfaceService
     {
         private readonly IMastermindGame _gameService;
 
@@ -58,11 +58,11 @@ namespace Mastermind.Services
         {
             if(answerCheck.WhitePoints == _gameService.AnswerLength)
             {
-                Console.WriteLine($"Congratulation, you win");
+                Console.Write($"Congratulation, you win");
             }
             else
             {
-               Console.WriteLine($"Game over, passcode not found");
+               Console.Write($"Game over, passcode not found");
             }
             Console.WriteLine(string.Format($" after {_gameService.Rounds} rounds"));
         }

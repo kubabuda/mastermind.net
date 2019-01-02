@@ -88,7 +88,7 @@ namespace Mastermind.Tests.Services
         public void IsFinished_ShouldBeTrue_AfterRoundWithRightAnswer()
         {
             // Arrange
-            answerCheck.WhitePoints.Returns(correctAnswer.Length);
+            answerCheck.IsCorrect.Returns(true);
             checkAnswersService.CheckAnswer(correctAnswer, answerToCheck).Returns(answerCheck);
 
             // Act
@@ -122,19 +122,21 @@ namespace Mastermind.Tests.Services
 
             // Assert
             Assert.AreEqual(answerToCheck, _serviceUnderTest.Answers.First());
+            Assert.AreEqual(answerCheck, _serviceUnderTest.AnswerChecks[answerToCheck]);
         }
 
         [Test]
-        public void PlayRound_ShouldCacheAnswerCheck_GivenAnswerToCheck()
+        public void InitialCheckState_ShouldReturnEmptyNotCorrect()
         {
             // Arrange
-            checkAnswersService.CheckAnswer(correctAnswer, answerToCheck).Returns(answerCheck);
-
+            
             // Act
-            _serviceUnderTest.PlayRound(answerToCheck);
+            IAnswerCheckDto result = _serviceUnderTest.InitialCheckState;
 
             // Assert
-            Assert.AreEqual(answerCheck, _serviceUnderTest.AnswerChecks[answerToCheck]);
+            Assert.AreEqual(false, result.IsCorrect);
+            Assert.AreEqual(0, result.BlackPoints);
+            Assert.AreEqual(0, result.WhitePoints);
         }
     }
 }

@@ -7,8 +7,10 @@ namespace Mastermind
     {
         static void Main(string[] args)
         {
-            var game = MastermindGameplayService.Create("ABCD");
-            game.Play();
+            var answer = "ABCD";
+            var maxRounds = 6;
+            var game = MastermindGameplayService.CreateTerminalGame(answer);
+            game.Start();
             
             Console.ReadLine();
         }

@@ -6,42 +6,38 @@ namespace Mastermind.Services
     public class MastermindGameplayService
     {
         private readonly string _correctAnswer;
-        private readonly IMastermindGame _gameService;
-        private readonly ITerminalInterfaceService _terminalInterface;
+        private readonly IMastermindGame _game;
+        private readonly IInterfaceService _interface;
 
         public MastermindGameplayService(string answerToGuess, 
             IMastermindGame mastermindGame, 
-            ITerminalInterfaceService terminal)
+            IInterfaceService terminalInterface)
         {
             _correctAnswer = answerToGuess;
-            _gameService = new MastermindGameService(_correctAnswer, new AnswerCheckService());
-            _terminalInterface = new TerminalInterfaceService(_gameService);
+            _game = mastermindGame;
+            _interface = terminalInterface;
         }
 
-        public static MastermindGameplayService Create(string answerToGuess)
+        public static MastermindGameplayService CreateTerminalGame(string answerToGuess)
         {
             var game = new MastermindGameService(answerToGuess, new AnswerCheckService());
 
             return new MastermindGameplayService(answerToGuess, game, new TerminalInterfaceService(game));
         }
 
-        public void Play() //int rounds = -1)
+        public void Start() //int rounds = -1)
         {
-            IAnswerCheckDto answerCheck = null;
-            _terminalInterface.ShowIntroduction();
+            IAnswerCheckDto answerCheck = _game.InitialCheckState;
+            _interface.ShowIntroduction();
 
-            while (!_gameService.IsFinished)// && rounds != 0)
+            while (!answerCheck.IsCorrect)// && rounds != 0)
             {
-                string currentAnswer = _terminalInterface.GetCurrentAnswer();
-                answerCheck = _gameService.PlayRound(currentAnswer);
-
-                if (!_gameService.IsFinished)
-                {
-                    _terminalInterface.ShowAnswerCheck(currentAnswer, answerCheck);
-                }
+                string currentAnswer = _interface.GetCurrentAnswer();
+                answerCheck = _game.PlayRound(currentAnswer);
+                _interface.ShowAnswerCheck(currentAnswer, answerCheck);
                 //--rounds;
             }
-            _terminalInterface.ShowGameScore(answerCheck);
+            _interface.ShowGameScore(answerCheck);
         }
     }
 }

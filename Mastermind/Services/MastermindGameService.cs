@@ -17,8 +17,9 @@ namespace Mastermind.Services
         public int AnswerLength { get => _correctAnswer.Length; }
         public bool IsFinished
         {
-            get => _answers.Count != 0 && AnswerChecks[_answers.Last()].WhitePoints == AnswerLength;
+            get => _answers.Count != 0 && AnswerChecks[_answers.Last()].IsCorrect;
         }
+        public IAnswerCheckDto InitialCheckState { get => _checkAnswersService.BuildAnswerCheck(_correctAnswer, 0, 0); }
 
         public MastermindGameService(string correctAnswer, ICheckAnswersService checkAnswersService)
         {

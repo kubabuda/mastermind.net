@@ -2,7 +2,7 @@
 
 namespace Mastermind.Services
 {
-    public interface ITerminalInterfaceService
+    public interface IInterfaceService
     {
         void ShowIntroduction();
         string GetCurrentAnswer();
