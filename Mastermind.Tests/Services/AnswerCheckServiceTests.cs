@@ -49,6 +49,9 @@ namespace Mastermind.Tests.Services
 
         [TestCase("aAa", 3, 0, true)]
         [TestCase("aAa", 2, 1, false)]
+        [TestCase("aAa", 2, 0, false)]
+        [TestCase("aAa", 0, 1, false)]
+        [TestCase("aAa", 0, 0, false)]        
         public void BuildAnswerCheck_ReturnsAnswerCheck_GivenCorrectAnswerWhiteAndBlackPoints(string correctAnswer, int whitePts, int blackPts, bool isValid)
         {
             var result = _serviceUnderTests.BuildAnswerCheck(correctAnswer, whitePts, blackPts);
@@ -59,6 +62,11 @@ namespace Mastermind.Tests.Services
 
         [TestCase("aAa", 4, 0)]
         [TestCase("aAa", 4, 1)]
+        [TestCase("aAa", 1, 4)]
+        [TestCase("aAa", 2, 2)]
+        [TestCase("aAa", -2, 0)]
+        [TestCase("aAa", 0, -2)]
+        [TestCase("", 0, 0)]
         public void BuildAnswerCheck_ThrowsArgumentException_GivenInvalidData(string correctAnswer, int whitePts, int blackPts)
         {
             Assert.Throws<ArgumentException>(() => _serviceUnderTests.BuildAnswerCheck(correctAnswer, whitePts, blackPts));

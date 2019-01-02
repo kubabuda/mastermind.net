@@ -44,15 +44,16 @@ namespace Mastermind.Services
             return BuildAnswerCheck(correctAnswer, correctValueAndPosition, correctValueOnWrongPosition);
         }
 
-        public IAnswerCheckDto BuildAnswerCheck(string correctAnswer, int whitePts, int correctValueOnWrongPosition)
+        public IAnswerCheckDto BuildAnswerCheck(string correctAnswer, int whitePts, int blackPts)
         {
             var answerLength = correctAnswer.Length;
-            if(answerLength < whitePts)
+            if(answerLength < whitePts || answerLength < blackPts || answerLength < whitePts + blackPts 
+                || blackPts < 0 || whitePts < 0 || answerLength < 1)
             {
                 throw new ArgumentException();
             }
 
-            return new AnswerCheckDto(whitePts, correctValueOnWrongPosition, answerLength == whitePts);
+            return new AnswerCheckDto(whitePts, blackPts, answerLength == whitePts);
         }
     }
 }
