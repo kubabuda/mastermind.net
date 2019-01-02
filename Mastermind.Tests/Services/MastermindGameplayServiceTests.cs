@@ -3,9 +3,6 @@ using Mastermind.Services;
 using Mastermind.Services.Interfaces;
 using NSubstitute;
 using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Mastermind.Tests.Services
 {
