@@ -74,5 +74,22 @@ namespace Mastermind.Tests.Services
             // Assert
             Assert.AreEqual(5, serviceUnderTest.Rounds);
         }
+
+        [Test]
+        public void PlayIntegrationTest_ShouldFinishAfterFirstRound_WhenCorrectAnswerIsGuessedInFirstRound()
+        {
+            // Arrange
+            int i = 0;
+
+            // Act
+            while (!serviceUnderTest.IsFinished)
+            {
+                serviceUnderTest.PlayRound(correctAnswer);
+                ++i;
+            }
+
+            // Assert
+            Assert.AreEqual(1, serviceUnderTest.Rounds);
+        }
     }
 }
