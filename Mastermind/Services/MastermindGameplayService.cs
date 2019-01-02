@@ -25,20 +25,23 @@ namespace Mastermind.Services
             return new MastermindGameplayService(answerToGuess, game, new TerminalInterfaceService(game));
         }
 
-        public int Start() //int rounds = -1)
+        public GameResultDto Start(int roundsLeft = -1)
         {
+            int rounds = 0;
+            var answerCheck = _game.LastCheck;
             _interface.ShowIntroduction();
 
-            while (!_game.LastCheck.IsCorrect)// && rounds != 0)
+            while (!answerCheck.IsCorrect && roundsLeft != 0)
             {
                 string currentAnswer = _interface.GetCurrentAnswer();
-                var answerCheck = _game.PlayRound(currentAnswer);
+                answerCheck = _game.PlayRound(currentAnswer);
                 _interface.ShowAnswerCheck(currentAnswer, answerCheck);
-                //--rounds;
+                ++rounds;
+                --roundsLeft;
             }
-            _interface.ShowGameScore(_game.LastCheck);
+            _interface.ShowGameScore(answerCheck);
 
-            return _game.Rounds;
+            return new GameResultDto(rounds, answerCheck.IsCorrect);
         }
     }
 }
