@@ -37,7 +37,7 @@ namespace Mastermind.Services
             for (int i = 0; i < digits; ++i)
             {
                 codeLetters.Add(_charToCodeLetterMappings[quotient % colors]);
-                quotient = value / colors;
+                quotient = quotient / colors;
             }
 
             return string.Join("", codeLetters);

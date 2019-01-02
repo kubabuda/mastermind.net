@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Mastermind.Models
+﻿namespace Mastermind.Models
 {
-    public class GameResultDto
+    public class GameResultDto : IGameResultDto
     {
         public int Rounds { get; }
         public bool IsAnswerFound { get; }

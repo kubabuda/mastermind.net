@@ -2,7 +2,6 @@
 using System.Linq;
 using Mastermind.Services;
 using Mastermind.Services.Interfaces;
-using NSubstitute;
 using NUnit.Framework;
 
 namespace Mastermind.Tests.Services
@@ -63,13 +62,12 @@ namespace Mastermind.Tests.Services
         [TestCase(0, 6, 2, "AA")]
         [TestCase(0, 6, 3, "AAA")]
         [TestCase(1, 6, 3, "BAA")]
+        [TestCase(545, 6, 4, "FADC")]
         public void ConvertToCode(int value, int colors, int digits, string expectedCode)
         {
             var result = _serviceUnderTests.ConvertToCode(value, colors, digits);
 
             Assert.AreEqual(expectedCode, result);
         }
-    }
-
-    
+    }   
 }

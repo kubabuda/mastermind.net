@@ -25,7 +25,7 @@ namespace Mastermind.Services
             return new MastermindGameplayService(answerToGuess, game, new TerminalInterfaceService(game));
         }
 
-        public GameResultDto Start(int roundsLeft = -1)
+        public IGameResultDto Start(int roundsLeft = -1)
         {
             int rounds = 0;
             var answerCheck = _game.LastCheck;
