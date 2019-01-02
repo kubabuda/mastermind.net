@@ -9,7 +9,7 @@ namespace Mastermind.Tests.Services
     {
         readonly string correctAnswer = "ABCD";
         ICheckAnswersService checkAnswersService;
-        IMastermindGamePlay serviceUnderTest;
+        IMastermindGame serviceUnderTest;
         List<string> answers;
 
 

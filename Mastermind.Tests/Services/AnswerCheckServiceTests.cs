@@ -46,5 +46,22 @@ namespace Mastermind.Tests.Services
             Assert.AreEqual(whitePoints, result.WhitePoints);
             Assert.AreEqual(blackPoints, result.BlackPoints);
         }
+
+        [TestCase("aAa", 3, 0, true)]
+        [TestCase("aAa", 2, 1, false)]
+        public void BuildAnswerCheck_ReturnsAnswerCheck_GivenCorrectAnswerWhiteAndBlackPoints(string correctAnswer, int whitePts, int blackPts, bool isValid)
+        {
+            var result = _serviceUnderTests.BuildAnswerCheck(correctAnswer, whitePts, blackPts);
+            Assert.AreEqual(whitePts, result.WhitePoints);
+            Assert.AreEqual(blackPts, result.BlackPoints);
+            Assert.AreEqual(isValid, result.IsCorrect);
+        }
+
+        [TestCase("aAa", 4, 0)]
+        [TestCase("aAa", 4, 1)]
+        public void BuildAnswerCheck_ThrowsArgumentException_GivenInvalidData(string correctAnswer, int whitePts, int blackPts)
+        {
+            Assert.Throws<ArgumentException>(() => _serviceUnderTests.BuildAnswerCheck(correctAnswer, whitePts, blackPts));
+        }
     }
 }

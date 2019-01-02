@@ -9,7 +9,7 @@ namespace Mastermind.Services
     {
         public IAnswerCheckDto CheckAnswer(string correctAnswer, string answer)
         {
-            if(correctAnswer.Length != answer.Length)
+            if (correctAnswer.Length != answer.Length)
             {
                 throw new ArgumentException("Answer and correct answer lengths are diffrent!");
             }
@@ -20,7 +20,7 @@ namespace Mastermind.Services
 
             for (int i = 0; i < answer.Length; ++i)
             {
-                if(answer[i] == correctAnswer[i])
+                if (answer[i] == correctAnswer[i])
                 {
                     correctValueAndPosition++;
                 }
@@ -32,7 +32,7 @@ namespace Mastermind.Services
             }
 
             int correctValueOnWrongPosition = 0;
-            foreach(var c in incorrectAnwers)
+            foreach (var c in incorrectAnwers)
             {
                 if (correctsAnswers.Contains(c))
                 {
@@ -41,7 +41,18 @@ namespace Mastermind.Services
                 }
             }
 
-            return new AnswerCheckDto(correctValueAndPosition, correctValueOnWrongPosition);
+            return BuildAnswerCheck(correctAnswer, correctValueAndPosition, correctValueOnWrongPosition);
+        }
+
+        public IAnswerCheckDto BuildAnswerCheck(string correctAnswer, int whitePts, int correctValueOnWrongPosition)
+        {
+            var answerLength = correctAnswer.Length;
+            if(answerLength < whitePts)
+            {
+                throw new ArgumentException();
+            }
+
+            return new AnswerCheckDto(whitePts, correctValueOnWrongPosition, answerLength == whitePts);
         }
     }
 }

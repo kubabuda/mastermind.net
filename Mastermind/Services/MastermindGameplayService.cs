@@ -1,86 +1,47 @@
 ﻿using Mastermind.Models;
 using Mastermind.Services.Interfaces;
-using System;
 
 namespace Mastermind.Services
 {
     public class MastermindGameplayService
     {
-        private readonly string correctAnswer;
-        private readonly ICheckAnswersService checkAnswersService;
-        private readonly IMastermindGamePlay gameService;
+        private readonly string _correctAnswer;
+        private readonly IMastermindGame _gameService;
+        private readonly ITerminalInterfaceService _terminalInterface;
 
-        public MastermindGameplayService(string answerToGuess)
+        public MastermindGameplayService(string answerToGuess, 
+            IMastermindGame mastermindGame, 
+            ITerminalInterfaceService terminal)
         {
-            correctAnswer = answerToGuess;
-            checkAnswersService = new AnswerCheckService();
-            gameService = new MastermindGameService(correctAnswer, checkAnswersService);
+            _correctAnswer = answerToGuess;
+            _gameService = new MastermindGameService(_correctAnswer, new AnswerCheckService());
+            _terminalInterface = new TerminalInterfaceService(_gameService);
         }
 
-        
-        public void Play(int rounds = -1)
+        public static MastermindGameplayService Create(string answerToGuess)
         {
-            ShowIntroduction();
+            var game = new MastermindGameService(answerToGuess, new AnswerCheckService());
 
-            while (!gameService.IsFinished && rounds != 0)
+            return new MastermindGameplayService(answerToGuess, game, new TerminalInterfaceService(game));
+        }
+
+        public void Play() //int rounds = -1)
+        {
+            IAnswerCheckDto answerCheck = null;
+            _terminalInterface.ShowIntroduction();
+
+            while (!_gameService.IsFinished)// && rounds != 0)
             {
-                string currentAnswer = GetCurrentAnswer();
-                IAnswerCheckDto answerCheck = gameService.PlayRound(currentAnswer);
+                string currentAnswer = _terminalInterface.GetCurrentAnswer();
+                answerCheck = _gameService.PlayRound(currentAnswer);
 
-                if (!gameService.IsFinished)
+                if (!_gameService.IsFinished)
                 {
-                    ShowAnswerCheck(currentAnswer, answerCheck);
+                    _terminalInterface.ShowAnswerCheck(currentAnswer, answerCheck);
                 }
-                --rounds;
+                //--rounds;
             }
-
-            ShowGameScore();
-        }
-
-        private string GetCurrentAnswer()
-        {
-            string result = null;
-            while(!IsAnswerValid(result))
-            {
-                try
-                {
-                    result = Console.ReadLine().ToUpper().Substring(0, gameService.AnswerLength);
-                    if(!IsAnswerValid(result))
-                    {
-                        throw new ArgumentException("Invalid answer");
-                    }
-                }
-                catch(Exception)
-                {
-                    Console.WriteLine($"Answer {result} is not valid! Pass new one.");
-                }
-            }
-            return result;
-        }
-
-        private bool IsAnswerValid(string answer)
-        {
-            return !string.IsNullOrEmpty(answer) && answer.Length == gameService.AnswerLength;
-        }
-
-        private void ShowIntroduction()
-        {
-            Console.WriteLine(string.Format($"Code length: {gameService.AnswerLength}"));
-            Console.WriteLine(string.Format($"Round\tGuess\tWhite,black points"));
-        }
-
-
-        private void ShowAnswerCheck(string currentAnswer, IAnswerCheckDto answerCheck)
-        {
-            var white = new String('x', answerCheck.WhitePoints);
-            var black = new String('o', answerCheck.BlackPoints);
-
-            Console.WriteLine(string.Format($"#{gameService.Rounds}\t{currentAnswer}\t{white}{black}"));
-        }
-
-        private void ShowGameScore()
-        {
-            Console.WriteLine(string.Format($"Game end after {gameService.Rounds} rounds"));
+            _terminalInterface.ShowGameScore(answerCheck);
         }
     }
 }

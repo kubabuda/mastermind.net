@@ -7,7 +7,7 @@ namespace Mastermind
     {
         static void Main(string[] args)
         {
-            var game = new MastermindGameplayService("ABCD");
+            var game = MastermindGameplayService.Create("ABCD");
             game.Play();
             
             Console.ReadLine();

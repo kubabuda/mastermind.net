@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Mastermind.Services
 {
-    public class MastermindGameService: IMastermindGamePlay
+    public class MastermindGameService: IMastermindGame
     {
         private readonly string _correctAnswer;
         private readonly ICheckAnswersService _checkAnswersService;
