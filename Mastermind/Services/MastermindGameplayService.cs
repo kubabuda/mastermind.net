@@ -11,11 +11,11 @@ namespace Mastermind.Services
 
         public MastermindGameplayService(string answerToGuess, 
             IMastermindGame mastermindGame, 
-            IInterfaceService terminalInterface)
+            IInterfaceService gameInterface)
         {
             _correctAnswer = answerToGuess;
             _game = mastermindGame;
-            _interface = terminalInterface;
+            _interface = gameInterface;
         }
 
         public static MastermindGameplayService CreateTerminalGame(string answerToGuess)
@@ -25,19 +25,20 @@ namespace Mastermind.Services
             return new MastermindGameplayService(answerToGuess, game, new TerminalInterfaceService(game));
         }
 
-        public void Start() //int rounds = -1)
+        public int Start() //int rounds = -1)
         {
-            IAnswerCheckDto answerCheck = _game.InitialCheckState;
             _interface.ShowIntroduction();
 
-            while (!answerCheck.IsCorrect)// && rounds != 0)
+            while (!_game.LastCheck.IsCorrect)// && rounds != 0)
             {
                 string currentAnswer = _interface.GetCurrentAnswer();
-                answerCheck = _game.PlayRound(currentAnswer);
+                var answerCheck = _game.PlayRound(currentAnswer);
                 _interface.ShowAnswerCheck(currentAnswer, answerCheck);
                 //--rounds;
             }
-            _interface.ShowGameScore(answerCheck);
+            _interface.ShowGameScore(_game.LastCheck);
+
+            return _game.Rounds;
         }
     }
 }

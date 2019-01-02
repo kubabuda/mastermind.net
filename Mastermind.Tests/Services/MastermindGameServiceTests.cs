@@ -11,7 +11,7 @@ namespace Mastermind.Tests.Services
     {
         const string correctAnswer = "ABBAC";
         ICheckAnswersService checkAnswersService;
-        MastermindGameService _serviceUnderTest;
+        IMastermindGame _serviceUnderTest;
 
         readonly string answerToCheck = "fooBar";
         IAnswerCheckDto answerCheck = Substitute.For<IAnswerCheckDto>();
@@ -67,7 +67,7 @@ namespace Mastermind.Tests.Services
         [Test]
         public void IsFinished_ShouldBeFalse_OnStartup()
         {
-            Assert.AreEqual(false, _serviceUnderTest.IsFinished);
+            Assert.IsFalse(_serviceUnderTest.LastCheck.IsCorrect);
         }
 
         [Test]
@@ -81,7 +81,7 @@ namespace Mastermind.Tests.Services
             var result = _serviceUnderTest.PlayRound(answerToCheck);
 
             // Assert
-            Assert.AreEqual(false, _serviceUnderTest.IsFinished);
+            Assert.IsFalse(_serviceUnderTest.LastCheck.IsCorrect);
         }
 
         [Test]
@@ -95,7 +95,7 @@ namespace Mastermind.Tests.Services
             var result = _serviceUnderTest.PlayRound(answerToCheck);
 
             // Assert
-            Assert.AreEqual(true, _serviceUnderTest.IsFinished);
+            Assert.IsTrue(_serviceUnderTest.LastCheck.IsCorrect);
         }
 
         [Test]
@@ -131,7 +131,7 @@ namespace Mastermind.Tests.Services
             // Arrange
             
             // Act
-            IAnswerCheckDto result = _serviceUnderTest.InitialCheckState;
+            IAnswerCheckDto result = _serviceUnderTest.LastCheck;
 
             // Assert
             Assert.AreEqual(false, result.IsCorrect);

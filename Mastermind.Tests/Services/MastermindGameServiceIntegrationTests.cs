@@ -30,34 +30,17 @@ namespace Mastermind.Tests.Services
             // Act
             foreach (var answer in answers)
             {
-                if (!serviceUnderTest.IsFinished)
+                if (!serviceUnderTest.LastCheck.IsCorrect)
                 {
                     serviceUnderTest.PlayRound(answer);
                 }
             }
 
             // Assert
-            Assert.True(serviceUnderTest.IsFinished);
-        }
-
-        [Test]
-        public void PlayIntegrationTest_ShouldDisplay5Rounds_After5Rounds()
-        {
-            // Arrange
-
-            // Act
-            foreach (var answer in answers)
-            {
-                if (!serviceUnderTest.IsFinished)
-                {
-                    serviceUnderTest.PlayRound(answer);
-                }
-            }
-
-            // Assert
+            Assert.True(serviceUnderTest.LastCheck.IsCorrect);
             Assert.AreEqual(5, serviceUnderTest.Rounds);
         }
-
+        
         [Test]
         public void PlayIntegrationTest_ShouldFinishAfter5Rounds_WhenCorrectAnswerIsGuessedIn5Round()
         {
@@ -65,13 +48,14 @@ namespace Mastermind.Tests.Services
             int i = 0;
 
             // Act
-            while (!serviceUnderTest.IsFinished)
+            while (!serviceUnderTest.LastCheck.IsCorrect)
             {
                 serviceUnderTest.PlayRound(answers[i]);
                 ++i;
             }
 
             // Assert
+            Assert.True(serviceUnderTest.LastCheck.IsCorrect);
             Assert.AreEqual(5, serviceUnderTest.Rounds);
         }
 
@@ -82,13 +66,14 @@ namespace Mastermind.Tests.Services
             int i = 0;
 
             // Act
-            while (!serviceUnderTest.IsFinished)
+            while (!serviceUnderTest.LastCheck.IsCorrect)
             {
                 serviceUnderTest.PlayRound(correctAnswer);
                 ++i;
             }
 
             // Assert
+            Assert.True(serviceUnderTest.LastCheck.IsCorrect);
             Assert.AreEqual(1, serviceUnderTest.Rounds);
         }
     }
