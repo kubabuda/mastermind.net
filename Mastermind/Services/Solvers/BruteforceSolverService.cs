@@ -17,7 +17,18 @@ namespace Mastermind.Services.Solvers
 
         public IGameResultDto SolveGame(IMastermindGame mastermindGame)
         {
-            throw new NotImplementedException();
+            var keySpace = _keyRangesGenerator.GenerateCodes(mastermindGame.Settings);
+            
+            foreach (var key in keySpace)
+            {
+                if(mastermindGame.LastCheck.IsCorrect)
+                {
+                    break;
+                }
+                mastermindGame.PlayRound(key);
+            }
+
+            return new GameResultDto(mastermindGame.Rounds, mastermindGame.LastCheck.IsCorrect);
         }
     }
 }

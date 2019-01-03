@@ -5,7 +5,7 @@
         public int Rounds { get; }
         public bool IsAnswerFound { get; }
 
-        public GameResultDto(int rounds, bool isGameWon)
+        internal GameResultDto(int rounds, bool isGameWon)
         {
             Rounds = rounds;
             IsAnswerFound = isGameWon;

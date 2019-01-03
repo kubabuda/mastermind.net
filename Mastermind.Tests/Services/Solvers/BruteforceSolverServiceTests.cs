@@ -23,9 +23,7 @@ namespace Mastermind.Tests.Services.Solvers
     public class BruteforceSolverServiceIntegrationTests
     {
         string correctAnswer = "ABCD";
-        IGameSettings _gameSettings;
         ICheckAnswersService _checkAnswers;
-        IMastermindGame mastermindGame;
         IGenerateKeyRangesService _keyRangesGenerator;
         BruteforceSolverService _serviceUnderTests;
 
@@ -33,19 +31,35 @@ namespace Mastermind.Tests.Services.Solvers
         public void Setup()
         {
             _keyRangesGenerator = new GenerateKeyRangesService();
-            _gameSettings = new GameSettings(4, correctAnswer.Length);
             _serviceUnderTests = new BruteforceSolverService(_keyRangesGenerator);
             _checkAnswers = new AnswerCheckService();
-            mastermindGame = new MastermindGameService(correctAnswer, _checkAnswers, _gameSettings);
         }
 
-        [Test]
-        public void SolveGame_()
+        public IMastermindGame PrepareGame(string answer, int colors)
         {
+            var gameSettings = new GameSettings(4, correctAnswer.Length);
+            var mastermindGame = new MastermindGameService(correctAnswer, _checkAnswers, gameSettings);
+
+            return mastermindGame;
+        }
+
+        [TestCase("ABCD", 4)]
+        [TestCase("ABCD", 6)]
+        public void SolveGame_SuccesfullyAt256MovesOrLess_GivenGameWith256(string answer, int colors, int roundsLimit = -1)
+        {
+            // Arrange
+            var mastermindGame = PrepareGame(answer, colors);
+            if (roundsLimit == -1)
+            {
+                roundsLimit = (int)System.Math.Pow(colors, answer.Length);
+            }
+
+            // Act
             var result = _serviceUnderTests.SolveGame(mastermindGame);
 
+            // Assert
             Assert.True(result.IsAnswerFound);
-            Assert.True(result.Rounds <= 256);
+            Assert.True(result.Rounds <= roundsLimit);
         }
     }
 }

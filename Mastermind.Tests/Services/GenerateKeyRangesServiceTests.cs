@@ -61,15 +61,20 @@ namespace Mastermind.Tests.Services
             }, result);
         }
 
-        [Test]
-        public void GenerateCodes_returns1296Codes_For6xx4Game()
+        [TestCase(6, 4, 1296)]
+        [TestCase(4, 4, 256)]
+        [TestCase(2, 4, 16)]
+        public void GenerateCodes_returnsColorsPowDigits_GivenColorsDigits(int colors, int digits, int codeSpaceSize)
         {
-            gameSettings.Colors.Returns(6);
-            gameSettings.Digits.Returns(4);
+            // Arrange
+            // mock is slower, to see actual performance on larger set use DAO instance
+            var gameSettings = new GameSettings(colors, digits);
 
+            // Act
             var result = _serviceUnderTests.GenerateCodes(gameSettings);
 
-            Assert.AreEqual(1296, result.Count());
+            // Assert
+            Assert.AreEqual(codeSpaceSize, result.Count());
         }
 
         [Test]
