@@ -11,7 +11,7 @@ namespace Mastermind.Services
         private readonly ICheckAnswersService _checkAnswersService;
         private readonly List<string> _answers;
 
-        public int AnswerLength { get => _correctAnswer.Length; }
+        public IGameSettings Settings { get; }
         public IEnumerable<string> Answers { get => _answers; }
         public Dictionary<string, IAnswerCheckDto> AnswerChecks { get; private set; }
         public int Rounds { get => _answers.Count; }
@@ -22,10 +22,11 @@ namespace Mastermind.Services
                 AnswerChecks[_answers.Last()];
         }
 
-        public MastermindGameService(string correctAnswer, ICheckAnswersService checkAnswersService)
+        public MastermindGameService(string correctAnswer, ICheckAnswersService checkAnswersService, IGameSettings settings)
         {
-            _checkAnswersService = checkAnswersService;
             _correctAnswer = correctAnswer;
+            _checkAnswersService = checkAnswersService;
+            Settings = settings;
             _answers = new List<string>();
             AnswerChecks = new Dictionary<string, IAnswerCheckDto>();
         }

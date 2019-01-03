@@ -9,8 +9,8 @@ namespace Mastermind.Services.Interfaces
         Dictionary<string, IAnswerCheckDto> AnswerChecks { get; }
         IAnswerCheckDto LastCheck { get; }
 
+        IGameSettings Settings { get; }
         int Rounds { get; }
-        int AnswerLength { get; }
 
         IAnswerCheckDto PlayRound(string answerToCheck);
     }

@@ -1,4 +1,5 @@
-﻿using Mastermind.Services;
+﻿using Mastermind.Models;
+using Mastermind.Services;
 using System;
 
 namespace Mastermind
@@ -8,8 +9,8 @@ namespace Mastermind
         static void Main(string[] args)
         {
             var answer = "ABCD";
-            var maxRounds = 6;
-            var game = MastermindGameplayService.CreateTerminalGame(answer);
+            var gameSettings = new GameSettings(6, answer.Length);
+            var game = MastermindGameplayService.CreateTerminalGame(answer, gameSettings);
             game.Start();
             
             Console.ReadLine();

@@ -11,6 +11,7 @@ namespace Mastermind.Tests.Services
     {
         const string correctAnswer = "ABBAC";
         ICheckAnswersService checkAnswersService;
+        IGameSettings settings;
         IMastermindGame _serviceUnderTest;
 
         readonly string answerToCheck = "fooBar";
@@ -20,13 +21,16 @@ namespace Mastermind.Tests.Services
         public void Setup()
         {
             checkAnswersService = Substitute.For<ICheckAnswersService>();
-            _serviceUnderTest = new MastermindGameService(correctAnswer, checkAnswersService);
+            settings = Substitute.For<IGameSettings>();
+            settings.Colors.Returns(6);
+            settings.Digits.Returns(correctAnswer.Length);
+            _serviceUnderTest = new MastermindGameService(correctAnswer, checkAnswersService, settings);
         }
 
         [Test]
         public void AnswerLength_ShouldBeCorrectAnswerLength_OnStart()
         {
-            Assert.AreEqual(correctAnswer.Length, _serviceUnderTest.AnswerLength);
+            Assert.AreEqual(correctAnswer.Length, _serviceUnderTest.Settings.Digits);
         }
 
         [Test]

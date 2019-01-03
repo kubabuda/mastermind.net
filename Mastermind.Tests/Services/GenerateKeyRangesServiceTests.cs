@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Mastermind.Models;
 using Mastermind.Services;
 using Mastermind.Services.Interfaces;
+using NSubstitute;
 using NUnit.Framework;
 
 namespace Mastermind.Tests.Services
@@ -10,10 +12,13 @@ namespace Mastermind.Tests.Services
     {
         IGenerateKeyRangesService _serviceUnderTests;
 
+        IGameSettings gameSettings;
+
         [SetUp]
         public void Setup()
         {
             _serviceUnderTests = new GenerateKeyRangesService();
+            gameSettings = Substitute.For<IGameSettings>();
         }
 
         [TestCase(0)]
@@ -21,7 +26,10 @@ namespace Mastermind.Tests.Services
         [TestCase(4)]
         public void GenerateCodes_returnsArrayWithA_ForCAndZero(int c)
         {
-            var result = _serviceUnderTests.GenerateCodes(c, 0);
+            gameSettings.Colors.Returns(c);
+            gameSettings.Digits.Returns(0);
+
+            var result = _serviceUnderTests.GenerateCodes(gameSettings);
 
             Assert.AreEqual(1, result.Count());
         }
@@ -29,7 +37,10 @@ namespace Mastermind.Tests.Services
         [Test]
         public void GenerateCodes_returnsAbcCodes_For3AndOne()
         {
-            var result = _serviceUnderTests.GenerateCodes(3, 1);
+            gameSettings.Colors.Returns(3);
+            gameSettings.Digits.Returns(1);
+
+            var result = _serviceUnderTests.GenerateCodes(gameSettings);
 
             Assert.AreEqual(new List<string>() { "A", "B", "C" }, result);
         }
@@ -38,7 +49,10 @@ namespace Mastermind.Tests.Services
         [Test]
         public void GenerateCodes_returnsExpectedCodes_For3And2()
         {
-            var result = _serviceUnderTests.GenerateCodes(3, 2);
+            gameSettings.Colors.Returns(3);
+            gameSettings.Digits.Returns(2);
+
+            var result = _serviceUnderTests.GenerateCodes(gameSettings);
 
             Assert.AreEqual(new List<string>() {
                 "AA", "BA", "CA",
@@ -50,7 +64,10 @@ namespace Mastermind.Tests.Services
         [Test]
         public void GenerateCodes_returnsAbcdeCodes_For5AndOne()
         {
-            var result = _serviceUnderTests.GenerateCodes(5, 1);
+            gameSettings.Colors.Returns(5);
+            gameSettings.Digits.Returns(1);
+
+            var result = _serviceUnderTests.GenerateCodes(gameSettings);
 
             Assert.AreEqual(new List<string>() { "A", "B", "C", "D", "E" }, result);
         }
@@ -65,7 +82,10 @@ namespace Mastermind.Tests.Services
         [TestCase(545, 6, 4, "FADC")]
         public void ConvertToCode(int value, int colors, int digits, string expectedCode)
         {
-            var result = _serviceUnderTests.ConvertToCode(value, colors, digits);
+            gameSettings.Colors.Returns(colors);
+            gameSettings.Digits.Returns(digits);
+            
+            var result = _serviceUnderTests.ConvertToCode(value, gameSettings);
 
             Assert.AreEqual(expectedCode, result);
         }

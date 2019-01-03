@@ -1,4 +1,5 @@
-﻿using Mastermind.Services;
+﻿using Mastermind.Models;
+using Mastermind.Services;
 using Mastermind.Services.Interfaces;
 using NUnit.Framework;
 using System.Collections.Generic;
@@ -9,6 +10,7 @@ namespace Mastermind.Tests.Services
     {
         readonly string correctAnswer = "ABCD";
         ICheckAnswersService checkAnswersService;
+        IGameSettings gameSettings;
         IMastermindGame serviceUnderTest;
         List<string> answers;
 
@@ -17,7 +19,8 @@ namespace Mastermind.Tests.Services
         public void Setup()
         {
             checkAnswersService = new AnswerCheckService();
-            serviceUnderTest = new MastermindGameService(correctAnswer, checkAnswersService);
+            gameSettings = new GameSettings(6, correctAnswer.Length);
+            serviceUnderTest = new MastermindGameService(correctAnswer, checkAnswersService, gameSettings);
             answers = new List<string> { "AACC", "AADD", "ABDD", "ABDC", correctAnswer };
         }
 

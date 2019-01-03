@@ -1,4 +1,5 @@
-﻿using Mastermind.Services.Interfaces;
+﻿using Mastermind.Models;
+using Mastermind.Services.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -20,24 +21,24 @@ namespace Mastermind.Services
             { 9, "I" },
         };
 
-        public IEnumerable<string> GenerateCodes(int colors, int digits)
+        public IEnumerable<string> GenerateCodes(IGameSettings gameSettings)
         {
-            int codesCount = (int)System.Math.Pow(colors, digits);
+            int codesCount = (int)System.Math.Pow(gameSettings.Colors, gameSettings.Digits);
 
             return Enumerable.Range(0, codesCount)
-                .Select(c => ConvertToCode(c, colors, digits))
+                .Select(c => ConvertToCode(c, gameSettings))
                 .ToList();
         }
 
-        public string ConvertToCode(int value, int colors, int digits)
+        public string ConvertToCode(int value, IGameSettings gameSettings)
         {
             var codeLetters = new List<string>();
 
             var quotient = value;
-            for (int i = 0; i < digits; ++i)
+            for (int i = 0; i < gameSettings.Digits; ++i)
             {
-                codeLetters.Add(_charToCodeLetterMappings[quotient % colors]);
-                quotient = quotient / colors;
+                codeLetters.Add(_charToCodeLetterMappings[quotient % gameSettings.Colors]);
+                quotient = quotient / gameSettings.Colors;
             }
 
             return string.Join("", codeLetters);

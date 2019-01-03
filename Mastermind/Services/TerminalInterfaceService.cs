@@ -20,7 +20,7 @@ namespace Mastermind.Services
             {
                 try
                 {
-                    result = Console.ReadLine().ToUpper().Substring(0, _gameService.AnswerLength);
+                    result = Console.ReadLine().ToUpper().Substring(0, _gameService.Settings.Digits);
                     if(!IsAnswerValid(result))
                     {
                         throw new ArgumentException("Invalid answer");
@@ -36,27 +36,27 @@ namespace Mastermind.Services
 
         public bool IsAnswerValid(string answer)
         {
-            return !string.IsNullOrEmpty(answer) && answer.Length == _gameService.AnswerLength;
+            return !string.IsNullOrEmpty(answer) && answer.Length == _gameService.Settings.Digits;
         }
 
         public void ShowIntroduction()
         {
-            Console.WriteLine(string.Format($"Code length: {_gameService.AnswerLength}"));
+            Console.WriteLine(string.Format($"Code length: {_gameService.Settings.Digits}"));
             Console.WriteLine(string.Format($"Round\tGuess\tWhite,black points"));
         }
 
 
         public void ShowAnswerCheck(string currentAnswer, IAnswerCheckDto answerCheck)
         {
-            var white = new String('x', answerCheck.WhitePoints);
-            var black = new String('o', answerCheck.BlackPoints);
+            var white = new string('x', answerCheck.WhitePoints);
+            var black = new string('o', answerCheck.BlackPoints);
 
             Console.WriteLine(string.Format($"#{_gameService.Rounds}\t{currentAnswer}\t{white}{black}"));
         }
 
         public void ShowGameScore(IAnswerCheckDto answerCheck)
         {
-            if(answerCheck.WhitePoints == _gameService.AnswerLength)
+            if(answerCheck.WhitePoints == _gameService.Settings.Digits)
             {
                 Console.Write($"Congratulation, you win");
             }

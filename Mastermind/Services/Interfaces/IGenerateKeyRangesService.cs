@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Mastermind.Models;
+using System.Collections.Generic;
 
 namespace Mastermind.Services.Interfaces
 {
@@ -7,8 +8,8 @@ namespace Mastermind.Services.Interfaces
         // Generates allcaps alphanumeric codes for given code space
         // colors - number of allowed variants per socket, eg. 3 for [ A, B, C ]
         // length - code length, eg. 4 for ABCD
-        IEnumerable<string> GenerateCodes(int colors, int digits);
+        IEnumerable<string> GenerateCodes(IGameSettings gameSettings);
 
-        string ConvertToCode(int value, int colors, int digits);
+        string ConvertToCode(int value, IGameSettings gameSettings);
     }
 }
