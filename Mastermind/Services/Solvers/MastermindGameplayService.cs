@@ -16,7 +16,7 @@ namespace Mastermind.Services
         {
             int rounds = 0;
             var answerCheck = mastermindGame.LastCheck;
-            _interface.ShowIntroduction();
+            _interface.ShowIntroduction(mastermindGame);
 
             while (!answerCheck.IsCorrect && roundsLeft != 0)
             {

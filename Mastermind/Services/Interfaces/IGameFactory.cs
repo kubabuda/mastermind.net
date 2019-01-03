@@ -3,5 +3,6 @@
     public interface IGameFactory
     {
         IMastermindGame PrepareGame(string answer, int colors);
+        ISolveMastermindService PrepareDefaultGameplay();
     }
 }

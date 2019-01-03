@@ -6,26 +6,23 @@ namespace Mastermind.Services
 {
     public class TerminalInterfaceService: IInterfaceService
     {
-        private readonly IMastermindGame _gameService;
-        private readonly IGameSettings _gameSettings;
+        private IMastermindGame _gameService;
         private readonly ICheckAnswersService _checkAnswersService;
 
-        public TerminalInterfaceService(IMastermindGame gameService, ICheckAnswersService checkAnswersService, IGameSettings gameSettings)
+        public TerminalInterfaceService(ICheckAnswersService checkAnswersService)
         {
-            _gameService = gameService;
-            _gameSettings = gameSettings;
             _checkAnswersService = checkAnswersService;
         }
 
         public string GetCurrentAnswer()
         {
             string result = null;
-            while(!_checkAnswersService.IsAnswerValid(result, _gameSettings))
+            while(!_checkAnswersService.IsAnswerValid(result, _gameService.Settings))
             {
                 try
                 {
                     result = Console.ReadLine().ToUpper().Substring(0, _gameService.Settings.Digits);
-                    if(!_checkAnswersService.IsAnswerValid(result, _gameSettings))
+                    if(!_checkAnswersService.IsAnswerValid(result, _gameService.Settings))
                     {
                         throw new ArgumentException("Invalid answer");
                     }
@@ -38,8 +35,9 @@ namespace Mastermind.Services
             return result;
         }
 
-        public void ShowIntroduction()
+        public void ShowIntroduction(IMastermindGame gameService)
         {
+            _gameService = gameService;
             Console.WriteLine(string.Format($"Code length: {_gameService.Settings.Digits}"));
             Console.WriteLine(string.Format($"Round\tGuess\tWhite,black points"));
         }

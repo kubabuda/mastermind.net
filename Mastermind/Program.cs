@@ -1,5 +1,6 @@
 ﻿using Mastermind.Models;
 using Mastermind.Services;
+using Mastermind.Services.Interfaces;
 using System;
 
 namespace Mastermind
@@ -10,14 +11,11 @@ namespace Mastermind
         {
             var answer = "ABCD";
             var colors = 6;
-            //var gameSettings = new GameSettings(6, answer.Length);
+            
             var gameFactory = new GameFactory();
-            //var gamePlay = new MastermindGameplayService();
-
-
+            var gameplay = gameFactory.PrepareDefaultGameplay();
             var game = gameFactory.PrepareGame(answer, colors);
-
-            //gamePlay.Start();
+            gameplay.SolveGame(game);
 
             Console.ReadLine();
         }
