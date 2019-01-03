@@ -81,12 +81,15 @@ namespace Mastermind.Tests.Services
             Assert.Throws<ArgumentException>(() => _serviceUnderTests.BuildAnswerCheck(correctAnswer, whitePts, blackPts));
         }
 
+        [TestCase("CDEF", 6, 4, true)]
         [TestCase("AAA", 4, 3, true)]
         [TestCase("AA", 4, 3, false)]
         [TestCase("AAAA", 4, 3, false)]
         [TestCase("aAa", 4, 3, false)]
         [TestCase("AAD", 4, 3, true)]
         [TestCase("AAE", 4, 3, false)]
+        [TestCase("F", 6, 1, true)]
+        [TestCase("G", 6, 1, false)]
         [TestCase("", 4, 0, false)]
         [TestCase("", 0, 0, false)]
         [TestCase(null, 4, 0, false)]

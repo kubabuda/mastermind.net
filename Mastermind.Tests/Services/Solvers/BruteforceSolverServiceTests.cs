@@ -22,7 +22,6 @@ namespace Mastermind.Tests.Services.Solvers
 
     public class BruteforceSolverServiceIntegrationTests
     {
-        string correctAnswer = "ABCD";
         ICheckAnswersService _checkAnswers;
         IGenerateKeyRangesService _keyRangesGenerator;
         BruteforceSolverService _serviceUnderTests;
@@ -37,14 +36,16 @@ namespace Mastermind.Tests.Services.Solvers
 
         public IMastermindGame PrepareGame(string answer, int colors)
         {
-            var gameSettings = new GameSettings(4, correctAnswer.Length);
-            var mastermindGame = new MastermindGameService(correctAnswer, _checkAnswers, gameSettings);
+            var gameSettings = new GameSettings(colors, answer.Length);
+            var mastermindGame = new MastermindGameService(answer, _checkAnswers, gameSettings);
 
             return mastermindGame;
         }
 
         [TestCase("ABCD", 4)]
         [TestCase("ABCD", 6)]
+        [TestCase("ABCDF", 6)]
+        [TestCase("FFFFF", 6)]
         public void SolveGame_SuccesfullyAt256MovesOrLess_GivenGameWith256(string answer, int colors, int roundsLimit = -1)
         {
             // Arrange
