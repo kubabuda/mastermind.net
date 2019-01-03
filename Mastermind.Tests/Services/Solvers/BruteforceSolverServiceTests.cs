@@ -1,5 +1,4 @@
-﻿using Mastermind.Models;
-using Mastermind.Services;
+﻿using Mastermind.Services;
 using Mastermind.Services.Interfaces;
 using Mastermind.Services.Solvers;
 using NSubstitute;
@@ -22,24 +21,14 @@ namespace Mastermind.Tests.Services.Solvers
 
     public class BruteforceSolverServiceIntegrationTests
     {
-        ICheckAnswersService _checkAnswers;
-        IGenerateKeyRangesService _keyRangesGenerator;
         BruteforceSolverService _serviceUnderTests;
+        IGameFactory _gameFactory;
 
         [SetUp]
         public void Setup()
         {
-            _keyRangesGenerator = new GenerateKeyRangesService();
-            _serviceUnderTests = new BruteforceSolverService(_keyRangesGenerator);
-            _checkAnswers = new AnswerCheckService();
-        }
-
-        public IMastermindGame PrepareGame(string answer, int colors)
-        {
-            var gameSettings = new GameSettings(colors, answer.Length);
-            var mastermindGame = new MastermindGameService(answer, _checkAnswers, gameSettings);
-
-            return mastermindGame;
+            _gameFactory = new GameFactory();
+            _serviceUnderTests = new BruteforceSolverService(new GenerateKeyRangesService());
         }
 
         [TestCase("ABCD", 4)]
@@ -49,7 +38,7 @@ namespace Mastermind.Tests.Services.Solvers
         public void SolveGame_SuccesfullyAt256MovesOrLess_GivenGameWith256(string answer, int colors, int roundsLimit = -1)
         {
             // Arrange
-            var mastermindGame = PrepareGame(answer, colors);
+            var mastermindGame = _gameFactory.PrepareGame(answer, colors);
             if (roundsLimit == -1)
             {
                 roundsLimit = (int)System.Math.Pow(colors, answer.Length);

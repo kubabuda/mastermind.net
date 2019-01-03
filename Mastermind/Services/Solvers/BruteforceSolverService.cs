@@ -1,8 +1,5 @@
 ﻿using Mastermind.Models;
 using Mastermind.Services.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Mastermind.Services.Solvers
 {
