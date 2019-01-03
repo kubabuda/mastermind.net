@@ -20,9 +20,10 @@ namespace Mastermind.Services
 
         public static MastermindGameplayService CreateTerminalGame(string answerToGuess, IGameSettings gameSettings)
         {
-            var game = new MastermindGameService(answerToGuess, new AnswerCheckService(), gameSettings);
-
-            return new MastermindGameplayService(answerToGuess, game, new TerminalInterfaceService(game));
+            var checkService = new AnswerCheckService();
+            var game = new MastermindGameService(answerToGuess, checkService, gameSettings);
+            var gameUi = new TerminalInterfaceService(game, checkService, gameSettings);
+            return new MastermindGameplayService(answerToGuess, game, gameUi);
         }
 
         public IGameResultDto Start(int roundsLeft = -1)

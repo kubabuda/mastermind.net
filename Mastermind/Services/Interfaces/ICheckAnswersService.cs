@@ -6,5 +6,6 @@ namespace Mastermind.Services.Interfaces
     {
         IAnswerCheckDto CheckAnswer(string correctAnswer, string answer);
         IAnswerCheckDto BuildAnswerCheck(string correctAnswer, int correctValueAndPosition, int correctValueOnWrongPosition);
+        bool IsAnswerValid(string answer, IGameSettings gameSettings);
     }
 }

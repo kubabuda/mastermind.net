@@ -1,5 +1,7 @@
-﻿using Mastermind.Services;
+﻿using Mastermind.Models;
+using Mastermind.Services;
 using Mastermind.Services.Interfaces;
+using NSubstitute;
 using NUnit.Framework;
 using System;
 
@@ -9,6 +11,13 @@ namespace Mastermind.Tests.Services
     {
         private ICheckAnswersService _serviceUnderTests = new AnswerCheckService();
 
+        private IGameSettings gameSettings;
+
+        [SetUp]
+        public void Setup()
+        {
+            gameSettings = Substitute.For<IGameSettings>();
+        }
 
         [Test]
         public void CheckAnswer_ThrowsException_WhenAnswerAndCorrectAnswerLengthsDiffer()
@@ -70,6 +79,28 @@ namespace Mastermind.Tests.Services
         public void BuildAnswerCheck_ThrowsArgumentException_GivenInvalidData(string correctAnswer, int whitePts, int blackPts)
         {
             Assert.Throws<ArgumentException>(() => _serviceUnderTests.BuildAnswerCheck(correctAnswer, whitePts, blackPts));
+        }
+
+        [TestCase("AAA", 4, 3, true)]
+        [TestCase("AA", 4, 3, false)]
+        [TestCase("AAAA", 4, 3, false)]
+        [TestCase("aAa", 4, 3, false)]
+        [TestCase("AAD", 4, 3, true)]
+        [TestCase("AAE", 4, 3, false)]
+        [TestCase("", 4, 0, false)]
+        [TestCase("", 0, 0, false)]
+        [TestCase(null, 4, 0, false)]
+        public void IsAnswerValid_ReturnsExpectedValue_GivenAnswerAndSettings(string answer, int colors, int digits, bool expectedResult)
+        {
+            // arrange
+            gameSettings.Colors.Returns(colors);
+            gameSettings.Digits.Returns(digits);
+
+            // act
+            var result = _serviceUnderTests.IsAnswerValid(answer, gameSettings);
+
+            // assert
+            Assert.AreEqual(expectedResult, result);
         }
     }
 }

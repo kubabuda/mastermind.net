@@ -55,5 +55,30 @@ namespace Mastermind.Services
 
             return new AnswerCheckDto(whitePts, blackPts, answerLength == whitePts);
         }
+
+        public bool IsAnswerValid(string answer, IGameSettings gameSettings)
+        {
+            if (string.IsNullOrEmpty(answer))
+            {
+                return false;
+            }
+            if (answer.Length != gameSettings.Digits)
+            {
+                return false;
+            }
+            var A_numeric = Convert.ToInt32('A');
+            var max_c_numeric = A_numeric + gameSettings.Colors - 1; 
+
+            foreach(char c in answer)
+            {
+                var c_numeric = Convert.ToInt32(c);
+                if(c_numeric < A_numeric || c_numeric > max_c_numeric)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
     }
 }
