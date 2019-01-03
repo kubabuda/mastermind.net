@@ -10,7 +10,7 @@ namespace Mastermind.Services.Interfaces
         IAnswerCheckDto LastCheck { get; }
 
         IGameSettings Settings { get; }
-        int Rounds { get; }
+        int RoundsPlayed { get; }
 
         IAnswerCheckDto PlayRound(string answerToCheck);
     }

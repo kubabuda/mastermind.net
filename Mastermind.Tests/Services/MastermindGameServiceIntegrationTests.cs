@@ -41,7 +41,7 @@ namespace Mastermind.Tests.Services
 
             // Assert
             Assert.True(serviceUnderTest.LastCheck.IsCorrect);
-            Assert.AreEqual(5, serviceUnderTest.Rounds);
+            Assert.AreEqual(5, serviceUnderTest.RoundsPlayed);
         }
         
         [Test]
@@ -59,7 +59,7 @@ namespace Mastermind.Tests.Services
 
             // Assert
             Assert.True(serviceUnderTest.LastCheck.IsCorrect);
-            Assert.AreEqual(5, serviceUnderTest.Rounds);
+            Assert.AreEqual(5, serviceUnderTest.RoundsPlayed);
         }
 
         [Test]
@@ -77,7 +77,7 @@ namespace Mastermind.Tests.Services
 
             // Assert
             Assert.True(serviceUnderTest.LastCheck.IsCorrect);
-            Assert.AreEqual(1, serviceUnderTest.Rounds);
+            Assert.AreEqual(1, serviceUnderTest.RoundsPlayed);
         }
     }
 }

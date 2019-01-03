@@ -13,7 +13,7 @@ namespace Mastermind.Services.Solvers
             _keyRangesGenerator = keyRangesGenerator;
         }
 
-        public IGameResultDto SolveGame(IMastermindGame mastermindGame)
+        public IGameResultDto SolveGame(IMastermindGame mastermindGame, int roundsLimit)
         {
             throw new NotImplementedException();
         }

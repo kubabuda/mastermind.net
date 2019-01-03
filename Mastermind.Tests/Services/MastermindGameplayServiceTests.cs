@@ -23,7 +23,7 @@ namespace Mastermind.Tests.Services
             answerToGuess = "ABC";
             mastermindGame = Substitute.For<IMastermindGame>();
             gameInterface = Substitute.For<IInterfaceService>();
-            _serviceUnderTests = new MastermindGameplayService(answerToGuess, mastermindGame, gameInterface);
+            _serviceUnderTests = new MastermindGameplayService(gameInterface);
 
             wrongAnswerCheck.IsCorrect.Returns(false);
             correctAnswerCheck.IsCorrect.Returns(true);
@@ -38,7 +38,7 @@ namespace Mastermind.Tests.Services
             gameInterface.GetCurrentAnswer().Returns(answerToGuess);
             
             // Act
-            var result = _serviceUnderTests.Start();
+            var result = _serviceUnderTests.SolveGame(mastermindGame);
 
             // Assert
             Assert.AreEqual(true, result.IsAnswerFound);
@@ -52,7 +52,7 @@ namespace Mastermind.Tests.Services
             gameInterface.GetCurrentAnswer().Returns(wrongAnswer, answerToGuess);
 
             // Act
-            var result = _serviceUnderTests.Start();
+            var result = _serviceUnderTests.SolveGame(mastermindGame);
 
             // Assert
             Assert.AreEqual(true, result.IsAnswerFound);
@@ -67,7 +67,7 @@ namespace Mastermind.Tests.Services
 
             // Act
             var rounds = 2;
-            var result = _serviceUnderTests.Start(rounds);
+            var result = _serviceUnderTests.SolveGame(mastermindGame, rounds);
 
             // Assert
             Assert.AreEqual(true, result.IsAnswerFound);
@@ -82,7 +82,7 @@ namespace Mastermind.Tests.Services
             var rounds = 2;
 
             // Act
-            var result = _serviceUnderTests.Start(rounds);
+            var result = _serviceUnderTests.SolveGame(mastermindGame, rounds);
 
             // Assert
             Assert.AreEqual(false, result.IsAnswerFound);

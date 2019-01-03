@@ -12,7 +12,7 @@ namespace Mastermind.Services.Solvers
             _keyRangesGenerator = keyRangesGenerator;
         }
 
-        public IGameResultDto SolveGame(IMastermindGame mastermindGame)
+        public IGameResultDto SolveGame(IMastermindGame mastermindGame, int roundsLeft = -1)
         {
             var keySpace = _keyRangesGenerator.GenerateCodes(mastermindGame.Settings);
             
@@ -25,7 +25,7 @@ namespace Mastermind.Services.Solvers
                 mastermindGame.PlayRound(key);
             }
 
-            return new GameResultDto(mastermindGame.Rounds, mastermindGame.LastCheck.IsCorrect);
+            return new GameResultDto(mastermindGame.RoundsPlayed, mastermindGame.LastCheck.IsCorrect);
         }
     }
 }

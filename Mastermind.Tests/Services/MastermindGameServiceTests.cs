@@ -47,7 +47,7 @@ namespace Mastermind.Tests.Services
         [Test]
         public void Rounds_ShouldBe0_OnStart()
         {
-            Assert.AreEqual(0, _serviceUnderTest.Rounds);
+            Assert.AreEqual(0, _serviceUnderTest.RoundsPlayed);
         }
 
 
@@ -61,7 +61,7 @@ namespace Mastermind.Tests.Services
             _serviceUnderTest.PlayRound(answerToCheck);
 
             // Assert
-            Assert.AreEqual(1, _serviceUnderTest.Rounds);
+            Assert.AreEqual(1, _serviceUnderTest.RoundsPlayed);
         }
 
 
@@ -76,7 +76,7 @@ namespace Mastermind.Tests.Services
             _serviceUnderTest.PlayRound(answerToCheck);
 
             // Assert
-            Assert.AreEqual(2, _serviceUnderTest.Rounds);
+            Assert.AreEqual(2, _serviceUnderTest.RoundsPlayed);
         }
 
         [Test]

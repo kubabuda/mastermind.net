@@ -49,7 +49,7 @@ namespace Mastermind.Services
             var white = new string('x', answerCheck.WhitePoints);
             var black = new string('o', answerCheck.BlackPoints);
 
-            Console.WriteLine(string.Format($"#{_gameService.Rounds}\t{currentAnswer}\t{white}{black}"));
+            Console.WriteLine(string.Format($"#{_gameService.RoundsPlayed}\t{currentAnswer}\t{white}{black}"));
         }
 
         public void ShowGameScore(IAnswerCheckDto answerCheck)
@@ -62,7 +62,7 @@ namespace Mastermind.Services
             {
                Console.Write($"Game over, passcode not found");
             }
-            Console.WriteLine(string.Format($" after {_gameService.Rounds} rounds"));
+            Console.WriteLine(string.Format($" after {_gameService.RoundsPlayed} rounds"));
         }
     }
 }

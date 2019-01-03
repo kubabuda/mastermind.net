@@ -15,7 +15,7 @@ namespace Mastermind.Services
         public IGameSettings Settings { get; }
         public IEnumerable<string> Answers { get => _answers; }
         public Dictionary<string, IAnswerCheckDto> AnswerChecks { get; private set; }
-        public int Rounds { get => _answers.Count; }
+        public int RoundsPlayed { get => _answers.Count; }
         public IAnswerCheckDto LastCheck
         {
             get => _answers.Count == 0 ?

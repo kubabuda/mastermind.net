@@ -9,10 +9,16 @@ namespace Mastermind
         static void Main(string[] args)
         {
             var answer = "ABCD";
-            var gameSettings = new GameSettings(6, answer.Length);
-            var game = MastermindGameplayService.CreateTerminalGame(answer, gameSettings);
-            game.Start();
-            
+            var colors = 6;
+            //var gameSettings = new GameSettings(6, answer.Length);
+            var gameFactory = new GameFactory();
+            //var gamePlay = new MastermindGameplayService();
+
+
+            var game = gameFactory.PrepareGame(answer, colors);
+
+            //gamePlay.Start();
+
             Console.ReadLine();
         }
     }
