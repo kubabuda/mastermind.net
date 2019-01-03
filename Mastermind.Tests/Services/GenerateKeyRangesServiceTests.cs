@@ -24,7 +24,7 @@ namespace Mastermind.Tests.Services
         [TestCase(0)]
         [TestCase(2)]
         [TestCase(4)]
-        public void GenerateCodes_returnsArrayWithA_ForCAndZero(int c)
+        public void GenerateCodes_returnsArrayWithA_ForCxx0Game(int c)
         {
             gameSettings.Colors.Returns(c);
             gameSettings.Digits.Returns(0);
@@ -35,7 +35,7 @@ namespace Mastermind.Tests.Services
         }
 
         [Test]
-        public void GenerateCodes_returnsAbcCodes_For3AndOne()
+        public void GenerateCodes_returnsAbcCodes_For3xx1Game()
         {
             gameSettings.Colors.Returns(3);
             gameSettings.Digits.Returns(1);
@@ -47,7 +47,7 @@ namespace Mastermind.Tests.Services
 
 
         [Test]
-        public void GenerateCodes_returnsExpectedCodes_For3And2()
+        public void GenerateCodes_returnsExpectedCodes_For3xx2Game()
         {
             gameSettings.Colors.Returns(3);
             gameSettings.Digits.Returns(2);
@@ -62,7 +62,18 @@ namespace Mastermind.Tests.Services
         }
 
         [Test]
-        public void GenerateCodes_returnsAbcdeCodes_For5AndOne()
+        public void GenerateCodes_returns1296Codes_For6xx4Game()
+        {
+            gameSettings.Colors.Returns(6);
+            gameSettings.Digits.Returns(4);
+
+            var result = _serviceUnderTests.GenerateCodes(gameSettings);
+
+            Assert.AreEqual(1296, result.Count());
+        }
+
+        [Test]
+        public void GenerateCodes_returnsAbcdeCodes_For5xx1Game()
         {
             gameSettings.Colors.Returns(5);
             gameSettings.Digits.Returns(1);
