@@ -54,11 +54,11 @@ namespace Mastermind.Tests.Services.Solvers
             _serviceUnderTests = new EduinfSolverService(generator);
         }
 
-        [TestCase("ABCD", 4)]
-        [TestCase("ABCD", 6)]
-        [TestCase("ABCDF", 6)]
-        [TestCase("FFFFF", 6)]
-        public void SolveGame_SuccesfullyAt256MovesOrLess_GivenGameWith256(string answer, int colors, int roundsLimit = 10)
+        [TestCase("ABCD", 4, 5)]
+        [TestCase("ABCD", 6, 5)]
+        [TestCase("ABCDF", 6, 6)]
+        [TestCase("FFFFF", 6, 6)]
+        public void SolveGame_SuccesfullyAt256MovesOrLess_GivenGameWith256(string answer, int colors, int roundsLimit)
         {
             // Arrange
             var mastermindGame = _gameFactory.PrepareGame(answer, colors, roundsLimit);

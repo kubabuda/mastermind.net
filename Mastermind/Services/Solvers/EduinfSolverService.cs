@@ -19,9 +19,10 @@ namespace Mastermind.Services.Solvers
 
         public IGameResultDto SolveGame(IMastermindGame mastermindGame)
         {
+            // Knuth five-guess algorithm
             var keySpace = _keyRangesGenerator.GenerateCodes(mastermindGame.Settings).ToList();
 
-            for (int round = 0; round < mastermindGame.Settings.RoundLimit; ++round)
+            for (int round = 0; round < mastermindGame.Settings.RoundLimit && !mastermindGame.LastCheck.IsCorrect; ++round)
             {
                 var i = _rnd.Next(keySpace.Count);
                 string keyGuess = keySpace[i];
@@ -34,19 +35,12 @@ namespace Mastermind.Services.Solvers
                 }
                 else
                 {
-                    //keySpace.Remove(keyGuess);
-                    //var keysToRemove = keySpace.Where(key =>
-                    //{
-                    //    var commonCheck = _checkAnswersService.CheckAnswer(key, keyGuess);
-                    //    return IsCheckDifferent(check, commonCheck);
-                    //}).ToList();
-                    //foreach (var currentKey in keySpace)
-                    //{
-                    //    if (commonCheck.WhitePoints != check.WhitePoints || commonCheck.BlackPoints != check.BlackPoints)
-                    //    {
-                    //        keySpace.Remove(currentKey);
-                    //    }
-                    //}
+                    keySpace.Remove(keyGuess);
+                    keySpace.RemoveAll(key =>
+                    {
+                        var commonCheck = _checkAnswersService.CheckAnswer(key, keyGuess);
+                        return !IsCheckDifferent(check, commonCheck);
+                    });
                 }
             }
 
