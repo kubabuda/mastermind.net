@@ -56,6 +56,18 @@ namespace Mastermind.Tests.Services
             Assert.AreEqual(blackPoints, result.BlackPoints);
         }
 
+        [TestCase("ACAB", "AABC")]
+        [TestCase("AABB", "CCDD")]
+        public void CheckAnswer_ShouldReturnTheSame_GivenReversedParameters(string answer1, string answer2)
+        {
+            var result1 = _serviceUnderTests.CheckAnswer(answer1, answer2);
+            var result2 = _serviceUnderTests.CheckAnswer(answer2, answer1);
+
+            Assert.AreEqual(result1.WhitePoints, result2.WhitePoints);
+            Assert.AreEqual(result1.BlackPoints, result2.BlackPoints);
+        }
+
+
         [TestCase("aAa", 3, 0, true)]
         [TestCase("aAa", 2, 1, false)]
         [TestCase("aAa", 2, 0, false)]
