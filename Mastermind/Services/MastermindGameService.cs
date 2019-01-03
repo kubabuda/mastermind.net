@@ -1,5 +1,6 @@
 ﻿using Mastermind.Models;
 using Mastermind.Services.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -24,6 +25,10 @@ namespace Mastermind.Services
 
         public MastermindGameService(string correctAnswer, ICheckAnswersService checkAnswersService, IGameSettings settings)
         {
+            if(!checkAnswersService.IsAnswerValid(correctAnswer, settings))
+            {
+                throw new ArgumentException();
+            }
             _correctAnswer = correctAnswer;
             _checkAnswersService = checkAnswersService;
             Settings = settings;

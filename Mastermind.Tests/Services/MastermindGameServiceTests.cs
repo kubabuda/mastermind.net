@@ -3,6 +3,7 @@ using Mastermind.Services;
 using Mastermind.Services.Interfaces;
 using NSubstitute;
 using NUnit.Framework;
+using System;
 using System.Linq;
 
 namespace Mastermind.Tests.Services
@@ -14,17 +15,26 @@ namespace Mastermind.Tests.Services
         IGameSettings settings;
         IMastermindGame _serviceUnderTest;
 
-        readonly string answerToCheck = "fooBar";
+        readonly string wrongAnswer = "fooBar";
+        readonly string answerToCheck = "ABCDE";
         IAnswerCheckDto answerCheck = Substitute.For<IAnswerCheckDto>();
 
         [SetUp]
         public void Setup()
         {
-            checkAnswersService = Substitute.For<ICheckAnswersService>();
             settings = Substitute.For<IGameSettings>();
             settings.Colors.Returns(6);
             settings.Digits.Returns(correctAnswer.Length);
+            checkAnswersService = Substitute.For<ICheckAnswersService>();
+            checkAnswersService.IsAnswerValid(correctAnswer, settings).Returns(true);
+            checkAnswersService.IsAnswerValid(wrongAnswer, settings).Returns(false);
             _serviceUnderTest = new MastermindGameService(correctAnswer, checkAnswersService, settings);
+        }
+
+        [Test]
+        public void Ctor_ShouldThrowArgumentException_GivenWrongAnswer()
+        {
+            Assert.Throws<ArgumentException>(() => new MastermindGameService(wrongAnswer, checkAnswersService, settings));
         }
 
         [Test]
