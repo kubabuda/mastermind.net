@@ -4,6 +4,6 @@ namespace Mastermind.Services.Interfaces
 {
     interface ISolveMastermindService
     {
-        IGameResultDto SolveGame();
+        IGameResultDto SolveGame(IMastermindGame mastermindGame);
     }
 }

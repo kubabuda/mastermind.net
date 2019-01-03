@@ -9,15 +9,13 @@ namespace Mastermind.Services.Solvers
     public class BruteforceSolverService : ISolveMastermindService
     {
         readonly IGenerateKeyRangesService _keyRangesGenerator;
-        readonly IGameSettings _gameSettings;
 
-        public BruteforceSolverService(IGenerateKeyRangesService keyRangesGenerator, IGameSettings gameSettings)
+        public BruteforceSolverService(IGenerateKeyRangesService keyRangesGenerator)
         {
             _keyRangesGenerator = keyRangesGenerator;
-            _gameSettings = gameSettings;
         }
 
-        public IGameResultDto SolveGame()
+        public IGameResultDto SolveGame(IMastermindGame mastermindGame)
         {
             throw new NotImplementedException();
         }

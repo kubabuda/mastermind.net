@@ -6,14 +6,14 @@ namespace Mastermind.Services.Solvers
 {
     public class EduinfSolverService : ISolveMastermindService
     {
-        IGenerateKeyRangesService _keyRangesGenerator;
+        readonly IGenerateKeyRangesService _keyRangesGenerator;
 
         public EduinfSolverService(IGenerateKeyRangesService keyRangesGenerator)
         {
             _keyRangesGenerator = keyRangesGenerator;
         }
 
-        public IGameResultDto SolveGame()
+        public IGameResultDto SolveGame(IMastermindGame mastermindGame)
         {
             throw new NotImplementedException();
         }

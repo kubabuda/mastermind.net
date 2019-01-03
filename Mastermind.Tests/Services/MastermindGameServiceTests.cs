@@ -41,6 +41,7 @@ namespace Mastermind.Tests.Services
         public void AnswerLength_ShouldBeCorrectAnswerLength_OnStart()
         {
             Assert.AreEqual(correctAnswer.Length, _serviceUnderTest.Settings.Digits);
+            Assert.AreEqual(settings.Colors, _serviceUnderTest.Settings.Colors);
         }
 
         [Test]
