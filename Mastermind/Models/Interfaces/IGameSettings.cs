@@ -8,5 +8,6 @@ namespace Mastermind.Models
     {
         int Colors { get; }
         int Digits { get; }
+        int RoundLimit { get; }
     }
 }

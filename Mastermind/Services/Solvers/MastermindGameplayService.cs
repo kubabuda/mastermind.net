@@ -12,9 +12,10 @@ namespace Mastermind.Services
             _interface = gameInterface;
         }
 
-        public IGameResultDto SolveGame(IMastermindGame mastermindGame, int roundsLeft = -1)
+        public IGameResultDto SolveGame(IMastermindGame mastermindGame)
         {
             int rounds = 0;
+            int roundsLeft = mastermindGame.Settings.RoundLimit;
             var answerCheck = mastermindGame.LastCheck;
             _interface.ShowIntroduction(mastermindGame);
 

@@ -10,6 +10,7 @@ namespace Mastermind.Tests.Services
     {
         string answerToGuess;
         IMastermindGame mastermindGame;
+        IGameSettings settings;
         IInterfaceService gameInterface;
         MastermindGameplayService _serviceUnderTests;
 
@@ -21,7 +22,9 @@ namespace Mastermind.Tests.Services
         public void Setup()
         {
             answerToGuess = "ABC";
+            settings = Substitute.For<IGameSettings>();
             mastermindGame = Substitute.For<IMastermindGame>();
+            mastermindGame.Settings.Returns(settings);
             gameInterface = Substitute.For<IInterfaceService>();
             _serviceUnderTests = new MastermindGameplayService(gameInterface);
 
@@ -36,7 +39,8 @@ namespace Mastermind.Tests.Services
         {
             // Arrange 
             gameInterface.GetCurrentAnswer().Returns(answerToGuess);
-            
+            settings.RoundLimit.Returns(-1);
+
             // Act
             var result = _serviceUnderTests.SolveGame(mastermindGame);
 
@@ -50,7 +54,8 @@ namespace Mastermind.Tests.Services
         {
             // Arrange 
             gameInterface.GetCurrentAnswer().Returns(wrongAnswer, answerToGuess);
-
+            settings.RoundLimit.Returns(-1);
+            
             // Act
             var result = _serviceUnderTests.SolveGame(mastermindGame);
 
@@ -64,10 +69,11 @@ namespace Mastermind.Tests.Services
         {
             // Arrange 
             gameInterface.GetCurrentAnswer().Returns(wrongAnswer, answerToGuess);
+            var rounds = 2;
+            settings.RoundLimit.Returns(rounds);
 
             // Act
-            var rounds = 2;
-            var result = _serviceUnderTests.SolveGame(mastermindGame, rounds);
+            var result = _serviceUnderTests.SolveGame(mastermindGame);
 
             // Assert
             Assert.AreEqual(true, result.IsAnswerFound);
@@ -80,9 +86,10 @@ namespace Mastermind.Tests.Services
             // Arrange 
             gameInterface.GetCurrentAnswer().Returns(wrongAnswer, wrongAnswer);
             var rounds = 2;
+            settings.RoundLimit.Returns(rounds);
 
             // Act
-            var result = _serviceUnderTests.SolveGame(mastermindGame, rounds);
+            var result = _serviceUnderTests.SolveGame(mastermindGame);
 
             // Assert
             Assert.AreEqual(false, result.IsAnswerFound);
