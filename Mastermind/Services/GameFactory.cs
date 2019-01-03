@@ -11,9 +11,9 @@ namespace Mastermind.Services
             return new MastermindGameplayService(terminalUi);
         }
 
-        public IMastermindGame PrepareGame(string answer, int colors)
+        public IMastermindGame PrepareGame(string answer, int colors, int roundsLimit = -1)
         {
-            var gameSettings = new GameSettings(colors, answer.Length);
+            var gameSettings = new GameSettings(colors, answer.Length, roundsLimit);
             var checkAnswers = new AnswerCheckService();
             var mastermindGame = new MastermindGameService(answer, checkAnswers, gameSettings);
 

@@ -14,7 +14,7 @@ namespace Mastermind
             
             var gameFactory = new GameFactory();
             var gameplay = gameFactory.PrepareDefaultGameplay();
-            var game = gameFactory.PrepareGame(answer, colors);
+            var game = gameFactory.PrepareGame(answer, colors, 6);
             gameplay.SolveGame(game);
 
             Console.ReadLine();

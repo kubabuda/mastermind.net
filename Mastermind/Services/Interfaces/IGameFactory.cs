@@ -2,7 +2,7 @@
 {
     public interface IGameFactory
     {
-        IMastermindGame PrepareGame(string answer, int colors);
+        IMastermindGame PrepareGame(string answer, int colors, int roundsLimit = -1);
         ISolveMastermindService PrepareDefaultGameplay();
     }
 }
