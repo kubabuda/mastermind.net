@@ -28,7 +28,8 @@ namespace Mastermind.Tests.Services.Solvers
         public void Setup()
         {
             _gameFactory = new GameFactory();
-            _serviceUnderTests = new BruteforceSolverService(new GenerateKeyRangesService());
+            var generator = new GenerateKeyRangesService();
+            _serviceUnderTests = new BruteforceSolverService(generator);
         }
 
         [TestCase("ABCD", 4)]
