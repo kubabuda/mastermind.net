@@ -22,6 +22,7 @@ namespace Mastermind.Services.Solvers
         {
             // simplified Knuth five-guess algorithm from EduInf page
             var keySpace = _keyRangesGenerator.GenerateCodes(mastermindGame.Settings).ToList();
+            var answer = "";
 
             for (int round = 0; round < mastermindGame.Settings.RoundLimit && !mastermindGame.LastCheck.IsCorrect; ++round)
             {
@@ -30,6 +31,7 @@ namespace Mastermind.Services.Solvers
 
                 if (check.IsCorrect)    // refactor: simplify control flow
                 {
+                    answer = keyGuess;
                     break;
                 }
                 else
@@ -39,7 +41,7 @@ namespace Mastermind.Services.Solvers
                 }
             }
 
-            return new GameResultDto(mastermindGame.RoundsPlayed, mastermindGame.LastCheck.IsCorrect);
+            return new GameResultDto(mastermindGame.LastCheck.IsCorrect, answer, mastermindGame.RoundsPlayed);
         }
 
         private static string GetKeyGuess(List<string> keySpace, int round)

@@ -18,10 +18,11 @@ namespace Mastermind.Services
             int roundsLeft = mastermindGame.Settings.RoundLimit;
             var answerCheck = mastermindGame.LastCheck;
             _interface.ShowIntroduction(mastermindGame);
+            string currentAnswer = "";
 
             while (!answerCheck.IsCorrect && roundsLeft != 0)
             {
-                string currentAnswer = _interface.GetCurrentAnswer();
+                currentAnswer = _interface.GetCurrentAnswer();
                 answerCheck = mastermindGame.PlayRound(currentAnswer);
                 _interface.ShowAnswerCheck(currentAnswer, answerCheck);
                 ++rounds;
@@ -29,7 +30,7 @@ namespace Mastermind.Services
             }
             _interface.ShowGameScore(answerCheck);
 
-            return new GameResultDto(rounds, answerCheck.IsCorrect);
+            return new GameResultDto(answerCheck.IsCorrect, currentAnswer, rounds);
         }
     }
 }

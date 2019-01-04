@@ -47,6 +47,7 @@ namespace Mastermind.Tests.Services
             // Assert
             Assert.AreEqual(true, result.IsAnswerFound);
             Assert.AreEqual(1, result.Rounds);
+            Assert.AreEqual(answerToGuess, result.Answer);
         }
 
         [Test]
@@ -62,6 +63,7 @@ namespace Mastermind.Tests.Services
             // Assert
             Assert.AreEqual(true, result.IsAnswerFound);
             Assert.AreEqual(2, result.Rounds);
+            Assert.AreEqual(answerToGuess, result.Answer);
         }
 
         [Test]
@@ -78,6 +80,7 @@ namespace Mastermind.Tests.Services
             // Assert
             Assert.AreEqual(true, result.IsAnswerFound);
             Assert.AreEqual(rounds, result.Rounds);
+            Assert.AreEqual(answerToGuess, result.Answer);
         }
 
         [Test]

@@ -51,6 +51,7 @@ namespace Mastermind.Tests.Services.Solvers
             // Assert
             Assert.True(result.IsAnswerFound);
             Assert.True(result.Rounds <= roundsLimit);
+            Assert.AreEqual(answer, result.Answer);
         }
     }
 }

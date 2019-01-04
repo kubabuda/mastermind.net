@@ -85,6 +85,7 @@ namespace Mastermind.Tests.Services.Solvers
             // Assert
             Assert.True(result.IsAnswerFound);
             Assert.True(result.Rounds <= roundsLimit);
+            Assert.AreEqual(answer, result.Answer);
         }
 
         [TestCase("ABCD", 6, 5)]
@@ -101,6 +102,7 @@ namespace Mastermind.Tests.Services.Solvers
             // Assert
             Assert.True(result.IsAnswerFound);
             Assert.True(result.Rounds <= roundsLimit);
+            Assert.AreEqual(answer, result.Answer);
         }
 
         [TestCase("AAAAA", 8, 7)]
@@ -118,6 +120,7 @@ namespace Mastermind.Tests.Services.Solvers
             // Assert
             Assert.True(result.IsAnswerFound);
             Assert.True(result.Rounds <= roundsLimit);
+            Assert.AreEqual(answer, result.Answer);
         }
     }
 }
