@@ -67,7 +67,6 @@ namespace Mastermind.Tests.Services
             Assert.AreEqual(result1.BlackPoints, result2.BlackPoints);
         }
 
-
         [TestCase("aAa", 3, 0, true)]
         [TestCase("aAa", 2, 1, false)]
         [TestCase("aAa", 2, 0, false)]

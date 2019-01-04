@@ -1,6 +1,7 @@
 ﻿using Mastermind.Models;
 using Mastermind.Services.Interfaces;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Mastermind.Services.Solvers
@@ -24,27 +25,35 @@ namespace Mastermind.Services.Solvers
 
             for (int round = 0; round < mastermindGame.Settings.RoundLimit && !mastermindGame.LastCheck.IsCorrect; ++round)
             {
-                var i = _rnd.Next(keySpace.Count);
-                string keyGuess = keySpace[i];
-
+                string keyGuess = GetKeyGuess(keySpace, round);
                 var check = mastermindGame.PlayRound(keyGuess);
 
-                if (check.IsCorrect)
+                if (check.IsCorrect)    // refactor: simplify control flow
                 {
                     break;
                 }
                 else
                 {
                     keySpace.Remove(keyGuess);
-                    keySpace.RemoveAll(key =>
-                    {
-                        var commonCheck = _checkAnswersService.CheckAnswer(key, keyGuess);
-                        return !IsCheckDifferent(check, commonCheck);
-                    });
+                    keySpace.RemoveAll(key => IsKeyToBeRemoved(key, keyGuess, check));
                 }
             }
 
             return new GameResultDto(mastermindGame.RoundsPlayed, mastermindGame.LastCheck.IsCorrect);
+        }
+
+        private static string GetKeyGuess(List<string> keySpace, int round)
+        {
+            var i = _rnd.Next(keySpace.Count);  // refactor: move out
+
+            return keySpace[i];
+        }
+
+        public bool IsKeyToBeRemoved(string key, string usedKey, IAnswerCheckDto check)
+        {
+            var commonCheck = _checkAnswersService.CheckAnswer(key, usedKey);
+
+            return !IsCheckDifferent(check, commonCheck);
         }
 
         public bool IsCheckDifferent(IAnswerCheckDto check1, IAnswerCheckDto check2)

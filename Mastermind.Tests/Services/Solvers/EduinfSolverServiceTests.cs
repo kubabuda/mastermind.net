@@ -39,6 +39,23 @@ namespace Mastermind.Tests.Services.Solvers
             // Assert
             Assert.AreEqual(expectedResult, result);
         }
+
+        [TestCase("AAAA", "AAAA", 4, 0, false)]
+        [TestCase("ABCD", "ABCE", 3, 0, false)]
+        [TestCase("EEEE", "AAAA", 3, 0, true)]
+        public void IsKeyToBeRemoved_ReturnsExpectedValue_GivenTwoKeysAndPreviousCheck(string key, string usedKey, int whitePts, int blackPts, bool expectedResult)
+        {
+            // Arrange
+            var check = Substitute.For<IAnswerCheckDto>();
+            check.WhitePoints.Returns(whitePts);
+            check.BlackPoints.Returns(blackPts);
+            
+            // Act
+            var result = _serviceUnderTests.IsKeyToBeRemoved(key, usedKey, check);
+
+            // Assert
+            Assert.AreEqual(expectedResult, result);
+        }
     }
 
     public class EduinfSolverServiceIntegrationTests
@@ -55,6 +72,8 @@ namespace Mastermind.Tests.Services.Solvers
         }
 
         [TestCase("ABCD", 4, 5)]
+        [TestCase("ABCD", 6, 6)]
+        [TestCase("FFFF", 6, 5)]
         [TestCase("ABCD", 6, 5)]
         [TestCase("ABCDF", 6, 6)]
         [TestCase("FFFFF", 6, 6)]
