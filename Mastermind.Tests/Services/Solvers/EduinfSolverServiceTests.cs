@@ -106,10 +106,10 @@ namespace Mastermind.Tests.Services.Solvers
         }
 
         [TestCase("AAAAA", 8, 7)]
-        [TestCase("ABCDF", 8, 7)]
+        [TestCase("ABCDF", 8, 8)]
         [TestCase("CDFEA", 8, 7)]
         [TestCase("FFFFF", 8, 7)]
-        public void SolveGame_SuccesfullyIn7MovesOrLess_GivenDeluxeMastermind(string answer, int colors, int roundsLimit)
+        public void SolveGame_SuccesfullyIn8MovesOrLess_GivenDeluxeMastermind(string answer, int colors, int roundsLimit)
         {
             // Arrange
             var mastermindGame = _gameFactory.PrepareGame(answer, colors, roundsLimit);

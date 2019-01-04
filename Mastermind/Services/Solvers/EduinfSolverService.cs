@@ -22,7 +22,7 @@ namespace Mastermind.Services.Solvers
         {
             // simplified Knuth five-guess algorithm from EduInf page
             var keySpace = _keyRangesGenerator.GenerateCodes(mastermindGame.Settings).ToList();
-            var answer = "";
+            var answer = string.Empty;
 
             for (int round = 0; round < mastermindGame.Settings.RoundLimit && !mastermindGame.LastCheck.IsCorrect; ++round)
             {

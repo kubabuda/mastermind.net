@@ -15,7 +15,7 @@ namespace Mastermind.Services.Solvers
         public IGameResultDto SolveGame(IMastermindGame mastermindGame)
         {
             var keySpace = _keyRangesGenerator.GenerateCodes(mastermindGame.Settings);
-            string answer = "";
+            string answer = string.Empty;
 
             foreach (var key in keySpace)
             {

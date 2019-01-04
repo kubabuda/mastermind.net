@@ -97,6 +97,7 @@ namespace Mastermind.Tests.Services
             // Assert
             Assert.AreEqual(false, result.IsAnswerFound);
             Assert.AreEqual(rounds, result.Rounds);
+            Assert.AreEqual(string.Empty, result.Answer);
         }
     }
 }

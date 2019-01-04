@@ -18,7 +18,7 @@ namespace Mastermind.Services
             int roundsLeft = mastermindGame.Settings.RoundLimit;
             var answerCheck = mastermindGame.LastCheck;
             _interface.ShowIntroduction(mastermindGame);
-            string currentAnswer = "";
+            string currentAnswer = string.Empty;
 
             while (!answerCheck.IsCorrect && roundsLeft != 0)
             {
@@ -30,7 +30,9 @@ namespace Mastermind.Services
             }
             _interface.ShowGameScore(answerCheck);
 
-            return new GameResultDto(answerCheck.IsCorrect, currentAnswer, rounds);
+            return new GameResultDto(answerCheck.IsCorrect, 
+                answerCheck.IsCorrect ? currentAnswer : string.Empty, 
+                rounds);
         }
     }
 }
