@@ -20,7 +20,7 @@ namespace Mastermind.Services.Solvers
 
         public IGameResultDto SolveGame(IMastermindGame mastermindGame)
         {
-            // Knuth five-guess algorithm
+            // simplified Knuth five-guess algorithm from EduInf page
             var keySpace = _keyRangesGenerator.GenerateCodes(mastermindGame.Settings).ToList();
 
             for (int round = 0; round < mastermindGame.Settings.RoundLimit && !mastermindGame.LastCheck.IsCorrect; ++round)

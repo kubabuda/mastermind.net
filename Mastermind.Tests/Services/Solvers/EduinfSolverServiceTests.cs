@@ -71,13 +71,43 @@ namespace Mastermind.Tests.Services.Solvers
             _serviceUnderTests = new EduinfSolverService(generator);
         }
 
-        [TestCase("ABCD", 4, 5)]
         [TestCase("ABCD", 6, 6)]
-        [TestCase("FFFF", 6, 5)]
+        [TestCase("FFFF", 6, 6)]
+        [TestCase("ABCD", 6, 6)]
+        public void SolveGame_SuccesfullyAt6MovesOrLess_GivenClassicMastermind(string answer, int colors, int roundsLimit)
+        {
+            // Arrange
+            var mastermindGame = _gameFactory.PrepareGame(answer, colors, roundsLimit);
+
+            // Act
+            var result = _serviceUnderTests.SolveGame(mastermindGame);
+
+            // Assert
+            Assert.True(result.IsAnswerFound);
+            Assert.True(result.Rounds <= roundsLimit);
+        }
+
         [TestCase("ABCD", 6, 5)]
-        [TestCase("ABCDF", 6, 6)]
-        [TestCase("FFFFF", 6, 6)]
-        public void SolveGame_SuccesfullyAt256MovesOrLess_GivenGameWith256(string answer, int colors, int roundsLimit)
+        [TestCase("CDEF", 6, 5)]
+        [TestCase("FFFF", 6, 5)]
+        public void SolveGame_SuccesfullyAt5MovesOrLess_GivenClassicMastermind(string answer, int colors, int roundsLimit)
+        {
+            // Arrange
+            var mastermindGame = _gameFactory.PrepareGame(answer, colors, roundsLimit);
+
+            // Act
+            var result = _serviceUnderTests.SolveGame(mastermindGame);
+
+            // Assert
+            Assert.True(result.IsAnswerFound);
+            Assert.True(result.Rounds <= roundsLimit);
+        }
+
+        [TestCase("AAAAA", 8, 7)]
+        [TestCase("ABCDF", 8, 7)]
+        [TestCase("CDFEA", 8, 7)]
+        [TestCase("FFFFF", 8, 7)]
+        public void SolveGame_SuccesfullyIn7MovesOrLess_GivenDeluxeMastermind(string answer, int colors, int roundsLimit)
         {
             // Arrange
             var mastermindGame = _gameFactory.PrepareGame(answer, colors, roundsLimit);
