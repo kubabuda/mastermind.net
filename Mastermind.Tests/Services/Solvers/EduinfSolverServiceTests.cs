@@ -1,4 +1,5 @@
 ﻿using Mastermind.Models;
+using Mastermind.Models.Interfaces;
 using Mastermind.Services;
 using Mastermind.Services.Interfaces;
 using Mastermind.Services.Solvers;
@@ -17,6 +18,35 @@ namespace Mastermind.Tests.Services.Solvers
         {
             _keyRangesGenerator = Substitute.For<IGenerateKeyRangesService>();
             _serviceUnderTests = new EduinfSolverService(_keyRangesGenerator);
+        }
+
+        [TestCase(4, "AABB")]
+        [TestCase(5, "AAABB")]
+        public void GetInitialKeyGuess_ShouldReturnExpectedKeyGuess_GivenKeyLength(int length, string expectedKey)
+        {
+            // Act
+            var result = _serviceUnderTests.GetInitialKeyGuess(length);
+
+            // Assert
+            Assert.AreEqual(expectedKey, result);
+        }
+
+        [TestCase(4, "AABB")]
+        [TestCase(5, "AAABB")]
+        public void GetKeyGuess_ShouldReturnInitialKeyGuess_GivenDto(int length, string expectedKey)
+        {
+            // Arrange
+            var dto = Substitute.For<ISolvingRoundStateDto>();
+            dto.Round.Returns(0);
+            var settings = Substitute.For<IGameSettings>();
+            dto.Settings.Returns(settings);
+            settings.Digits.Returns(length);
+
+            // Act
+            var result = _serviceUnderTests.GetKeyGuess(dto);
+
+            // Assert
+            Assert.AreEqual(expectedKey, result);
         }
 
         [TestCase(1, 2, 1, 2, true)]
@@ -105,11 +135,26 @@ namespace Mastermind.Tests.Services.Solvers
             Assert.AreEqual(answer, result.Answer);
         }
 
-        [TestCase("AAAAA", 8, 7)]
         [TestCase("ABCDF", 8, 8)]
+        public void SolveGame_SuccesfullyIn8MovesOrLess_GivenDeluxeMastermind(string answer, int colors, int roundsLimit)
+        {
+            // Arrange
+            var mastermindGame = _gameFactory.PrepareGame(answer, colors, roundsLimit);
+
+            // Act
+            var result = _serviceUnderTests.SolveGame(mastermindGame);
+
+            // Assert
+            Assert.True(result.IsAnswerFound);
+            Assert.True(result.Rounds <= roundsLimit);
+            Assert.AreEqual(answer, result.Answer);
+        }
+
+        [TestCase("AAAAA", 8, 7)]
+        [TestCase("ABCDF", 8, 7)]
         [TestCase("CDFEA", 8, 7)]
         [TestCase("FFFFF", 8, 7)]
-        public void SolveGame_SuccesfullyIn8MovesOrLess_GivenDeluxeMastermind(string answer, int colors, int roundsLimit)
+        public void SolveGame_SuccesfullyIn7MovesOrLess_GivenDeluxeMastermind(string answer, int colors, int roundsLimit)
         {
             // Arrange
             var mastermindGame = _gameFactory.PrepareGame(answer, colors, roundsLimit);
