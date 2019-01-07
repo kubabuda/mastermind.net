@@ -25,26 +25,24 @@ namespace Mastermind.Services.Solvers
             // simplified Knuth five-guess algorithm from EduInf page
             var dto = GetInitialState(mastermindGame);
 
-            for (dto.Round = 0; dto.Round < mastermindGame.Settings.RoundLimit && !mastermindGame.LastCheck.IsCorrect; ++dto.Round)
+            for (dto.Round = 0; !IsGameFinished(dto); ++dto.Round)
             {
                 string keyGuess = GetKeyGuess(dto);
 
-                var check = dto.MastermindGame.PlayRound(keyGuess);
+                dto.LastCheck = dto.MastermindGame.PlayRound(keyGuess);
+                dto.Answer = keyGuess;
 
-                if (check.IsCorrect)    // refactor: simplify control flow
-                {
-                    dto.Answer = keyGuess;
-                    break;
-                }
-                else
+                if (!dto.LastCheck.IsCorrect)
                 {
                     dto.KeySpace.Remove(keyGuess);
-                    dto.KeySpace.RemoveAll(key => IsKeyToBeRemoved(key, keyGuess, check));
+                    dto.KeySpace.RemoveAll(key => IsKeyToBeRemoved(key, keyGuess, dto.LastCheck));
                 }
             }
 
             return new GameResultDto(dto.MastermindGame.LastCheck.IsCorrect, dto.Answer, dto.MastermindGame.RoundsPlayed);
         }
+
+
 
         public ISolvingRoundStateDto GetInitialState(IMastermindGame mastermindGame)
         {
@@ -61,7 +59,8 @@ namespace Mastermind.Services.Solvers
 
         public bool IsGameFinished(ISolvingRoundStateDto dto)
         {
-            return false;
+            return dto.Round >= dto.Settings.RoundLimit 
+                || dto.LastCheck != null && dto.LastCheck.IsCorrect;
         }
 
         public string GetInitialKeyGuess(int length)

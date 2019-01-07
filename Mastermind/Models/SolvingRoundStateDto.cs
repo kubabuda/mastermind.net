@@ -12,5 +12,6 @@ namespace Mastermind.Services.Models
         public IMastermindGame MastermindGame { get; set; }
         public List<string> KeySpace { get; set; }
         public IGameSettings Settings { get => MastermindGame.Settings; }
+        public IAnswerCheckDto LastCheck { get; set; }
     }
 }

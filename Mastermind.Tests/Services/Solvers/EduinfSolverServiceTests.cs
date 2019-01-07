@@ -86,6 +86,29 @@ namespace Mastermind.Tests.Services.Solvers
             // Assert
             Assert.AreEqual(expectedResult, result);
         }
+
+        [TestCase(true, 2, 2, true)]
+        [TestCase(true, 1, 2, true)]
+        [TestCase(false, 2, 2, true)]
+        [TestCase(false, 1, 2, false)]
+        public void IsGameFinished_True_WhenAnswerFoundOrRoundsEnded(bool answerFound, int round, int roundLimit, bool expectedResult)
+        {
+            // Arrange
+            var dto = Substitute.For<ISolvingRoundStateDto>();
+            dto.Round.Returns(round);
+            var settings = Substitute.For<IGameSettings>();
+            dto.Settings.Returns(settings);
+            settings.RoundLimit.Returns(roundLimit);
+            var answerCheck = Substitute.For<IAnswerCheckDto>();
+            dto.LastCheck.Returns(answerCheck);
+            answerCheck.IsCorrect.Returns(answerFound);
+
+            // Act
+            var result = _serviceUnderTests.IsGameFinished(dto);
+
+            // Assert
+            Assert.AreEqual(expectedResult, result);
+        }
     }
 
     public class EduinfSolverServiceIntegrationTests
