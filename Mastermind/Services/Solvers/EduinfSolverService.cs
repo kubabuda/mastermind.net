@@ -73,7 +73,7 @@ namespace Mastermind.Services.Solvers
 
         public string GetRandomKeyGuess(List<string> keySpace)
         {
-            var i = _rnd.Next(keySpace.Count);  // refactor: move out
+            var i = _rnd.Next(keySpace.Count);
 
             return keySpace[i];
         }
