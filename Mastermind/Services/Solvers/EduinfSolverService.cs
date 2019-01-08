@@ -42,8 +42,6 @@ namespace Mastermind.Services.Solvers
             return new GameResultDto(dto.MastermindGame.LastCheck.IsCorrect, dto.Answer, dto.MastermindGame.RoundsPlayed);
         }
 
-
-
         public ISolvingRoundStateDto GetInitialState(IMastermindGame mastermindGame)
         {
             var dto = new SolvingRoundStateDto()
@@ -78,11 +76,16 @@ namespace Mastermind.Services.Solvers
             return keySpace[i];
         }
 
+        public string GetFirstKeyGuess(List<string> keySpace)
+        {
+            return keySpace[0];
+        }
+
         public string GetKeyGuess(ISolvingRoundStateDto dto)
         {
             var result = dto.Round == 0 ? 
                 GetInitialKeyGuess(dto.Settings.Digits) : 
-                GetRandomKeyGuess(dto.KeySpace);
+                GetFirstKeyGuess(dto.KeySpace);
 
             return result;
         }

@@ -1,7 +1,10 @@
-﻿using Mastermind.Services;
+﻿using Mastermind.Models;
+using Mastermind.Services;
 using Mastermind.Services.Interfaces;
 using Mastermind.Services.Solvers;
+using NSubstitute;
 using NUnit.Framework;
+using System.Collections.Generic;
 
 namespace Mastermind.Tests.Services.Solvers
 {
@@ -35,6 +38,7 @@ namespace Mastermind.Tests.Services.Solvers
             Assert.AreEqual(answer, result.Answer);
         }
 
+        [TestCase("AABB", 6, 1)]
         [TestCase("ABCD", 6, 5)]
         [TestCase("CDEF", 6, 5)]
         [TestCase("FFFF", 6, 5)]
@@ -51,6 +55,38 @@ namespace Mastermind.Tests.Services.Solvers
             Assert.True(result.Rounds <= roundsLimit);
             Assert.AreEqual(answer, result.Answer);
         }
+
+        //[Test]
+        public void SolveGame_SuccesfullyAt5MovesOrLess_GivenAllCodesForClassicMastermind()
+        {
+            // Arrange
+            var generator = new GenerateKeyRangesService();
+            var settings = Substitute.For<IGameSettings>();
+            settings.Colors.Returns(6);
+            settings.Digits.Returns(4);
+            settings.RoundLimit.Returns(6);
+            var keys = generator.GenerateCodes(settings);
+
+            var failedAnswersCases = new Dictionary<string, int>();
+
+            foreach (var answer in keys)
+            {
+                var mastermindGame = _gameFactory.PrepareGame(answer, settings);
+
+                // Act
+                var result = _serviceUnderTests.SolveGame(mastermindGame);
+
+                if (result.Rounds <= settings.RoundLimit || answer != result.Answer)
+                {
+                    failedAnswersCases[result.Answer] = result.Rounds;
+                }
+            }
+
+            // Assert
+            Assert.IsEmpty(failedAnswersCases);
+        }
+        
+
 
         [TestCase("ABCDF", 8, 8)]
         public void SolveGame_SuccesfullyIn8MovesOrLess_GivenDeluxeMastermind(string answer, int colors, int roundsLimit)

@@ -14,6 +14,12 @@ namespace Mastermind.Services
         public IMastermindGame PrepareGame(string answer, int colors, int roundsLimit = -1)
         {
             var gameSettings = new GameSettings(colors, answer.Length, roundsLimit);
+            
+            return PrepareGame(answer, gameSettings);
+        }
+
+        public IMastermindGame PrepareGame(string answer, IGameSettings gameSettings)
+        {
             var checkAnswers = new AnswerCheckService();
             var mastermindGame = new MastermindGameService(answer, checkAnswers, gameSettings);
 
