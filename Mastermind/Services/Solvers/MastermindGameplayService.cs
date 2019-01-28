@@ -3,6 +3,7 @@ using Mastermind.Services.Interfaces;
 
 namespace Mastermind.Services
 {
+    // Manual game solver
     public class MastermindGameplayService: ISolveMastermindService
     {
         private readonly IInterfaceService _interface;

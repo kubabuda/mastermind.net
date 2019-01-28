@@ -63,7 +63,7 @@ namespace Mastermind.Tests.Services.Solvers
             check2.BlackPoints.Returns(black2);
 
             // Act
-            var result = _serviceUnderTests.IsCheckDifferent(check1, check2);
+            var result = _serviceUnderTests.IsCheckResultDifferent(check1, check2);
 
             // Assert
             Assert.AreEqual(expectedResult, result);
