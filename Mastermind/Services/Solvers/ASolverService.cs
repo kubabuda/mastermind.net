@@ -26,7 +26,7 @@ namespace Mastermind.Services.Solvers
             throw new NotImplementedException();
         }
 
-        public ISolvingRoundStateDto GetInitialState(IMastermindGame mastermindGame)
+        public ISolvingRoundStateDto BuildInitialState(IMastermindGame mastermindGame)
         {
             var dto = new SolvingRoundStateDto()
             {

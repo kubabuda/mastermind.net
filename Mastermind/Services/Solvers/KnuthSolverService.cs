@@ -8,9 +8,9 @@ using System.Linq;
 
 namespace Mastermind.Services.Solvers
 {
-    public class EduinfSolverService : ASolverService
+    public class KnuthSolverService : ASolverService
     {
-        public EduinfSolverService(IGenerateKeyRangesService keyRangesGenerator)
+        public KnuthSolverService(IGenerateKeyRangesService keyRangesGenerator)
             : base(keyRangesGenerator, new AnswerCheckService())
         {
         
@@ -19,6 +19,7 @@ namespace Mastermind.Services.Solvers
         public override IGameResultDto SolveGame(IMastermindGame mastermindGame)
         {
             // simplified Knuth five-guess algorithm from EduInf page 
+            // throw new NotImplementedException();
             var dto = BuildInitialState(mastermindGame);
 
             for (dto.Round = 0; !IsGameFinished(dto); ++dto.Round)
