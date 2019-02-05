@@ -1,4 +1,5 @@
-﻿using Mastermind.Models;
+﻿using System.Collections.Generic;
+using Mastermind.Models;
 using Mastermind.Models.Interfaces;
 using Mastermind.Services.Interfaces;
 using Mastermind.Services.Solvers;
@@ -25,24 +26,6 @@ namespace Mastermind.Tests.Services.Solvers
         {
             // Act
             var result = _serviceUnderTests.GetInitialKeyGuess(length);
-
-            // Assert
-            Assert.AreEqual(expectedKey, result);
-        }
-
-        [TestCase(4, "AABB")]
-        [TestCase(5, "AAABB")]
-        public void GetKeyGuess_ShouldReturnInitialKeyGuess_GivenDto(int length, string expectedKey)
-        {
-            // Arrange
-            var dto = Substitute.For<ISolvingRoundStateDto>();
-            dto.Round.Returns(0);
-            var settings = Substitute.For<IGameSettings>();
-            dto.Settings.Returns(settings);
-            settings.Digits.Returns(length);
-
-            // Act
-            var result = _serviceUnderTests.GetKeyGuess(dto);
 
             // Assert
             Assert.AreEqual(expectedKey, result);

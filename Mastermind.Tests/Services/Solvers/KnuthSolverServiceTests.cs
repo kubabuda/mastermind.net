@@ -30,24 +30,6 @@ namespace Mastermind.Tests.Services.Solvers
             Assert.AreEqual(expectedKey, result);
         }
 
-        [TestCase(4, "AABB")]
-        [TestCase(5, "AAABB")]
-        public void GetKeyGuess_ShouldReturnInitialKeyGuess_GivenDto(int length, string expectedKey)
-        {
-            // Arrange
-            var dto = Substitute.For<ISolvingRoundStateDto>();
-            dto.Round.Returns(0);
-            var settings = Substitute.For<IGameSettings>();
-            dto.Settings.Returns(settings);
-            settings.Digits.Returns(length);
-
-            // Act
-            var result = _serviceUnderTests.GetKeyGuess(dto);
-
-            // Assert
-            Assert.AreEqual(expectedKey, result);
-        }
-
         [TestCase(1, 2, 1, 2, true)]
         [TestCase(1, 1, 1, 2, false)]
         [TestCase(1, 2, 0, 2, false)]

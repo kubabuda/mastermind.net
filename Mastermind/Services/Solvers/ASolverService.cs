@@ -14,6 +14,8 @@ namespace Mastermind.Services.Solvers
         protected readonly IGenerateKeyRangesService _keyRangesGenerator;
         protected readonly ICheckAnswersService _checkAnswersService;
 
+        protected List<string> _keysLeft;
+
         public ASolverService(IGenerateKeyRangesService keyRangesGenerator,
             ICheckAnswersService checkAnswersService)
         {
@@ -21,22 +23,21 @@ namespace Mastermind.Services.Solvers
             _checkAnswersService = checkAnswersService;
         }
 
-        public ISolvingRoundStateDto BuildInitialState(IMastermindGame mastermindGame)
+        public virtual IGameResultDto SolveGame(IMastermindGame mastermindGame)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected ISolvingRoundStateDto BuildInitialState(IMastermindGame mastermindGame)
         {
             var dto = new SolvingRoundStateDto()
             {
-                KeySpace = _keyRangesGenerator.GenerateCodes(mastermindGame.Settings).ToList(),
                 Answer = string.Empty,
                 Round = 0,
                 MastermindGame = mastermindGame,
             };
 
             return dto;
-        }
-
-        public virtual IGameResultDto SolveGame(IMastermindGame mastermindGame)
-        {
-            throw new NotImplementedException();
         }
 
         public bool IsGameFinished(ISolvingRoundStateDto dto)
@@ -65,13 +66,10 @@ namespace Mastermind.Services.Solvers
             return keySpace[0];
         }
 
-        public string GetKeyGuess(ISolvingRoundStateDto dto)
+        protected void PruneKeys(IAnswerCheckDto dto, string keyGuess)
         {
-            var result = dto.Round == 0 ? 
-                GetInitialKeyGuess(dto.Settings.Digits) : 
-                GetFirstKeyGuess(dto.KeySpace);
-
-            return result;
+            _keysLeft.Remove(keyGuess);
+            _keysLeft.RemoveAll(key => IsKeyToBeRemoved(key, keyGuess, dto));
         }
 
         public bool IsKeyToBeRemoved(string key, string usedKey, IAnswerCheckDto check)
