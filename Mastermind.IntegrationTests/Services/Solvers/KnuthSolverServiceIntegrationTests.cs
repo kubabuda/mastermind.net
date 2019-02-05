@@ -22,8 +22,8 @@ namespace Mastermind.Tests.Services.Solvers
         }
 
         [TestCase("ABCD", 6, 2)]
-        // [TestCase("FFFF", 6, 6)]
-        // [TestCase("ABCD", 6, 6)]
+        [TestCase("FFFF", 6, 5)]
+        [TestCase("ABCD", 6, 5)]
         public void SolveGame_SuccesfullyAt6MovesOrLess_GivenClassicMastermind(string answer, int colors, int roundsLimit)
         {
             // Arrange
@@ -33,16 +33,16 @@ namespace Mastermind.Tests.Services.Solvers
             var result = _serviceUnderTests.SolveGame(mastermindGame);
 
             // Assert
-            // Assert.True(result.IsAnswerFound);
+            Assert.True(result.IsAnswerFound);
             Assert.True(result.Rounds <= roundsLimit);
-            // Assert.AreEqual(answer, result.Answer);
+            Assert.AreEqual(answer, result.Answer);
         }
 
         [TestCase("AB", 2, 1)]
         [TestCase("AABB", 6, 1)]
         // [TestCase("ABCD", 6, 2)]
         // [TestCase("FFFF", 6, 5)]
-        // [TestCase("CDEF", 6, 7)] // TODO should do in just 5!
+        [TestCase("CDEF", 6, 5)] // TODO should do in just 5!
         public void SolveGame_SuccesfullyAt5MovesOrLess_GivenClassicMastermind(string answer, int colors, int roundsLimit)
         {
             // Arrange
@@ -86,7 +86,6 @@ namespace Mastermind.Tests.Services.Solvers
             // Assert
             Assert.IsEmpty(failedAnswersCases);
         }
-        
 
 
         // [TestCase("ABCDF", 8, 8)]

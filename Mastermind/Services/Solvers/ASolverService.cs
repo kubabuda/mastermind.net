@@ -72,9 +72,13 @@ namespace Mastermind.Services.Solvers
             _keysLeft.RemoveAll(key => IsKeyToBeRemoved(key, keyGuess, dto));
         }
 
+        public IAnswerCheckDto CheckAnswer(string key, string guess) {
+            return _checkAnswersService.CheckAnswer(key, guess);
+        }
+
         public bool IsKeyToBeRemoved(string key, string usedKey, IAnswerCheckDto check)
         {
-            var commonCheck = _checkAnswersService.CheckAnswer(key, usedKey);
+            var commonCheck = CheckAnswer(key, usedKey);
 
             return !IsCheckResultDifferent(check, commonCheck);
         }

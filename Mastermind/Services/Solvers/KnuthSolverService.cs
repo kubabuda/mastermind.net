@@ -38,7 +38,7 @@ namespace Mastermind.Services.Solvers
                 if (!dto.LastCheck.IsCorrect)
                 {
                     PruneKeys(dto.LastCheck, keyGuess);
-                    var maxScores = GetMiniMax();
+                    var maxScores = GetMinMax();
                     keyGuess = GetNextGuess(maxScores);
                 }
             }
@@ -62,26 +62,30 @@ namespace Mastermind.Services.Solvers
         }
 
 // https://github.com/nattydredd/Mastermind-Five-Guess-Algorithm/blob/master/Five-Guess-Algorithm.cpp
-        private IEnumerable<string> GetMiniMax()
+        private IEnumerable<string> GetMinMax()
         {
-            var minimaxScores = new Dictionary<string, int>();
+            var score = new Dictionary<string, int>();
+            var scoreCount = new Dictionary<IAnswerCheckDto, int>();
+
             foreach(var possibleKey in _possibleKeys) {
-                if(_answerResults.Keys.Contains(possibleKey) == false) {
-                    var hitCount = 0;
-                    foreach(var keyLeft in _keysLeft) {
-                        foreach(var answer in _answerResults.Values){
-                            if(IsKeyToBeRemoved(possibleKey, keyLeft, answer)) {
-                                hitCount++;
-                            }
-                        }
+                foreach(var keyLeft in _keysLeft) {
+                    var check = CheckAnswer(possibleKey, keyLeft);
+                    try
+                    {
+                        var count = scoreCount[check];
+                        scoreCount[check] = count + 1;
                     }
-                    var minEliminated = _keysLeft.Count - hitCount;
-                    minimaxScores[possibleKey] = minEliminated;
+                    catch(KeyNotFoundException) {
+                        scoreCount[check] = 1;
+                    }
                 }
+                var max = scoreCount.Values.Max();
+                score[possibleKey] = max;
+                scoreCount.Clear();
             }
-            var maxScore = minimaxScores.Values.Max();
-            var result = minimaxScores.Keys
-                .Where(k => minimaxScores[k] == maxScore)
+            var min = score.Values.Min();
+            var result = score.Keys
+                .Where(k => score[k] == min)
                 .OrderBy(k => k);
 
             return result;
