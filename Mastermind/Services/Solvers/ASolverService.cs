@@ -10,20 +10,15 @@ namespace Mastermind.Services.Solvers
 {
     public class ASolverService : ISolveMastermindService
     {
-        static Random _rnd = new Random();
-        readonly IGenerateKeyRangesService _keyRangesGenerator;
-        readonly ICheckAnswersService _checkAnswersService;
+        protected static Random _rnd = new Random();
+        protected readonly IGenerateKeyRangesService _keyRangesGenerator;
+        protected readonly ICheckAnswersService _checkAnswersService;
 
         public ASolverService(IGenerateKeyRangesService keyRangesGenerator,
             ICheckAnswersService checkAnswersService)
         {
             _keyRangesGenerator = keyRangesGenerator;
             _checkAnswersService = checkAnswersService;
-        }
-
-        public virtual IGameResultDto SolveGame(IMastermindGame mastermindGame)
-        {
-            throw new NotImplementedException();
         }
 
         public ISolvingRoundStateDto BuildInitialState(IMastermindGame mastermindGame)
@@ -37,6 +32,11 @@ namespace Mastermind.Services.Solvers
             };
 
             return dto;
+        }
+
+        public virtual IGameResultDto SolveGame(IMastermindGame mastermindGame)
+        {
+            throw new NotImplementedException();
         }
 
         public bool IsGameFinished(ISolvingRoundStateDto dto)
