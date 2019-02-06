@@ -19,8 +19,8 @@ namespace Mastermind.Tests.Services.Solvers
             _serviceUnderTests = new KnuthSolverService(_keyRangesGenerator);
         }
 
-        [TestCase(4, "AABB")]
-        [TestCase(5, "AAABB")]
+        [TestCase(4, "1122")]
+        [TestCase(5, "11122")]
         public void GetInitialKeyGuess_ShouldReturnExpectedKeyGuess_GivenKeyLength(int length, string expectedKey)
         {
             // Act

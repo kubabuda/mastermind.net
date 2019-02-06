@@ -22,14 +22,14 @@ namespace Mastermind.Tests.Services
         [Test]
         public void CheckAnswer_ThrowsException_WhenAnswerAndCorrectAnswerLengthsDiffer()
         {
-            Assert.Throws<ArgumentException>(() => _serviceUnderTests.CheckAnswer("AA", "AAA"));
+            Assert.Throws<ArgumentException>(() => _serviceUnderTests.CheckAnswer("11", "111"));
         }
 
-        [TestCase("AAAA", "AAAA", 4)]
-        [TestCase("AA", "AA", 2)]
-        [TestCase("A", "A", 1)]
-        [TestCase("AAAA", "AAAB", 3)]
-        [TestCase("AAAA", "AABC", 2)]
+        [TestCase("1111", "1111", 4)]
+        [TestCase("11", "11", 2)]
+        [TestCase("1", "1", 1)]
+        [TestCase("1111", "1112", 3)]
+        [TestCase("1111", "1123", 2)]
         public void CheckAnswer_returnsCountOfCorrectValuesOnCorrectPosition_GivenAnswerAndExpectedAnswer(string answer, string correctAnswer, int whitePoints)
         {
             var result = _serviceUnderTests.CheckAnswer(correctAnswer, answer);
@@ -37,8 +37,8 @@ namespace Mastermind.Tests.Services
             Assert.AreEqual(whitePoints, result.WhitePoints);
         }
 
-        [TestCase("CB", "BC", 2)]
-        [TestCase("CAB", "ABC", 3)]
+        [TestCase("32", "23", 2)]
+        [TestCase("312", "123", 3)]
         public void CheckAnswer_returnsCountOfCorrectValuesOnWrongPosition_GivenAnswerAndExpectedAnswer(string answer, string correctAnswer, int blackPoints)
         {
             var result = _serviceUnderTests.CheckAnswer(correctAnswer, answer);
@@ -92,15 +92,15 @@ namespace Mastermind.Tests.Services
             Assert.Throws<ArgumentException>(() => _serviceUnderTests.BuildAnswerCheck(correctAnswer, whitePts, blackPts));
         }
 
-        [TestCase("CDEF", 6, 4, true)]
-        [TestCase("AAA", 4, 3, true)]
-        [TestCase("AA", 4, 3, false)]
-        [TestCase("AAAA", 4, 3, false)]
-        [TestCase("aAa", 4, 3, false)]
-        [TestCase("AAD", 4, 3, true)]
-        [TestCase("AAE", 4, 3, false)]
-        [TestCase("F", 6, 1, true)]
-        [TestCase("G", 6, 1, false)]
+        [TestCase("3456", 6, 4, true)]
+        [TestCase("111", 4, 3, true)]
+        [TestCase("11", 4, 3, false)]
+        [TestCase("1111", 4, 3, false)]
+        // [TestCase("aAa", 4, 3, false)]
+        [TestCase("114", 4, 3, true)]
+        [TestCase("116", 4, 3, false)]
+        [TestCase("6", 6, 1, true)]
+        [TestCase("7", 6, 1, false)]
         [TestCase("", 4, 0, false)]
         [TestCase("", 0, 0, false)]
         [TestCase(null, 4, 0, false)]

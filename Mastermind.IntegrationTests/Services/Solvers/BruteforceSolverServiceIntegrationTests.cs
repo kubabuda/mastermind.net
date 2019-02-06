@@ -18,10 +18,10 @@ namespace Mastermind.Tests.Services.Solvers
             _serviceUnderTests = new BruteforceSolverService(generator);
         }
 
-        [TestCase("ABCD", 4)]
-        [TestCase("ABCD", 6)]
-        [TestCase("ABCDF", 6)]
-        [TestCase("FFFFF", 6)]
+        [TestCase("1234", 4)]
+        [TestCase("1234", 6)]
+        [TestCase("12346", 6)]
+        [TestCase("66666", 6)]
         public void SolveGame_SuccesfullyAt256MovesOrLess_GivenGameWith256(string answer, int colors, int roundsLimit = -1)
         {
             // Arrange

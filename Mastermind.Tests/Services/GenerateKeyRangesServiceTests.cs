@@ -42,7 +42,7 @@ namespace Mastermind.Tests.Services
 
             var result = _serviceUnderTests.GenerateCodes(gameSettings);
 
-            Assert.AreEqual(new List<string>() { "A", "B", "C" }, result);
+            Assert.AreEqual(new List<string>() { "1", "2", "3" }, result);
         }
 
 
@@ -55,9 +55,9 @@ namespace Mastermind.Tests.Services
             var result = _serviceUnderTests.GenerateCodes(gameSettings);
 
             Assert.AreEqual(new List<string>() {
-                "AA", "BA", "CA",
-                "AB", "BB", "CB",
-                "AC", "BC", "CC",
+                "11", "21", "31",
+                "12", "22", "32",
+                "13", "23", "33",
             }, result);
         }
 
@@ -85,17 +85,17 @@ namespace Mastermind.Tests.Services
 
             var result = _serviceUnderTests.GenerateCodes(gameSettings);
 
-            Assert.AreEqual(new List<string>() { "A", "B", "C", "D", "E" }, result);
+            Assert.AreEqual(new List<string>() { "1", "2", "3", "4", "5" }, result);
         }
 
-        [TestCase(0, 1, 1, "A")]
-        [TestCase(0, 6, 1, "A")]
-        [TestCase(3, 6, 1, "D")]
-        [TestCase(3, 6, 2, "DA")]
-        [TestCase(0, 6, 2, "AA")]
-        [TestCase(0, 6, 3, "AAA")]
-        [TestCase(1, 6, 3, "BAA")]
-        [TestCase(545, 6, 4, "FADC")]
+        [TestCase(0, 1, 1, "1")]
+        [TestCase(0, 6, 1, "1")]
+        [TestCase(3, 6, 1, "4")]
+        [TestCase(3, 6, 2, "41")]
+        [TestCase(0, 6, 2, "11")]
+        [TestCase(0, 6, 3, "111")]
+        [TestCase(1, 6, 3, "211")]
+        [TestCase(545, 6, 4, "6143")]
         public void ConvertToCode(int value, int colors, int digits, string expectedCode)
         {
             gameSettings.Colors.Returns(colors);

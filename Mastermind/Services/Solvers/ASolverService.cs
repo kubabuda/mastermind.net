@@ -46,8 +46,8 @@ namespace Mastermind.Services.Solvers
 
         public string GetInitialKeyGuess(int length)
         {
-            var aas = new string('A', length - (length / 2));
-            var bbs = new string('B', length / 2);
+            var aas = new string('1', length - (length / 2)); // todo get it from GenerateKeyRanges and offset
+            var bbs = new string('2', length / 2);
 
             return string.Format($"{aas}{bbs}");
         }

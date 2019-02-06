@@ -22,14 +22,14 @@ namespace Mastermind.Tests.Services.Solvers
         }
 
 
-        [TestCase("AB", 2, 1)]
-        [TestCase("AABB", 6, 1)]
-        [TestCase("AABB", 6, 5)]
-        [TestCase("ABCD", 6, 5)]
-        [TestCase("CDEF", 6, 5)]
-        [TestCase("FFFF", 6, 5)]
-        [TestCase("FFEA", 6, 7)]// uhm
-        [TestCase("FAAA", 6, 6)]
+        [TestCase("12", 2, 1)]
+        [TestCase("1122", 6, 1)]
+        [TestCase("2233", 6, 5)]
+        [TestCase("1234", 6, 5)]
+        [TestCase("3456", 6, 5)]
+        [TestCase("6666", 6, 5)]
+        [TestCase("6666", 6, 7)]// uhm
+        [TestCase("6111", 6, 6)]
         public void SolveGame_SuccesfullyAt5MovesOrLess_GivenClassicMastermind(string answer, int colors, int roundsLimit)
         {
             // Arrange

@@ -66,7 +66,7 @@ namespace Mastermind.Services
             {
                 return false;
             }
-            var A_numeric = Convert.ToInt32('A');
+            var A_numeric = Convert.ToInt32('1'); // this depends on mappings from GenerateKeyRangesService
             var max_c_numeric = A_numeric + gameSettings.Colors - 1; 
 
             foreach(char c in answer)

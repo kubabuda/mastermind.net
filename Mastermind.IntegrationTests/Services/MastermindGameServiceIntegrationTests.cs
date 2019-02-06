@@ -8,7 +8,7 @@ namespace Mastermind.Tests.Services
 {
     public class MastermindGameServiceIntegrationTests
     {
-        readonly string correctAnswer = "ABCD";
+        readonly string correctAnswer = "1234";
         ICheckAnswersService checkAnswersService;
         IGameSettings gameSettings;
         IMastermindGame serviceUnderTest;
@@ -21,7 +21,7 @@ namespace Mastermind.Tests.Services
             checkAnswersService = new AnswerCheckService();
             gameSettings = new GameSettings(6, correctAnswer.Length);
             serviceUnderTest = new MastermindGameService(correctAnswer, checkAnswersService, gameSettings);
-            answers = new List<string> { "AACC", "AADD", "ABDD", "ABDC", correctAnswer };
+            answers = new List<string> { "1133", "1144", "1244", "1243", correctAnswer };
         }
 
 

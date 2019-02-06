@@ -10,16 +10,16 @@ namespace Mastermind.Services
     {
         private readonly Dictionary<int, char> _charToCodeLetterMappings = new Dictionary<int, char>
         {
-            { 0, 'A' },
-            { 1, 'B' },
-            { 2, 'C' },
-            { 3, 'D' },
-            { 4, 'E' },
-            { 5, 'F' },
-            { 6, 'G' },
-            { 7, 'H' },
-            { 8, 'I' },
-            { 9, 'J' },
+            { 0, '1' },
+            { 1, '2' },
+            { 2, '3' },
+            { 3, '4' },
+            { 4, '5' },
+            { 5, '6' },
+            { 6, '7' },
+            { 7, '8' },
+            { 8, '9' },
+            // { 9, '' },
         };
 
         public IEnumerable<string> GenerateCodes(IGameSettings gameSettings)

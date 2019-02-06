@@ -21,9 +21,9 @@ namespace Mastermind.Tests.Services.Solvers
             _serviceUnderTests = new EduinfSolverService(generator);
         }
 
-        [TestCase("ABCD", 6, 6)]
-        [TestCase("FFFF", 6, 6)]
-        [TestCase("ABCD", 6, 6)]
+        [TestCase("1234", 6, 6)]
+        [TestCase("6666", 6, 6)]
+        [TestCase("1234", 6, 6)]
         public void SolveGame_SuccesfullyAt6MovesOrLess_GivenClassicMastermind(string answer, int colors, int roundsLimit)
         {
             // Arrange
@@ -38,10 +38,10 @@ namespace Mastermind.Tests.Services.Solvers
             Assert.AreEqual(answer, result.Answer);
         }
 
-        [TestCase("AABB", 6, 1)]
-        [TestCase("ABCD", 6, 5)]
-        [TestCase("FFFF", 6, 5)]
-        [TestCase("CDEF", 6, 7)] // TODO should do in just 5!
+        [TestCase("1122", 6, 1)]
+        [TestCase("1234", 6, 5)]
+        [TestCase("6666", 6, 5)]
+        [TestCase("3456", 6, 7)] // TODO should do in just 5!
         public void SolveGame_SuccesfullyAt5MovesOrLess_GivenClassicMastermind(string answer, int colors, int roundsLimit)
         {
             // Arrange
@@ -88,7 +88,7 @@ namespace Mastermind.Tests.Services.Solvers
         
 
 
-        [TestCase("ABCDF", 8, 8)]
+        [TestCase("12346", 8, 8)]
         public void SolveGame_SuccesfullyIn8MovesOrLess_GivenDeluxeMastermind(string answer, int colors, int roundsLimit)
         {
             // Arrange
@@ -103,10 +103,9 @@ namespace Mastermind.Tests.Services.Solvers
             Assert.AreEqual(answer, result.Answer);
         }
 
-        [TestCase("AAAAA", 8, 7)]
-        [TestCase("ABCDF", 8, 7)]
-        [TestCase("CDFEA", 8, 7)]
-        [TestCase("FFFFF", 8, 7)]
+        [TestCase("11111", 8, 7)]
+        [TestCase("12345", 8, 7)]
+        [TestCase("34651", 8, 7)]
         public void SolveGame_SuccesfullyIn7MovesOrLess_GivenDeluxeMastermind(string answer, int colors, int roundsLimit)
         {
             // Arrange
@@ -121,10 +120,9 @@ namespace Mastermind.Tests.Services.Solvers
             Assert.AreEqual(answer, result.Answer);
         }
 
-        [TestCase("AAAAA", 8, 6)]
-        [TestCase("ABCDF", 8, 6)]
-        [TestCase("CDFEA", 8, 6)]
-        [TestCase("FFFFF", 8, 6)]
+        [TestCase("11111", 8, 6)]
+        [TestCase("12346", 8, 6)]
+        [TestCase("34651", 8, 6)]
         public void SolveGame_SuccesfullyIn6MovesOrLess_GivenDeluxeMastermind(string answer, int colors, int roundsLimit)
         {
             // Arrange
