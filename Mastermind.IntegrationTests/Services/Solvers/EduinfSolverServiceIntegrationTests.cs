@@ -57,40 +57,6 @@ namespace Mastermind.Tests.Services.Solvers
             Assert.AreEqual(answer, result.Answer);
         }
 
-        //[Test] takes a while
-        public void SolveGame_SuccesfullyAt5MovesOrLess_GivenAllCodesForClassicMastermind()
-        {
-            // Arrange
-            var generator = new GenerateKeyRangesService();
-            var gameFactory = new GameFactory();
-            var colors = 6;
-            var digits = 4;
-            var roundLimit = 6;
-            var settings = new GameSettings(colors, digits, roundLimit);
-            var keys = generator.GenerateCodes(settings);
-            var serviceUnderTests = new EduinfSolverService(generator);
-
-            var failedAnswersCases = new Dictionary<string, int>();
-
-            foreach (var answer in keys)
-            {
-                var mastermindGame = gameFactory.PrepareGame(answer, settings);
-
-                // Act
-                var result = serviceUnderTests.SolveGame(mastermindGame);
-
-                if (result.Rounds <= settings.RoundLimit || answer != result.Answer)
-                {
-                    failedAnswersCases[result.Answer] = result.Rounds;
-                }
-            }
-
-            // Assert
-            Assert.IsEmpty(failedAnswersCases);
-        }
-        
-
-
         [TestCase("12346", 8, 8)]
         public void SolveGame_SuccesfullyIn8MovesOrLess_GivenDeluxeMastermind(string answer, int colors, int roundsLimit)
         {
