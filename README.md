@@ -35,5 +35,7 @@ Repeat the following 2 steps:
 This averages no more than 5 guesses.
 
 [On ResearchGate](https://www.researchgate.net/publication/268644635_The_mastermind_novice)
+
 [In Polish](https://eduinf.waw.pl/inf/alg/001_search/0062.php)
+
 [By Wolfram](http://mathworld.wolfram.com/Mastermind.html)

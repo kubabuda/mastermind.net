@@ -9,6 +9,19 @@ namespace Mastermind
     {
         static void Main(string[] args)
         {
+            var answer = "1234";
+            var colors = 6;
+            var roundsLimit = 6;
+            
+            var gameFactory = new GameFactory();
+            var gameplay = gameFactory.PrepareDefaultGameplay();
+            var game = gameFactory.PrepareGame(answer, colors, roundsLimit);
+            gameplay.SolveGame(game);
+
+            Console.ReadLine();
+        }
+
+        static void TestRange(){
             var _gameFactory = new GameFactory();
             var generator = new GenerateKeyRangesService();
             var _serviceUnderTests = new KnuthSolverService(generator);
@@ -19,24 +32,16 @@ namespace Mastermind
             var keys = generator.GenerateCodes(settings);
 
             // Arrange
-            var answer = "12345";
-            var mastermindGame = _gameFactory.PrepareGame(answer, colors, roundsLimit);
+            var answers =  new [] { "12345" };
+            foreach(var answer in answers)
+            {
+                var mastermindGame = _gameFactory.PrepareGame(answer, colors, roundsLimit);
 
-            // Act
-            var result = _serviceUnderTests.SolveGame(mastermindGame);
+                // Act
+                var result = _serviceUnderTests.SolveGame(mastermindGame);
             
-            Console.WriteLine($"Got {result.Answer} expected {answer}");
-
-            // var answer = "ABCD";
-            // var colors = 6;
-            // var roundsLimit = 6;
-            
-            // var gameFactory = new GameFactory();
-            // var gameplay = gameFactory.PrepareDefaultGameplay();
-            // var game = gameFactory.PrepareGame(answer, colors, roundsLimit);
-            // gameplay.SolveGame(game);
-
-            // Console.ReadLine();
+                Console.WriteLine($"Got {result.Answer} expected {answer}");
+            }
         }
     }
 }
