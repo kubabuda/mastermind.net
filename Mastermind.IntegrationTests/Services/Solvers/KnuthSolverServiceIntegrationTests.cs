@@ -100,6 +100,7 @@ namespace Mastermind.Tests.Services.Solvers
             Assert.IsEmpty(failedAnswersCases);
         }
 
+        // Knuth solver works few seconds on i5 for Deluxe Mastermind(8,5). It's too slow for realtime.
 
         // [TestCase("12346", 8, 6)]
         public void SolveGame_SuccesfullyIn8MovesOrLess_GivenDeluxeMastermind(string answer, int colors, int roundsLimit)

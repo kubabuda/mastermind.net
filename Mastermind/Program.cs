@@ -1,7 +1,10 @@
 ﻿using Mastermind.Models;
 using Mastermind.Services;
+using Mastermind.Services.Interfaces;
 using Mastermind.Services.Solvers;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Mastermind
 {
@@ -9,10 +12,18 @@ namespace Mastermind
     {
         static void Main(string[] args)
         {
-            var answer = "1234";
+            // var answer = "1234";
+            // PlayWithHumanCodeBreaker(answer);
+            
+            // TestKnuthOnRange();
+            TestEduInfOnRange();
+        }
+
+        private static void PlayWithHumanCodeBreaker(string answer)
+        {
             var colors = 6;
             var roundsLimit = 6;
-            
+
             var gameFactory = new GameFactory();
             var gameplay = gameFactory.PrepareDefaultGameplay();
             var game = gameFactory.PrepareGame(answer, colors, roundsLimit);
@@ -21,27 +32,71 @@ namespace Mastermind
             Console.ReadLine();
         }
 
-        static void TestRange(){
-            var _gameFactory = new GameFactory();
+        public static void TestKnuthOnRange(){
             var generator = new GenerateKeyRangesService();
-            var _serviceUnderTests = new KnuthSolverService(generator);
+            var serviceUnderTests = new KnuthSolverService(generator);
+
+            TestOnRange(serviceUnderTests, "Knuth");
+        }
+
+        public static void TestEduInfOnRange(){
+            var generator = new GenerateKeyRangesService();
+            var serviceUnderTests = new EduinfSolverService(generator);
+
+            TestOnRange(serviceUnderTests, "Swaszek");
+        }
+
+        public static  void TestOnRange(ISolveMastermindService serviceUnderTests, string algoLabel)
+        {
+            // Arrange
             var colors = 8;
             var digits = 5;
-            var roundsLimit = 5;
-            var settings = new GameSettings(colors, digits, roundsLimit);
+            var roundLimit = 17;
+            var settings = new GameSettings(colors, digits, roundLimit);
+
+            var generator = new GenerateKeyRangesService();
             var keys = generator.GenerateCodes(settings);
+            var gameFactory = new GameFactory();
 
-            // Arrange
-            var answers =  new [] { "12345" };
-            foreach(var answer in answers)
+            var fails = new Dictionary<string, int>();
+            long allRoundsCount = 0;
+            var maxRounds = 0;
+            var maxExample = "";
+            foreach (var answer in keys)
             {
-                var mastermindGame = _gameFactory.PrepareGame(answer, colors, roundsLimit);
+                var mastermindGame = gameFactory.PrepareGame(answer, settings);
 
-                // Act
-                var result = _serviceUnderTests.SolveGame(mastermindGame);
-            
-                Console.WriteLine($"Got {result.Answer} expected {answer}");
+                Console.Write($"\r{answer}:");
+            // Act
+                var result = serviceUnderTests.SolveGame(mastermindGame);
+
+            // Assert
+                allRoundsCount += result.Rounds;
+                if (answer != result.Answer || result.Rounds > settings.RoundLimit)
+                {
+                    Console.WriteLine($"Got {result.Answer} in {result.Rounds} rounds");
+                    fails[answer] = result.Rounds;
+                }
+                else {
+                    if (result.Rounds > maxRounds) {
+                        maxRounds = result.Rounds;
+                        maxExample = answer;
+                    }
+                }
             }
+
+            Console.WriteLine($"\rFor {algoLabel} algo on Mastermind({digits}, {colors}):");
+            if (fails.Keys.Count() > 0)
+            { 
+                Console.WriteLine($"Failed to find solution in {fails.Count()} ");
+                var worstRoundCount = fails.Values.Max();
+                var worstCases = fails.Where((k, v) => v == worstRoundCount).Select((k, v) => k);
+                string worstCaseExample = worstCases.First().Key;
+                Console.WriteLine($"{worstCases.Count()} pessimistic cases - in {worstRoundCount} rounds, example: {worstCaseExample} ");
+            }
+            double mean = (double)allRoundsCount / keys.Count();
+            Console.WriteLine($"\rMean rounds per solution is {mean}");
+            Console.WriteLine($"Pessimistic case is {maxExample} with {maxRounds} rounds");
         }
     }
 }

@@ -41,7 +41,8 @@ namespace Mastermind.Tests.Services.Solvers
         [TestCase("1122", 6, 1)]
         [TestCase("1234", 6, 5)]
         [TestCase("6666", 6, 5)]
-        [TestCase("3456", 6, 7)] // TODO should do in just 5!
+        [TestCase("3456", 6, 7)]
+        [TestCase("2621", 6, 7)]
         public void SolveGame_SuccesfullyAt5MovesOrLess_GivenClassicMastermind(string answer, int colors, int roundsLimit)
         {
             // Arrange
@@ -56,25 +57,27 @@ namespace Mastermind.Tests.Services.Solvers
             Assert.AreEqual(answer, result.Answer);
         }
 
-        //[Test]
+        //[Test] takes a while
         public void SolveGame_SuccesfullyAt5MovesOrLess_GivenAllCodesForClassicMastermind()
         {
             // Arrange
             var generator = new GenerateKeyRangesService();
-            var settings = Substitute.For<IGameSettings>();
-            settings.Colors.Returns(6);
-            settings.Digits.Returns(4);
-            settings.RoundLimit.Returns(6);
+            var gameFactory = new GameFactory();
+            var colors = 6;
+            var digits = 4;
+            var roundLimit = 6;
+            var settings = new GameSettings(colors, digits, roundLimit);
             var keys = generator.GenerateCodes(settings);
+            var serviceUnderTests = new EduinfSolverService(generator);
 
             var failedAnswersCases = new Dictionary<string, int>();
 
             foreach (var answer in keys)
             {
-                var mastermindGame = _gameFactory.PrepareGame(answer, settings);
+                var mastermindGame = gameFactory.PrepareGame(answer, settings);
 
                 // Act
-                var result = _serviceUnderTests.SolveGame(mastermindGame);
+                var result = serviceUnderTests.SolveGame(mastermindGame);
 
                 if (result.Rounds <= settings.RoundLimit || answer != result.Answer)
                 {

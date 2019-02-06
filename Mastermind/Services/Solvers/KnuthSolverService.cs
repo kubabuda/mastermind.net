@@ -7,6 +7,9 @@ using System.Linq;
 
 namespace Mastermind.Services.Solvers
 {
+    /*
+        Knuth five-guess algorithm with lowest worst-case scenario
+    */
     public class KnuthSolverService : ASolverService
     {
         public KnuthSolverService(IGenerateKeyRangesService keyRangesGenerator)
@@ -17,7 +20,6 @@ namespace Mastermind.Services.Solvers
 
         public override IGameResultDto SolveGame(IMastermindGame mastermindGame)
         {
-            // Knuth five-guess algorithm from wiki
             var dto = BuildInitialState(mastermindGame);
 
             for (dto.Round = 0; !IsGameFinished(dto); ++dto.Round)

@@ -9,7 +9,7 @@ using System.Linq;
 namespace Mastermind.Services.Solvers
 {
     /*
-        Based on https://eduinf.waw.pl/inf/alg/001_search/0062.php and Swaszek (1999) publication
+        Swaszek heuristic
      */
     public class EduinfSolverService : ASolverService
     {
@@ -21,7 +21,6 @@ namespace Mastermind.Services.Solvers
 
         public override IGameResultDto SolveGame(IMastermindGame mastermindGame)
         {
-            // simplified Knuth five-guess algorithm from EduInf page 
             var dto = BuildInitialState(mastermindGame);
 
             for (dto.Round = 0; !IsGameFinished(dto); ++dto.Round)
