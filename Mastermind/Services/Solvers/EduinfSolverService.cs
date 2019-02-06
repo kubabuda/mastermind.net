@@ -31,7 +31,7 @@ namespace Mastermind.Services.Solvers
 
                 if (!dto.LastCheck.IsCorrect)
                 {
-                    PruneKeys(keysLeft, dto.LastCheck, keyGuess);
+                    PruneKeys(keysLeft, dto);
                     keyGuess = GetFirstKeyGuess(keysLeft);
                 }
             }

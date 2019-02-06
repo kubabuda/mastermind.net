@@ -64,7 +64,7 @@ namespace Mastermind.Tests.Services.Solvers
             });
         }
 
-        // [Test] // this takes a WHILE
+        // [Test] // attention, this takes half hour
         public void SolveGame_SuccesfullyAt5MovesOrLess_GivenAllCodesForClassicMastermind()
         {
             // Arrange

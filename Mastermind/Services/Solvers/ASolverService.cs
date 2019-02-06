@@ -64,10 +64,10 @@ namespace Mastermind.Services.Solvers
             return keySpace[0];
         }
 
-        protected void PruneKeys(List<string> keysLeft, IAnswerCheckDto dto, string keyGuess)
+        protected void PruneKeys(List<string> keysLeft, ISolvingRoundStateDto dto)
         {
-            keysLeft.Remove(keyGuess);
-            keysLeft.RemoveAll(key => IsKeyToBeRemoved(key, keyGuess, dto));
+            keysLeft.Remove(dto.Answer);
+            keysLeft.RemoveAll(key => IsKeyToBeRemoved(key, dto.Answer, dto.LastCheck));
         }
 
         public IAnswerCheckDto CheckAnswer(string key, string guess) {
