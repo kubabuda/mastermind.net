@@ -126,6 +126,7 @@ namespace Mastermind.Tests.Services.Solvers
         [TestCase("11111", 8, 6)]
         [TestCase("12346", 8, 6)]
         [TestCase("34651", 8, 6)]
+        [TestCase("76588", 8, 12)]
         public void SolveGame_SuccesfullyIn6MovesOrLess_GivenDeluxeMastermind(string answer, int colors, int roundsLimit)
         {
             // Arrange

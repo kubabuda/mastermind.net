@@ -47,8 +47,12 @@ This averages no more than 5 guesses.
 # Stats
 
 For Swaszek algo on Mastermind(4, 6):
-Mean rounds per solution is 5,02623456790123 
+Mean rounds per solution is 5.02623456790123 
 Pessimistic case is 2621 with 7 rounds
 
+For Swaszek algo on Mastermind(5, 8):
+Mean rounds per solution is 6.83413696289062
+Pessimistic case is 76588 with 12 rounds
+
 For Knuth algo on Mastermind(4, 6):
-Mean rounds per solution is 4,47608024691358 
+Mean rounds per solution is 4.47608024691358 
