@@ -17,7 +17,9 @@ Depth-first backtracking algorithm.
 
 ### Knuth 5 guess algo
 [Computer as Mastermind - Knuth 1976 paper](https://www.cs.uni.edu/~wallingf/teaching/cs3530/resources/knuth-mastermind.pdf)
+
 [C++ implementation](https://github.com/nattydredd/Mastermind-Five-Guess-Algorithm)
+
 [Wikipedia](https://en.wikipedia.org/wiki/Mastermind_(board_game)#Five-guess_algorithm)
 
 ### Swaszek
