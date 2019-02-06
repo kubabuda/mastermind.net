@@ -28,9 +28,27 @@ namespace Mastermind.Tests.Services.Solvers
         [TestCase("1234", 6, 5)]
         [TestCase("3456", 6, 5)]
         [TestCase("6666", 6, 5)]
-        [TestCase("6666", 6, 7)]// uhm
-        [TestCase("6111", 6, 6)]
         public void SolveGame_SuccesfullyAt5MovesOrLess_GivenClassicMastermind(string answer, int colors, int roundsLimit)
+        {
+            // Arrange
+            var mastermindGame = _gameFactory.PrepareGame(answer, colors, roundsLimit);
+
+            // Act
+            var result = _serviceUnderTests.SolveGame(mastermindGame);
+
+            // Assert
+            Assert.Multiple(() => {
+                Assert.IsTrue(result.IsAnswerFound);
+                Assert.True(result.Rounds <= roundsLimit);
+                Assert.AreEqual(answer, result.Answer);
+            });
+        }
+
+        [TestCase("6111", 6, 5)]
+        [TestCase("5115", 6, 5)]
+        [TestCase("6521", 6, 5)]
+        [TestCase("5621", 6, 5)]
+        public void SolveGame_At5MovesOrLess_GivenEdgeCase(string answer, int colors, int roundsLimit)
         {
             // Arrange
             var mastermindGame = _gameFactory.PrepareGame(answer, colors, roundsLimit);
