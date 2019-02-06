@@ -2,8 +2,10 @@
 
 ### Lai optimal strategy
 Depth-first backtracking algorithm.
+
 [An Optimal Mastermind (4,7) Strategy](https://arxiv.org/pdf/1305.1010.pdf)
-[Here](http://serkangur.freeservers.com/MMOptimalPlayer.xlsm) is Excel file with optimal algo as VBA script
+
+[Here](http://serkangur.freeservers.com) is Excel file with optimal algo as VBA script
 
 ### Misc
 [YET ANOTHER MASTERMIND STRATEGY](http://www.philos.rug.nl/~barteld/master.pdf)
@@ -45,8 +47,8 @@ This averages no more than 5 guesses.
 # Stats
 
 For Swaszek algo on Mastermind(4, 6):
-Mean rounds per solution is 5.02623456790123 
+Mean rounds per solution is 5,02623456790123 
 Pessimistic case is 2621 with 7 rounds
 
 For Knuth algo on Mastermind(4, 6):
-Mean rounds per solution is 4.47608024691358 
+Mean rounds per solution is 4,47608024691358 
