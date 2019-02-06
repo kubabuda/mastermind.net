@@ -26,18 +26,6 @@ namespace Mastermind.Services.Solvers
             throw new NotImplementedException();
         }
 
-        protected ISolvingRoundStateDto BuildInitialState(IMastermindGame mastermindGame)
-        {
-            var dto = new SolvingRoundStateDto()
-            {
-                Answer = string.Empty,
-                Round = 0,
-                MastermindGame = mastermindGame,
-            };
-
-            return dto;
-        }
-
         public bool IsGameFinished(ISolvingRoundStateDto dto)
         {
             return dto.Round >= dto.Settings.RoundLimit 
@@ -47,8 +35,8 @@ namespace Mastermind.Services.Solvers
         public string GetInitialKeyGuess(int length)
         {
             var aas = new string('1', length - (length / 2)); // todo get it from GenerateKeyRanges and offset
-            var bbs = new string('2', length / 2);
-
+            var bbs = new string('2', length / 2);            // second one too
+                                                        // so that it's not always 1122 but 4455 or 3366
             return string.Format($"{aas}{bbs}");
         }
 
@@ -64,7 +52,7 @@ namespace Mastermind.Services.Solvers
             return keySpace[0];
         }
 
-        protected void PruneKeys(List<string> keysLeft, ISolvingRoundStateDto dto)
+        protected void PruneKeysLeft(List<string> keysLeft, ISolvingRoundStateDto dto)
         {
             keysLeft.Remove(dto.Answer);
             keysLeft.RemoveAll(key => IsKeyToBeRemoved(key, dto.Answer, dto.LastCheck));

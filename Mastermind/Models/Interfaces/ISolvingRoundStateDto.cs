@@ -10,5 +10,6 @@ namespace Mastermind.Models.Interfaces
         IMastermindGame MastermindGame { get; }
         IGameSettings Settings { get; }
         int Round { get; set; }
+        List<string> KeysLeft { get; }
     }
 }

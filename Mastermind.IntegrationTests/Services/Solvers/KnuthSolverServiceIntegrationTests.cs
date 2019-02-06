@@ -22,15 +22,17 @@ namespace Mastermind.Tests.Services.Solvers
         }
 
 
-        [TestCase("12", 2, 1)]
-        [TestCase("1122", 6, 1)]
-        [TestCase("2233", 6, 5)]
-        [TestCase("1234", 6, 5)]
-        [TestCase("3456", 6, 5)]
-        [TestCase("6666", 6, 5)]
-        public void SolveGame_SuccesfullyAt5MovesOrLess_GivenClassicMastermind(string answer, int colors, int roundsLimit)
+        [TestCase("12", 1)]
+        [TestCase("1122", 1)]
+        [TestCase("2211", 2)]
+        [TestCase("2233", 5)]
+        [TestCase("1234", 5)]
+        [TestCase("3456", 5)]
+        [TestCase("6666", 5)]
+        public void SolveGame_SuccesfullyAt5MovesOrLess_GivenClassicMastermind(string answer, int roundsLimit)
         {
             // Arrange
+            int colors = 6;
             var mastermindGame = _gameFactory.PrepareGame(answer, colors, roundsLimit);
 
             // Act
@@ -44,13 +46,14 @@ namespace Mastermind.Tests.Services.Solvers
             });
         }
 
-        [TestCase("6111", 6, 5)]
-        [TestCase("5115", 6, 5)]
-        [TestCase("6521", 6, 5)]
-        [TestCase("5621", 6, 5)]
-        public void SolveGame_At5MovesOrLess_GivenEdgeCase(string answer, int colors, int roundsLimit)
+        [TestCase("6111", 5)]
+        [TestCase("5115", 5)]
+        [TestCase("6521", 5)]
+        [TestCase("5621", 5)]
+        public void SolveGame_At5MovesOrLess_GivenEdgeCase(string answer, int roundsLimit)
         {
             // Arrange
+            int colors = 6;
             var mastermindGame = _gameFactory.PrepareGame(answer, colors, roundsLimit);
 
             // Act
@@ -98,7 +101,7 @@ namespace Mastermind.Tests.Services.Solvers
         }
 
 
-        // [TestCase("ABCDF", 8, 8)]
+        // [TestCase("12346", 8, 6)]
         public void SolveGame_SuccesfullyIn8MovesOrLess_GivenDeluxeMastermind(string answer, int colors, int roundsLimit)
         {
             // Arrange
@@ -113,10 +116,10 @@ namespace Mastermind.Tests.Services.Solvers
             Assert.AreEqual(answer, result.Answer);
         }
 
-        // [TestCase("AAAAA", 8, 7)]
-        // [TestCase("ABCDF", 8, 7)]
-        // [TestCase("CDFEA", 8, 7)]
-        // [TestCase("FFFFF", 8, 7)]
+        // [TestCase("11111", 8, 7)]
+        // [TestCase("12346", 8, 7)]
+        // [TestCase("34651", 8, 7)]
+        // [TestCase("11111", 8, 7)]
         public void SolveGame_SuccesfullyIn7MovesOrLess_GivenDeluxeMastermind(string answer, int colors, int roundsLimit)
         {
             // Arrange
