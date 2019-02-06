@@ -14,8 +14,6 @@ namespace Mastermind.Services.Solvers
         protected readonly IGenerateKeyRangesService _keyRangesGenerator;
         protected readonly ICheckAnswersService _checkAnswersService;
 
-        protected List<string> _keysLeft;
-
         public ASolverService(IGenerateKeyRangesService keyRangesGenerator,
             ICheckAnswersService checkAnswersService)
         {
@@ -66,10 +64,10 @@ namespace Mastermind.Services.Solvers
             return keySpace[0];
         }
 
-        protected void PruneKeys(IAnswerCheckDto dto, string keyGuess)
+        protected void PruneKeys(List<string> keysLeft, IAnswerCheckDto dto, string keyGuess)
         {
-            _keysLeft.Remove(keyGuess);
-            _keysLeft.RemoveAll(key => IsKeyToBeRemoved(key, keyGuess, dto));
+            keysLeft.Remove(keyGuess);
+            keysLeft.RemoveAll(key => IsKeyToBeRemoved(key, keyGuess, dto));
         }
 
         public IAnswerCheckDto CheckAnswer(string key, string guess) {

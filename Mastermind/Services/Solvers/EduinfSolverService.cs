@@ -20,7 +20,7 @@ namespace Mastermind.Services.Solvers
         {
             // simplified Knuth five-guess algorithm from EduInf page 
             var dto = BuildInitialState(mastermindGame);
-            _keysLeft = _keyRangesGenerator.GenerateCodes(mastermindGame.Settings).ToList();
+            var keysLeft = _keyRangesGenerator.GenerateCodes(mastermindGame.Settings).ToList();
             
             string keyGuess = GetInitialKeyGuess(dto.Settings.Digits);
 
@@ -31,8 +31,8 @@ namespace Mastermind.Services.Solvers
 
                 if (!dto.LastCheck.IsCorrect)
                 {
-                    PruneKeys(dto.LastCheck, keyGuess);
-                    keyGuess = GetFirstKeyGuess(_keysLeft);
+                    PruneKeys(keysLeft, dto.LastCheck, keyGuess);
+                    keyGuess = GetFirstKeyGuess(keysLeft);
                 }
             }
 

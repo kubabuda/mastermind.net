@@ -28,7 +28,7 @@ namespace Mastermind.Tests.Services.Solvers
         [TestCase("ABCD", 6, 5)]
         [TestCase("CDEF", 6, 5)]
         [TestCase("FFFF", 6, 5)]
-        [TestCase("FFEA", 6, 6)]// uhm
+        [TestCase("FFEA", 6, 7)]// uhm
         [TestCase("FAAA", 6, 6)]
         public void SolveGame_SuccesfullyAt5MovesOrLess_GivenClassicMastermind(string answer, int colors, int roundsLimit)
         {
