@@ -13,7 +13,7 @@ namespace Mastermind
             var generator = new GenerateKeyRangesService();
             var _serviceUnderTests = new KnuthSolverService(generator);
             var colors = 8;
-            var digits = 4;
+            var digits = 5;
             var roundsLimit = 5;
             var settings = new GameSettings(colors, digits, roundsLimit);
             var keys = generator.GenerateCodes(settings);

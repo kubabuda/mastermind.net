@@ -22,14 +22,11 @@ namespace Mastermind.Services.Solvers
 
             for (dto.Round = 0; !IsGameFinished(dto); ++dto.Round)
             {
-                dto.PossibleKeys.Remove(dto.Answer);
-                dto.KeysLeft.Remove(dto.Answer);
-
                 dto.LastCheck = dto.MastermindGame.PlayRound(dto.Answer);
-                dto.Answer = dto.Answer;
 
                 if (!dto.LastCheck.IsCorrect)
                 {
+                    dto.PossibleKeys.Remove(dto.Answer);
                     PruneKeysLeft(dto.KeysLeft, dto);
                     
                     var maxScores = GetMinMax(dto);
@@ -72,7 +69,6 @@ namespace Mastermind.Services.Solvers
             return dto;
         }
 
-// https://github.com/nattydredd/Mastermind-Five-Guess-Algorithm/blob/master/Five-Guess-Algorithm.cpp
         private IEnumerable<string> GetMinMax(IKnuthRoundStateDto dto)
         {
             var score = new Dictionary<string, int>();
