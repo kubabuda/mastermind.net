@@ -11,7 +11,6 @@ namespace Mastermind.Services.Solvers
     public class KnuthSolverService : ASolverService
     {
         private List<string> _possibleKeys;
-        Dictionary<string, IAnswerCheckDto> _answerResults;
 
         public KnuthSolverService(IGenerateKeyRangesService keyRangesGenerator)
             : base(keyRangesGenerator, new AnswerCheckService())
@@ -25,7 +24,6 @@ namespace Mastermind.Services.Solvers
             var dto = BuildInitialState(mastermindGame);
             _possibleKeys = _keyRangesGenerator.GenerateCodes(mastermindGame.Settings).ToList();
             _keysLeft = _possibleKeys.ToList(); // S
-            _answerResults = new Dictionary<string, IAnswerCheckDto>();
             
             string keyGuess = GetInitialKeyGuess(dto.Settings.Digits);
 
@@ -33,12 +31,11 @@ namespace Mastermind.Services.Solvers
             {
                 dto.LastCheck = dto.MastermindGame.PlayRound(keyGuess);
                 dto.Answer = keyGuess;
-                _answerResults[keyGuess] = dto.LastCheck;
 
                 if (!dto.LastCheck.IsCorrect)
                 {
                     PruneKeys(dto.LastCheck, keyGuess);
-                    var maxScores = GetMinMax();
+                    var maxScores = GetMinMax(_possibleKeys,_keysLeft);
                     keyGuess = GetNextGuess(maxScores);
                 }
             }
@@ -62,7 +59,7 @@ namespace Mastermind.Services.Solvers
         }
 
 // https://github.com/nattydredd/Mastermind-Five-Guess-Algorithm/blob/master/Five-Guess-Algorithm.cpp
-        private IEnumerable<string> GetMinMax()
+        private IEnumerable<string> GetMinMax(IEnumerable<string> possibleKeys, IEnumerable<string> keysLeft)
         {
             var score = new Dictionary<string, int>();
             var scoreCount = new Dictionary<IAnswerCheckDto, int>();
@@ -70,12 +67,13 @@ namespace Mastermind.Services.Solvers
             foreach(var possibleKey in _possibleKeys) {
                 foreach(var keyLeft in _keysLeft) {
                     var check = CheckAnswer(possibleKey, keyLeft);
-                    try
+                    if(scoreCount.Keys.Contains(check)) 
                     {
                         var count = scoreCount[check];
                         scoreCount[check] = count + 1;
                     }
-                    catch(KeyNotFoundException) {
+                    else
+                    {
                         scoreCount[check] = 1;
                     }
                 }
