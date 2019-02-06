@@ -8,6 +8,7 @@
 ### Lai optimal strategy
 Depth-first backtracking algorithm.
 [An Optimal Mastermind (4,7) Strategy](https://arxiv.org/pdf/1305.1010.pdf)
+[Here](http://serkangur.freeservers.com/MMOptimalPlayer.xlsm) is Excel file with optimal algo as VBA script
 
 ### Misc
 [YET ANOTHER MASTERMIND STRATEGY](http://www.philos.rug.nl/~barteld/master.pdf)
