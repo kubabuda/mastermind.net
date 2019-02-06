@@ -8,6 +8,9 @@ using System.Linq;
 
 namespace Mastermind.Services.Solvers
 {
+    /*
+        Based on https://eduinf.waw.pl/inf/alg/001_search/0062.php and Swaszek (1999) publication
+     */
     public class EduinfSolverService : ASolverService
     {
         public EduinfSolverService(IGenerateKeyRangesService keyRangesGenerator)
