@@ -19,8 +19,6 @@ namespace Mastermind.Services.Solvers
         {
             // Knuth five-guess algorithm from wiki
             var dto = BuildInitialState(mastermindGame);
-            
-            dto.Answer = GetInitialKeyGuess(dto.Settings.Digits);
 
             for (dto.Round = 0; !IsGameFinished(dto); ++dto.Round)
             {
@@ -33,7 +31,6 @@ namespace Mastermind.Services.Solvers
                 if (!dto.LastCheck.IsCorrect)
                 {
                     PruneKeysLeft(dto.KeysLeft, dto);
-                    // keysLeft.RemoveAll(key => IsKeyToBeRemoved(key, dto.Answer, dto.LastCheck));
                     
                     var maxScores = GetMinMax(dto);
                     dto.Answer = GetNextGuess(dto, maxScores);
@@ -65,7 +62,7 @@ namespace Mastermind.Services.Solvers
 
             var dto = new KnuthSolvingRoundStateDto()
             {
-                Answer = string.Empty,
+                Answer = GetInitialKeyGuess(mastermindGame.Settings.Digits),
                 Round = 0,
                 MastermindGame = mastermindGame,
                 PossibleKeys = allKeys.ToList(),
