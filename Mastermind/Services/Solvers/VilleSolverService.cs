@@ -16,7 +16,7 @@ namespace Mastermind.Services.Solvers
         
         }
 
-        public IGameResultDto SolveGame(IMastermindGame mastermindGame)
+        public override IGameResultDto SolveGame(IMastermindGame mastermindGame)
         {
             throw new System.NotImplementedException();
         }

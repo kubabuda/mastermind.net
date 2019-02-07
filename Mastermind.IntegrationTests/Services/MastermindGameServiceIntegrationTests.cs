@@ -4,7 +4,7 @@ using Mastermind.Services.Interfaces;
 using NUnit.Framework;
 using System.Collections.Generic;
 
-namespace Mastermind.Tests.Services
+namespace Mastermind.IntegrationTests.Services
 {
     public class MastermindGameServiceIntegrationTests
     {

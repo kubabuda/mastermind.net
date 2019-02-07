@@ -3,7 +3,7 @@ using Mastermind.Services.Interfaces;
 using Mastermind.Services.Solvers;
 using NUnit.Framework;
 
-namespace Mastermind.Tests.Services.Solvers
+namespace Mastermind.IntegrationTests.Services.Solvers
 {
     public class BruteforceSolverServiceIntegrationTests
     {

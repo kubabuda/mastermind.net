@@ -6,7 +6,7 @@ using NSubstitute;
 using NUnit.Framework;
 using System.Collections.Generic;
 
-namespace Mastermind.Tests.Services.Solvers
+namespace Mastermind.IntegrationTests.Services.Solvers
 {
     [TestFixture]
     public class EduinfSolverServiceIntegrationTests
