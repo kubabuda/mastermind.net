@@ -96,6 +96,8 @@ namespace Mastermind.Tests.Services
         [TestCase(0, 6, 3, "111")]
         [TestCase(1, 6, 3, "211")]
         [TestCase(545, 6, 4, "6143")]
+        [TestCase(100, 8, 5, "55211")]
+        [TestCase(1000, 8, 5, "16821")]
         public void ConvertToCode(int value, int colors, int digits, string expectedCode)
         {
             gameSettings.Colors.Returns(colors);

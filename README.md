@@ -47,12 +47,22 @@ This averages no more than 5 guesses.
 # Stats
 
 For Swaszek algo on Mastermind(4, 6):
-Mean rounds per solution is 5.02623456790123 
-Pessimistic case is 2621 with 7 rounds
+Mean rounds per solution is 5.03163580246914
+Example with most rounds - 8 - is 5622
+Mean execution time is 951.299252546296 ms
+Longest execution time 1917.6486 ms found for 6666
 
 For Swaszek algo on Mastermind(5, 8):
 Mean rounds per solution is 6.83413696289062
-Pessimistic case is 76588 with 12 rounds
+Example with most rounds - 12 - is 76588
+Mean execution time is 728734.390547989 ms
+Longest execution time 1431102.497 ms found for 88888
 
 For Knuth algo on Mastermind(4, 6):
 Mean rounds per solution is 4.47608024691358 
+
+For Knuth algo on Mastermind(5, 8):
+Mean rounds per solution is 5.393
+Example with most rounds - 7 - is 55321
+Mean execution time is 23781656.7436904 ms
+Longest execution time 63546541.754 ms found for 85821

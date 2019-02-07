@@ -16,8 +16,8 @@ namespace Mastermind
             // var answer = "1234";
             // PlayWithHumanCodeBreaker(answer);
             
-            TestKnuthOnRange();
-            // TestEduInfOnRange();
+            // TestKnuthOnRange();
+            TestEduInfOnRange();
         }
 
         private static void PlayWithHumanCodeBreaker(string answer)
@@ -50,13 +50,13 @@ namespace Mastermind
         public static  void TestOnRange(ISolveMastermindService serviceUnderTests, string algoLabel)
         {
             // Arrange
-            var colors = 8;
-            var digits = 5;
+            var colors = 6;
+            var digits = 4;
             var roundLimit = 17;
             var settings = new GameSettings(colors, digits, roundLimit);
 
             var generator = new GenerateKeyRangesService();
-            var keys = generator.GenerateCodes(settings).Take(10);
+            var keys = generator.GenerateCodes(settings);
             var gameFactory = new GameFactory();
 
             var fails = new Dictionary<string, int>();
@@ -79,7 +79,7 @@ namespace Mastermind
             // Assert
                 stopwatch.Stop();
                 allRoundsCount += result.Rounds;
-                elapsedTotal.Add(stopwatch.Elapsed);
+                elapsedTotal = elapsedTotal.Add(stopwatch.Elapsed);
                 if (answer != result.Answer || result.Rounds > settings.RoundLimit)
                 {
                     Console.WriteLine($"Got {result.Answer} in {result.Rounds} rounds");
@@ -108,10 +108,10 @@ namespace Mastermind
             }
             double mean = (double)allRoundsCount / keys.Count();
             Console.WriteLine($"\rMean rounds per solution is {mean}");
-            Console.WriteLine($"Pessimistic case is {maxExample} with {maxRounds} rounds");
+            Console.WriteLine($"Example with most rounds - {maxRounds} - is {maxExample}");
             double meanExecMs = (double)elapsedTotal.TotalMilliseconds / keys.Count();
-            Console.WriteLine($"\rMean execution time is {meanExecMs}");
-            Console.WriteLine($"Pessimistic case is {longestExecutionExample} with {longestElapsed.TotalMilliseconds} ms");
+            Console.WriteLine($"\rMean execution time is {meanExecMs} ms");
+            Console.WriteLine($"Longest execution time {longestElapsed.TotalMilliseconds} ms found for {longestExecutionExample}");
         }
     }
 }

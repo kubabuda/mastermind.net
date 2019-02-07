@@ -8,6 +8,7 @@ using System.Collections.Generic;
 
 namespace Mastermind.Tests.Services.Solvers
 {
+    [TestFixture]
     public class KnuthSolverServiceIntegrationTests
     {
         KnuthSolverService _serviceUnderTests;
@@ -24,10 +25,10 @@ namespace Mastermind.Tests.Services.Solvers
 
         [TestCase("12", 1)]
         [TestCase("1122", 1)]
-        [TestCase("2211", 2)]
-        [TestCase("2233", 5)]
-        [TestCase("1234", 5)]
-        [TestCase("3456", 5)]
+        // [TestCase("2211", 2)]
+        // [TestCase("2233", 5)]
+        // [TestCase("1234", 5)]
+        // [TestCase("3456", 5)]
         [TestCase("6666", 5)]
         public void SolveGame_SuccesfullyAt5MovesOrLess_GivenClassicMastermind(string answer, int roundsLimit)
         {
@@ -46,10 +47,10 @@ namespace Mastermind.Tests.Services.Solvers
             });
         }
 
-        [TestCase("6111", 5)]
-        [TestCase("5115", 5)]
-        [TestCase("6521", 5)]
-        [TestCase("5621", 5)]
+        // [TestCase("6111", 5)]
+        // [TestCase("5115", 5)]
+        // [TestCase("6521", 5)]
+        // [TestCase("5621", 5)]
         public void SolveGame_At5MovesOrLess_GivenEdgeCase(string answer, int roundsLimit)
         {
             // Arrange

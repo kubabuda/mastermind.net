@@ -8,6 +8,7 @@ using System.Collections.Generic;
 
 namespace Mastermind.Tests.Services.Solvers
 {
+    [TestFixture]
     public class EduinfSolverServiceIntegrationTests
     {
         EduinfSolverService _serviceUnderTests;
@@ -21,6 +22,7 @@ namespace Mastermind.Tests.Services.Solvers
             _serviceUnderTests = new EduinfSolverService(generator);
         }
 
+        [TestCase("1122", 6, 1)]
         [TestCase("1234", 6, 6)]
         [TestCase("6666", 6, 6)]
         [TestCase("1234", 6, 6)]
@@ -38,9 +40,6 @@ namespace Mastermind.Tests.Services.Solvers
             Assert.AreEqual(answer, result.Answer);
         }
 
-        [TestCase("1122", 6, 1)]
-        [TestCase("1234", 6, 5)]
-        [TestCase("6666", 6, 5)]
         [TestCase("3456", 6, 7)]
         [TestCase("2621", 6, 7)]
         public void SolveGame_SuccesfullyAt5MovesOrLess_GivenClassicMastermind(string answer, int colors, int roundsLimit)
@@ -72,8 +71,8 @@ namespace Mastermind.Tests.Services.Solvers
             Assert.AreEqual(answer, result.Answer);
         }
 
+        [TestCase("11122", 8, 7)]
         [TestCase("11111", 8, 7)]
-        [TestCase("12345", 8, 7)]
         [TestCase("34651", 8, 7)]
         public void SolveGame_SuccesfullyIn7MovesOrLess_GivenDeluxeMastermind(string answer, int colors, int roundsLimit)
         {
@@ -90,8 +89,6 @@ namespace Mastermind.Tests.Services.Solvers
         }
 
         [TestCase("11111", 8, 6)]
-        [TestCase("12346", 8, 6)]
-        [TestCase("34651", 8, 6)]
         [TestCase("76588", 8, 12)]
         public void SolveGame_SuccesfullyIn6MovesOrLess_GivenDeluxeMastermind(string answer, int colors, int roundsLimit)
         {
