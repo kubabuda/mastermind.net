@@ -46,37 +46,55 @@ This averages no more than 5 guesses.
 
 # Stats
 
-For Swaszek algo on Mastermind(4, 6):
-Mean rounds per solution is 5.03163580246914
-Example with most rounds - 8 - is 5622
-Mean execution time is 951.299252546296 ms
-
-For Knuth algo on Mastermind(4, 6):
-Mean rounds per solution is 4.47608024691358
-Example with most rounds - 5 - is 3111
-Mean execution time is 161179.983200309 ms
+## Mastermind(4, 6)
 
 For EduInf algo on Mastermind(4, 6):
 Mean rounds per solution is 4.65663580246914
 Example with most rounds - 8 - is 4356
-Mean execution time is 871.767198919753 ms
-
-For EduInf algo on Mastermind(4, 6):
-Mean rounds per solution is 4.67592592592593
-Example with most rounds - 7 - is 6111
 Mean execution time is 1.46097962962963 ms
 Longest execution time 7.7727 ms found for 1111
+
+For Knuth algo on Mastermind(4, 6):
+Mean rounds per solution is 4.47608024691358
+Example with most rounds - 5 - is 3111
+Mean execution time is 259.446481944444 ms
+Longest execution time 506.1308 ms found for 4664
+
+For Swaszek algo on Mastermind(4, 6):
+Mean rounds per solution is 5.03163580246914
+Example with most rounds - 8 - is 5622
+Mean execution time is 1.4441050154321 ms
+Longest execution time 3.4595 ms found for 2653
+
+
+## Mastermind(5, 8)
+
+
+For EduInf algo on Mastermind(5, 8):
+Mean rounds per solution is 5.92037963867188
+Example with most rounds - 9 - is 43321
+Mean execution time is 52.277607244873 ms
+Longest execution time 134.2737 ms found for 21655
+
+###Take(50)
+For Knuth algo on Mastermind(5, 8): 
+Mean rounds per solution is 5.2
+Example with most rounds - 6 - is 71111
+Mean execution time is 27642.746722 ms
+Longest execution time 50767.6058 ms found for 13111
+
+###hard [7] cases
+For Knuth algo on Mastermind(5, 8): 
+Mean rounds per solution is 5.393
+Example with most rounds - 7 - is 55321
+Mean execution time is 172740.7035 ms
+Longest execution time 173627.7862 ms found for 55321
+
+###take(1000)
 
 For Swaszek algo on Mastermind(5, 8):
 Mean rounds per solution is 6.83413696289062
 Example with most rounds - 12 - is 76588
-Mean execution time is 728734.390547989 ms
-Longest execution time 1431102.497 ms found for 88888
-
-For Knuth algo on Mastermind(5, 8):
-Mean rounds per solution is 5.393
-Example with most rounds - 7 - is 55321
-Mean execution time is 23781656.7436904 ms
-Longest execution time 63546541.754 ms found for 85821
-
+Mean execution time is 51.69709503479 ms
+Longest execution time 232.4573 ms found for 21762
 
