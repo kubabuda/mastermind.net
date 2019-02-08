@@ -16,7 +16,7 @@ namespace Mastermind
             // var answer = "1234";
             // PlayWithHumanCodeBreaker(answer);
             
-            TestKnuthOnRange();
+            // TestKnuthOnRange();
             TestEduInfOnRange();
         }
 
@@ -102,6 +102,7 @@ namespace Mastermind
                         longestExecutionExample = answer;
                     }
                 }
+                stopwatch.Reset();
             }
 
             Console.WriteLine($"\rFor {algoLabel} algo on Mastermind({digits}, {colors}):");
