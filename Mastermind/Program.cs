@@ -16,7 +16,7 @@ namespace Mastermind
             // var answer = "1234";
             // PlayWithHumanCodeBreaker(answer);
             
-            // TestKnuthOnRange();
+            TestKnuthOnRange();
             TestEduInfOnRange();
         }
 
@@ -43,6 +43,13 @@ namespace Mastermind
         public static void TestEduInfOnRange(){
             var generator = new GenerateKeyRangesService();
             var serviceUnderTests = new EduinfSolverService(generator);
+
+            TestOnRange(serviceUnderTests, "EduInf");
+        }
+
+        public static void TestSwaszekOnRange(){
+            var generator = new GenerateKeyRangesService();
+            var serviceUnderTests = new SwaszekSolverService(generator);
 
             TestOnRange(serviceUnderTests, "Swaszek");
         }

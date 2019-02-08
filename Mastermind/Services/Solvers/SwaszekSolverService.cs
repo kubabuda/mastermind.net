@@ -9,11 +9,11 @@ using System.Linq;
 namespace Mastermind.Services.Solvers
 {
     /*
-        Swaszek heuristic with randomized selection
+        Swaszek heuristic
      */
-    public class EduinfSolverService : ASolverService
+    public class SwaszekSolverService : ASolverService
     {
-        public EduinfSolverService(IGenerateKeyRangesService keyRangesGenerator)
+        public SwaszekSolverService(IGenerateKeyRangesService keyRangesGenerator)
             : base(keyRangesGenerator, new AnswerCheckService())
         {
         
@@ -30,7 +30,7 @@ namespace Mastermind.Services.Solvers
                 if (!dto.LastCheck.IsCorrect)
                 {
                     PruneKeysLeft(dto.KeysLeft, dto);
-                    dto.Answer = GetRandomKeyGuess(dto.KeysLeft);
+                    dto.Answer = GetFirstKeyGuess(dto.KeysLeft);
                 }
             }
 
