@@ -11,10 +11,9 @@ namespace Mastermind
 {
     class Program
     {
-        const int colors = 6;
-        const int digits = 4;
-        const int roundLimit = 7;
-        const int rangeLimit = 10;
+        const int colors = 8;
+        const int digits = 5;
+        const int roundLimit = 12;
 
         static void Main(string[] args)
         {
@@ -22,9 +21,9 @@ namespace Mastermind
             // PlayWithHumanCodeBreaker(answer);
             
             // TestKnuthOnRange();
-            TestKnuthParallelOnRange();
+            // TestKnuthParallelOnRange();
             // TestSwaszekOnRange();
-            // TestEduInfOnRange();
+            TestEduInfOnRange();
         }
 
         private static void PlayWithHumanCodeBreaker(string answer)
@@ -47,9 +46,8 @@ namespace Mastermind
             // var keys = new[] { "83721", "55321", "85821", "55321" };
             // var keys = new[] { "83111" };
             var keys = generator.GenerateCodes(settings);
-            // if(rangeLimit > 0) {
-            //     keys = keys.Take(rangeLimit);
-            // }
+            var rangeLimit = 100;
+            keys = keys.Take(rangeLimit);
             return keys;
         }
 
@@ -105,7 +103,7 @@ namespace Mastermind
                 ++i;
                 var mastermindGame = gameFactory.PrepareGame(answer, settings);
 
-                Console.Write($"\r[{i}/{keys.Count()}] '{answer}':");
+                Console.Write($"\r[{i}/{keys.Count()}] '{answer}'");
                 stopwatch.Start();
                 // Act
                 var result = serviceUnderTests.SolveGame(mastermindGame);
@@ -116,11 +114,14 @@ namespace Mastermind
                 elapsedTotal = elapsedTotal.Add(stopwatch.Elapsed);
                 if (answer != result.Answer || result.Rounds > settings.RoundLimit)
                 {
-                    Console.WriteLine($"Got {result.Answer} instead in {result.Rounds} rounds");
+                    Console.WriteLine($"[ERROR] Got {result.Answer} instead in {result.Rounds} rounds!");
                     fails[answer] = result.Rounds;
                 }
                 else
                 {
+                    var meanExexSoFarMs = (double)elapsedTotal.TotalMilliseconds / i;
+                    var ETA = TimeSpan.FromMilliseconds(meanExexSoFarMs * (keys.Count() - i));
+                    Console.Write($"| Mean rounds {((double)allRoundsCount / i):0.00} max {maxRounds} for {maxExample}, mean time {meanExexSoFarMs:0.00} ms, max {longestElapsed.TotalMilliseconds:0.00} ms for {longestExecutionExample} [ETA {ETA}]");
                     if (result.Rounds > maxRounds)
                     {
                         maxRounds = result.Rounds;
@@ -144,11 +145,11 @@ namespace Mastermind
                 Console.WriteLine($"{worstCases.Count()} pessimistic cases - in {worstRoundCount} rounds, example: {worstCaseExample} ");
             }
             double mean = (double)allRoundsCount / keys.Count();
-            Console.WriteLine($"\rMean rounds per solution is {mean}");
+            Console.WriteLine($"\rMean rounds per solution is {mean}{new string(' ', 90)}");
             Console.WriteLine($"Example with most rounds - {maxRounds} - is {maxExample}");
             double meanExecMs = (double)elapsedTotal.TotalMilliseconds / keys.Count();
             Console.WriteLine($"\rMean execution time is {meanExecMs} ms");
-            Console.WriteLine($"Longest execution time {longestElapsed.TotalMilliseconds} ms found for {longestExecutionExample}");
+            Console.WriteLine($"Longest execution time {longestElapsed.TotalMilliseconds} ms found for {longestExecutionExample}");            
         }
     }
 }
