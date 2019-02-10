@@ -11,8 +11,8 @@ namespace Mastermind
 {
     class Program
     {
-        const int colors = 8;
-        const int digits = 5;
+        const int colors = 6;
+        const int digits = 4;
         const int roundLimit = 7;
         const int rangeLimit = 10;
 
@@ -21,7 +21,8 @@ namespace Mastermind
             // var answer = "1234";
             // PlayWithHumanCodeBreaker(answer);
             
-            TestKnuthOnRange();
+            // TestKnuthOnRange();
+            TestKnuthParallelOnRange();
             // TestSwaszekOnRange();
             // TestEduInfOnRange();
         }
@@ -44,6 +45,7 @@ namespace Mastermind
         {
             var generator = new GenerateKeyRangesService();
             // var keys = new[] { "83721", "55321", "85821", "55321" };
+            // var keys = new[] { "83111" };
             var keys = generator.GenerateCodes(settings);
             // if(rangeLimit > 0) {
             //     keys = keys.Take(rangeLimit);
@@ -57,6 +59,14 @@ namespace Mastermind
 
             TestOnRange(serviceUnderTests, "Knuth");
         }
+
+        public static void TestKnuthParallelOnRange(){
+            var generator = new GenerateKeyRangesService();
+            var serviceUnderTests = new KnuthSolverParallelService(generator);
+
+            TestOnRange(serviceUnderTests, "KnuthParallel");
+        }
+
 
         public static void TestEduInfOnRange(){
             var generator = new GenerateKeyRangesService();

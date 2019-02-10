@@ -39,7 +39,7 @@ namespace Mastermind.Services.Solvers
             return new GameResultDto(dto.MastermindGame.LastCheck.IsCorrect, dto.Answer, dto.MastermindGame.RoundsPlayed);
         }
 
-        private string GetNextGuess(IKnuthRoundStateDto dto, IEnumerable<string> maxScores)
+        protected string GetNextGuess(IKnuthRoundStateDto dto, IEnumerable<string> maxScores)
         {
             foreach(var maxScoredCode in maxScores) {
                 if (dto.KeysLeft.Contains(maxScoredCode)) 
@@ -71,12 +71,12 @@ namespace Mastermind.Services.Solvers
             return dto;
         }
 
-        private IEnumerable<string> GetMinMax(IKnuthRoundStateDto dto)
+        public virtual IEnumerable<string> GetMinMax(IKnuthRoundStateDto dto)
         {
             var score = new Dictionary<string, int>();
-            var scoreCount = new Dictionary<string, int>();
 
             foreach(var possibleKey in dto.PossibleKeys) {
+                var scoreCount = new Dictionary<string, int>();
                 foreach(var keyLeft in dto.KeysLeft) {
                     var checkValue = CheckAnswer(possibleKey, keyLeft);
                     var check = $"{checkValue.WhitePoints}.{checkValue.BlackPoints}";
@@ -91,8 +91,7 @@ namespace Mastermind.Services.Solvers
                     }
                 }
                 var max = scoreCount.Values.Max();
-                score[possibleKey] = max;
-                scoreCount.Clear();
+                score[possibleKey] = max;                
             }
             var min = score.Values.Min();
             var result = score.Keys
