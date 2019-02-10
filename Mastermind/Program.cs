@@ -13,8 +13,8 @@ namespace Mastermind
     {
         const int colors = 8;
         const int digits = 5;
-        const int roundLimit = 12;
-        const int rangeLimit = 1000;
+        const int roundLimit = 7;
+        const int rangeLimit = 10;
 
         static void Main(string[] args)
         {
@@ -28,7 +28,7 @@ namespace Mastermind
 
         private static void PlayWithHumanCodeBreaker(string answer)
         {
-            var colors = 6;
+            // var colors = 6;
             var roundsLimit = 6;
 
             var gameFactory = new GameFactory();
@@ -37,6 +37,18 @@ namespace Mastermind
             gameplay.SolveGame(game);
 
             Console.ReadLine();
+        }
+
+
+        private static IEnumerable<string> GetKeysRange(IGameSettings settings)
+        {
+            var generator = new GenerateKeyRangesService();
+            // var keys = new[] { "83721", "55321", "85821", "55321" };
+            var keys = generator.GenerateCodes(settings);
+            // if(rangeLimit > 0) {
+            //     keys = keys.Take(rangeLimit);
+            // }
+            return keys;
         }
 
         public static void TestKnuthOnRange(){
@@ -64,15 +76,9 @@ namespace Mastermind
         {
             // Arrange
             var settings = new GameSettings(colors, digits, roundLimit);
-            var generator = new GenerateKeyRangesService();
             var gameFactory = new GameFactory();
-            
-            // var keys = new [] { "55321", "85821", "55321" };
-            var keys = generator.GenerateCodes(settings);
-            if(rangeLimit > 0) {
-                keys = keys.Take(rangeLimit);
-            }
-            
+            var keys = GetKeysRange(settings);
+
             var fails = new Dictionary<string, int>();
             long allRoundsCount = 0;
             var maxRounds = 0;
@@ -91,10 +97,10 @@ namespace Mastermind
 
                 Console.Write($"\r[{i}/{keys.Count()}] '{answer}':");
                 stopwatch.Start();
-            // Act
+                // Act
                 var result = serviceUnderTests.SolveGame(mastermindGame);
 
-            // Assert
+                // Assert
                 stopwatch.Stop();
                 allRoundsCount += result.Rounds;
                 elapsedTotal = elapsedTotal.Add(stopwatch.Elapsed);
@@ -103,12 +109,15 @@ namespace Mastermind
                     Console.WriteLine($"Got {result.Answer} instead in {result.Rounds} rounds");
                     fails[answer] = result.Rounds;
                 }
-                else {
-                    if (result.Rounds > maxRounds) {
+                else
+                {
+                    if (result.Rounds > maxRounds)
+                    {
                         maxRounds = result.Rounds;
                         maxExample = answer;
                     }
-                    if (stopwatch.Elapsed > longestElapsed) {
+                    if (stopwatch.Elapsed > longestElapsed)
+                    {
                         longestElapsed = stopwatch.Elapsed;
                         longestExecutionExample = answer;
                     }
@@ -117,7 +126,7 @@ namespace Mastermind
             }
             // display results
             if (fails.Keys.Count() > 0)
-            { 
+            {
                 Console.WriteLine($"Failed to find solution in {fails.Count()} ");
                 var worstRoundCount = fails.Values.Max();
                 var worstCases = fails.Where((k, v) => v == worstRoundCount).Select((k, v) => k);

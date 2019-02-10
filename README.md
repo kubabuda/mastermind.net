@@ -14,6 +14,11 @@ Depth-first backtracking algorithm.
 
 [Defeating Mastermind By Justin Dowell](http://mercury.webster.edu/aleshunas/Support%20Materials/Analysis/Dowelll%20-%20Mastermind%20v2-0.pdf)
 
+#Todo
+
+- Knuth multithreadinf
+- Optimal algo
+- Genetic algo
 
 #Done ✔️
 
@@ -76,25 +81,16 @@ Example with most rounds - 9 - is 43321
 Mean execution time is 52.277607244873 ms
 Longest execution time 134.2737 ms found for 21655
 
-###Take(50)
-For Knuth algo on Mastermind(5, 8): 
-Mean rounds per solution is 5.2
-Example with most rounds - 6 - is 71111
-Mean execution time is 27642.746722 ms
-Longest execution time 50767.6058 ms found for 13111
-
-###hard [7] cases
-For Knuth algo on Mastermind(5, 8): 
+For Knuth algo on Mastermind(5, 8):
 Mean rounds per solution is 5.393
 Example with most rounds - 7 - is 55321
-Mean execution time is 172740.7035 ms
-Longest execution time 173627.7862 ms found for 55321
-
-###take(1000)
+Mean execution time is 55343.4596009 ms
+Longest execution time 149153.2444 ms found for 83721
 
 For Swaszek algo on Mastermind(5, 8):
 Mean rounds per solution is 6.83413696289062
 Example with most rounds - 12 - is 76588
 Mean execution time is 51.69709503479 ms
 Longest execution time 232.4573 ms found for 21762
+
 
