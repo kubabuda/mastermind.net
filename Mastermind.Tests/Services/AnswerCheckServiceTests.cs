@@ -4,6 +4,7 @@ using Mastermind.Services.Interfaces;
 using NSubstitute;
 using NUnit.Framework;
 using System;
+using System.Linq;
 
 namespace Mastermind.Tests.Services
 {
@@ -46,8 +47,8 @@ namespace Mastermind.Tests.Services
             Assert.AreEqual(blackPoints, result.BlackPoints);
         }
 
-        [TestCase("ACAB", "AABC", 1, 3)]
-        [TestCase("AABB", "CCDD", 0, 0)]
+        [TestCase("1312", "1123", 1, 3)]
+        [TestCase("1122", "3344", 0, 0)]
         public void CheckAnswer_returnsProperWhiteAndBlackPoints_GivenAnswerAndExpectedAnswer(string answer, string correctAnswer, int whitePoints, int blackPoints)
         {
             var result = _serviceUnderTests.CheckAnswer(correctAnswer, answer);
@@ -56,8 +57,8 @@ namespace Mastermind.Tests.Services
             Assert.AreEqual(blackPoints, result.BlackPoints);
         }
 
-        [TestCase("ACAB", "AABC")]
-        [TestCase("AABB", "CCDD")]
+        [TestCase("1312", "1123")]
+        [TestCase("1122", "1144")]
         public void CheckAnswer_ShouldReturnTheSame_GivenReversedParameters(string answer1, string answer2)
         {
             var result1 = _serviceUnderTests.CheckAnswer(answer1, answer2);
@@ -74,7 +75,7 @@ namespace Mastermind.Tests.Services
         [TestCase("aAa", 0, 0, false)]        
         public void BuildAnswerCheck_ReturnsAnswerCheck_GivenCorrectAnswerWhiteAndBlackPoints(string correctAnswer, int whitePts, int blackPts, bool isValid)
         {
-            var result = _serviceUnderTests.BuildAnswerCheck(correctAnswer, whitePts, blackPts);
+            var result = _serviceUnderTests.BuildAnswerCheck(correctAnswer.Length, whitePts, blackPts);
             Assert.AreEqual(whitePts, result.WhitePoints);
             Assert.AreEqual(blackPts, result.BlackPoints);
             Assert.AreEqual(isValid, result.IsCorrect);
@@ -89,7 +90,7 @@ namespace Mastermind.Tests.Services
         [TestCase("", 0, 0)]
         public void BuildAnswerCheck_ThrowsArgumentException_GivenInvalidData(string correctAnswer, int whitePts, int blackPts)
         {
-            Assert.Throws<ArgumentException>(() => _serviceUnderTests.BuildAnswerCheck(correctAnswer, whitePts, blackPts));
+            Assert.Throws<ArgumentException>(() => _serviceUnderTests.BuildAnswerCheck(correctAnswer.Length, whitePts, blackPts));
         }
 
         [TestCase("3456", 6, 4, true)]
@@ -115,6 +116,62 @@ namespace Mastermind.Tests.Services
 
             // assert
             Assert.AreEqual(expectedResult, result);
+        }
+
+        [Test]
+        public void CheckAnswer_returns1White3BlackPoints_Given1312and1123()
+        {
+            // Arrange
+            var correctAnswer = new byte[] { 1, 3, 1, 2 };
+            var answer = new byte[] { 1, 1, 2, 3 };
+
+            // Act
+            var result = _serviceUnderTests.CheckAnswer(correctAnswer, answer);
+
+            // Assert
+            Assert.AreEqual(1, result.WhitePoints);
+            Assert.AreEqual(3, result.BlackPoints);
+        }
+
+        [Test]
+        public void CheckAnswer_returns0White0BlackPoints_Given1122and3344()
+        {
+            // Arrange
+            var correctAnswer = new byte[] { 1, 1, 2, 2 };
+            var answer = new byte[] { 3, 3, 4, 4 };
+
+            // Act
+            var result = _serviceUnderTests.CheckAnswer(correctAnswer, answer);
+
+            // Assert
+            Assert.AreEqual(0, result.WhitePoints);
+            Assert.AreEqual(0, result.BlackPoints);
+        }
+
+        [Test]
+        public void CheckAnswer_ShouldReturnTheSame_Given1312and1123()
+        {
+            var answer1 = new byte[] { 1, 2, 1, 2 };
+            var answer2 = new byte[] { 1, 1, 2, 3 };
+
+            var result1 = _serviceUnderTests.CheckAnswer(answer1, answer2);
+            var result2 = _serviceUnderTests.CheckAnswer(answer2, answer1);
+
+            Assert.AreEqual(result1.WhitePoints, result2.WhitePoints);
+            Assert.AreEqual(result1.BlackPoints, result2.BlackPoints);
+        }
+
+        [Test]
+        public void CheckAnswer_ShouldReturnTheSame_Given1122and1144()
+        {
+            var answer1 = new byte[] { 1, 1, 2, 2 };
+            var answer2 = new byte[] { 1, 1, 4, 4 };
+
+            var result1 = _serviceUnderTests.CheckAnswer(answer1, answer2);
+            var result2 = _serviceUnderTests.CheckAnswer(answer2, answer1);
+
+            Assert.AreEqual(result1.WhitePoints, result2.WhitePoints);
+            Assert.AreEqual(result1.BlackPoints, result2.BlackPoints);
         }
     }
 }

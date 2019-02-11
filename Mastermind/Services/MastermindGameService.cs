@@ -19,7 +19,7 @@ namespace Mastermind.Services
         public IAnswerCheckDto LastCheck
         {
             get => _answers.Count == 0 ?
-                _checkAnswersService.BuildAnswerCheck(_correctAnswer, 0, 0) :
+                _checkAnswersService.BuildAnswerCheck(_correctAnswer.Length, 0, 0) :
                 AnswerChecks[_answers.Last()];
         }
 

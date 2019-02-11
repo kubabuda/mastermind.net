@@ -7,11 +7,11 @@
 
         public bool IsCorrect { get; private set; }
 
-        public AnswerCheckDto(int white, int black, bool answerLength)
+        public AnswerCheckDto(int white, int black, bool isCorrect)
         {
             WhitePoints = white;
             BlackPoints = black;
-            IsCorrect = answerLength;
+            IsCorrect = isCorrect;
         }
     }
 }

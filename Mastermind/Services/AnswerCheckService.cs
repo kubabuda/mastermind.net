@@ -7,6 +7,43 @@ namespace Mastermind.Services
 {
     public class AnswerCheckService: ICheckAnswersService
     {
+        public IAnswerCheckDto CheckAnswer(byte[] correctAnswer, byte[] answer) 
+        {
+            if (correctAnswer.Length != answer.Length)
+            {
+                throw new ArgumentException("Answer and correct answer lengths are diffrent!");
+            }
+
+            int correctValueAndPosition = 0;
+            var incorrectAnwers = new List<byte>();
+            var correctsAnswers = new List<byte>();
+
+            for (int i = 0; i < answer.Length; ++i)
+            {
+                if (answer[i] == correctAnswer[i])
+                {
+                    correctValueAndPosition++;
+                }
+                else
+                {
+                    incorrectAnwers.Add(answer[i]);
+                    correctsAnswers.Add(correctAnswer[i]);
+                }
+            }
+
+            int correctValueOnWrongPosition = 0;
+            foreach (var c in incorrectAnwers)
+            {
+                if (correctsAnswers.Contains(c))
+                {
+                    correctValueOnWrongPosition++;
+                    correctsAnswers.Remove(c);
+                }
+            }
+
+            return BuildAnswerCheck(correctAnswer.Length, correctValueAndPosition, correctValueOnWrongPosition);
+        }
+
         public IAnswerCheckDto CheckAnswer(string correctAnswer, string answer)
         {
             if (correctAnswer.Length != answer.Length)
@@ -41,13 +78,14 @@ namespace Mastermind.Services
                 }
             }
 
-            return BuildAnswerCheck(correctAnswer, correctValueAndPosition, correctValueOnWrongPosition);
+            return BuildAnswerCheck(correctAnswer.Length, correctValueAndPosition, correctValueOnWrongPosition);
         }
 
-        public IAnswerCheckDto BuildAnswerCheck(string correctAnswer, int whitePts, int blackPts)
+        public IAnswerCheckDto BuildAnswerCheck(int correctAnswerLength, int whitePts, int blackPts)
         {
-            var answerLength = correctAnswer.Length;
-            if(answerLength < whitePts || answerLength < blackPts || answerLength < whitePts + blackPts 
+            var answerLength = correctAnswerLength;
+            if(answerLength < whitePts || answerLength < blackPts
+                || answerLength < whitePts + blackPts 
                 || blackPts < 0 || whitePts < 0 || answerLength < 1)
             {
                 throw new ArgumentException();

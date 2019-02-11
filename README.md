@@ -46,6 +46,7 @@ This averages no more than 5 guesses.
 # Stats
 
 Benchmarks run on i5 3250M on Ubuntu 18.04
+Randomized algorithms results are not 100% reproducible due to randomness
 
 ## Mastermind(4, 6)
 
@@ -100,7 +101,6 @@ Mean rounds per solution is 5.24
 Example with most rounds - 7 - is 43321
 Mean execution time is 38366.1176792 ms
 Longest execution time 110355.2379 ms found for 68421
-
 
 For Swaszek algo on Mastermind(5, 8):
 Mean rounds per solution is 6.83413696289062
