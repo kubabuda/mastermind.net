@@ -39,7 +39,7 @@ namespace Mastermind.Services.Solvers
             return new GameResultDto(dto.MastermindGame.LastCheck.IsCorrect, dto.Answer, dto.MastermindGame.RoundsPlayed);
         }
 
-        protected string GetNextGuess(IKnuthRoundStateDto dto, IEnumerable<string> maxScores)
+        protected virtual string GetNextGuess(IKnuthRoundStateDto dto, IEnumerable<string> maxScores)
         {
             foreach(var maxScoredCode in maxScores) {
                 if (dto.KeysLeft.Contains(maxScoredCode)) 

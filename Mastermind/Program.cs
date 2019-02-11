@@ -19,11 +19,16 @@ namespace Mastermind
         {
             // var answer = "1234";
             // PlayWithHumanCodeBreaker(answer);
-            
-            // TestKnuthOnRange();
-            TestKnuthParallelOnRange();
-            // TestSwaszekOnRange();
-            // TestEduInfOnRange();
+
+            TestKnuthOnRange(new GameSettings(6,4,5));
+
+            var settings = new GameSettings(colors, digits, roundLimit);
+
+            // TestKnuthOnRange(settings);
+            // TestKnuthParallelOnRange(settings);
+            TestKnuthRandomizedParallelOnRange(settings);
+            // TestSwaszekOnRange(settings);
+            // TestEduInfOnRange(settings);
         }
 
         private static void PlayWithHumanCodeBreaker(string answer)
@@ -46,44 +51,49 @@ namespace Mastermind
             // var keys = new[] { "83721", "55321", "85821", "55321" };
             // var keys = new[] { "83111" };
             var keys = generator.GenerateCodes(settings);
-            var rangeLimit = 1000;
-            keys = keys.Take(rangeLimit);
+            // var rangeLimit = 1000;
+            // keys = keys.Take(rangeLimit);
             return keys;
         }
 
-        public static void TestKnuthOnRange(){
+        public static void TestKnuthOnRange(IGameSettings settings){
             var generator = new GenerateKeyRangesService();
             var serviceUnderTests = new KnuthSolverService(generator);
 
-            TestOnRange(serviceUnderTests, "Knuth");
+            TestOnRange(serviceUnderTests, settings, "Knuth");
         }
 
-        public static void TestKnuthParallelOnRange(){
+        public static void TestKnuthParallelOnRange(IGameSettings settings){
             var generator = new GenerateKeyRangesService();
             var serviceUnderTests = new KnuthSolverParallelService(generator);
 
-            TestOnRange(serviceUnderTests, "KnuthParallel");
+            TestOnRange(serviceUnderTests, settings, "KnuthParallel");
         }
 
+        public static void TestKnuthRandomizedParallelOnRange(IGameSettings settings){
+            var generator = new GenerateKeyRangesService();
+            var serviceUnderTests = new KnuthSolverRandomizedParallelService(generator);
 
-        public static void TestEduInfOnRange(){
+            TestOnRange(serviceUnderTests, settings, "KnuthRandomizedParallel");
+        }
+
+        public static void TestEduInfOnRange(IGameSettings settings){
             var generator = new GenerateKeyRangesService();
             var serviceUnderTests = new EduinfSolverService(generator);
 
-            TestOnRange(serviceUnderTests, "EduInf");
+            TestOnRange(serviceUnderTests, settings, "EduInf");
         }
 
-        public static void TestSwaszekOnRange(){
+        public static void TestSwaszekOnRange(IGameSettings settings){
             var generator = new GenerateKeyRangesService();
             var serviceUnderTests = new SwaszekSolverService(generator);
 
-            TestOnRange(serviceUnderTests, "Swaszek");
+            TestOnRange(serviceUnderTests, settings, "Swaszek");
         }
 
-        public static  void TestOnRange(ISolveMastermindService serviceUnderTests, string algoLabel)
+        public static  void TestOnRange(ISolveMastermindService serviceUnderTests, IGameSettings settings, string algoLabel)
         {
             // Arrange
-            var settings = new GameSettings(colors, digits, roundLimit);
             var gameFactory = new GameFactory();
             var keys = GetKeysRange(settings);
 
@@ -97,7 +107,7 @@ namespace Mastermind
             string longestExecutionExample = keys.First();
             int i = 0;
 
-            Console.WriteLine($"\rFor {algoLabel} algo on Mastermind({digits}, {colors}):");
+            Console.WriteLine($"\rFor {algoLabel} algo on Mastermind({settings.Digits}, {settings.Colors}):");
             foreach (var answer in keys)
             {
                 ++i;
