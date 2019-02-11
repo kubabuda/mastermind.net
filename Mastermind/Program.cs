@@ -114,7 +114,7 @@ namespace Mastermind
                 elapsedTotal = elapsedTotal.Add(stopwatch.Elapsed);
                 if (answer != result.Answer || result.Rounds > settings.RoundLimit)
                 {
-                    Console.WriteLine($"[ERROR] Got {result.Answer} instead in {result.Rounds} rounds!");
+                    Console.WriteLine($"[ERROR] Got {result.Answer} instead in {result.Rounds} rounds! {new string(' ', 110)}");
                     fails[answer] = result.Rounds;
                 }
                 else
@@ -138,14 +138,14 @@ namespace Mastermind
             // display results
             if (fails.Keys.Count() > 0)
             {
-                Console.WriteLine($"Failed to find solution in {fails.Count()} ");
+                Console.WriteLine($"Failed to find solution in {fails.Count()} {new string(' ', 110)}");
                 var worstRoundCount = fails.Values.Max();
                 var worstCases = fails.Where((k, v) => v == worstRoundCount).Select((k, v) => k);
                 string worstCaseExample = worstCases.First().Key;
                 Console.WriteLine($"{worstCases.Count()} pessimistic cases - in {worstRoundCount} rounds, example: {worstCaseExample} ");
             }
             double mean = (double)allRoundsCount / keys.Count();
-            Console.WriteLine($"\rMean rounds per solution is {mean}{new string(' ', 90)}");
+            Console.WriteLine($"\rMean rounds per solution is {mean}{new string(' ', 110)}");
             Console.WriteLine($"Example with most rounds - {maxRounds} - is {maxExample}");
             double meanExecMs = (double)elapsedTotal.TotalMilliseconds / keys.Count();
             Console.WriteLine($"\rMean execution time is {meanExecMs} ms");

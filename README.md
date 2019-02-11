@@ -90,7 +90,7 @@ Mean execution time is 55343.4596009 ms
 Longest execution time 149153.2444 ms found for 83721
 
 For KnuthParallel algo on Mastermind(5, 8) (Take(1000)):
-Mean rounds per solution is 5.393                                                                                          00]
+Mean rounds per solution is 5.393
 Example with most rounds - 7 - is 55321
 Mean execution time is 36764.7679221 ms
 Longest execution time 107419.7978 ms found for 37321
