@@ -13,7 +13,7 @@ namespace Mastermind
     {
         const int colors = 8;
         const int digits = 5;
-        const int roundLimit = 12;
+        const int roundLimit = 7;
 
         static void Main(string[] args)
         {
@@ -21,9 +21,9 @@ namespace Mastermind
             // PlayWithHumanCodeBreaker(answer);
             
             // TestKnuthOnRange();
-            // TestKnuthParallelOnRange();
+            TestKnuthParallelOnRange();
             // TestSwaszekOnRange();
-            TestEduInfOnRange();
+            // TestEduInfOnRange();
         }
 
         private static void PlayWithHumanCodeBreaker(string answer)
@@ -46,7 +46,7 @@ namespace Mastermind
             // var keys = new[] { "83721", "55321", "85821", "55321" };
             // var keys = new[] { "83111" };
             var keys = generator.GenerateCodes(settings);
-            var rangeLimit = 100;
+            var rangeLimit = 1000;
             keys = keys.Take(rangeLimit);
             return keys;
         }

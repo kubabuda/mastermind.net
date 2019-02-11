@@ -1,33 +1,27 @@
-#Sources 🤔
+#Mastermind
 
-### Lai optimal strategy
-Depth-first backtracking algorithm.
-
-[An Optimal Mastermind (4,7) Strategy](https://arxiv.org/pdf/1305.1010.pdf)
-
-[Here](http://serkangur.freeservers.com) is Excel file with optimal algo as VBA script
-
-### Misc
-[YET ANOTHER MASTERMIND STRATEGY](http://www.philos.rug.nl/~barteld/master.pdf)
-
-[Efficient solutions for Mastermind using geneticalgorithms](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.496.276&rep=rep1&type=pdf)
-
-[Defeating Mastermind By Justin Dowell](http://mercury.webster.edu/aleshunas/Support%20Materials/Analysis/Dowelll%20-%20Mastermind%20v2-0.pdf)
+This project is implementing known Mastermind algorithms and evaluating them in order to build best Mastermind game solver possible.
+Rules of Mastermind game are well described on [Wikipedia](https://en.wikipedia.org/wiki/Mastermind_(board_game)#Five-guess_algorithm)
+Language choosed is multiplatform C# (.NET Core). Mastermind variants choosen to benchmark on are classic Mastermind(4, 6) - 4 pegs, 6 colors - and Deluxe Mastermind.
+Benchmarked values are mean rounds to solution, worst case of rounds to solution, mean and pessimistic time to solution.
 
 #Todo
 
-- Knuth multithreadinf
+- Knuth multithreading
 - Optimal algo
 - Genetic algo
 
 #Done ✔️
 
 ### Knuth 5 guess algo
-[Computer as Mastermind - Knuth 1976 paper](https://www.cs.uni.edu/~wallingf/teaching/cs3530/resources/knuth-mastermind.pdf)
+
+Classic method from [Knuth 1976 paper "Computer as Mastermind"](https://www.cs.uni.edu/~wallingf/teaching/cs3530/resources/knuth-mastermind.pdf) that started all this.
 
 [C++ implementation](https://github.com/nattydredd/Mastermind-Five-Guess-Algorithm)
 
 [Wikipedia](https://en.wikipedia.org/wiki/Mastermind_(board_game)#Five-guess_algorithm)
+
+Parallelized version was also implemented to improve performance.
 
 ### Swaszek
 Swaszek (1999-2000) gives an analysis of practical strategies that do not require complicated record-keeping or use of a computer. Making a random guess from the set of remaining candidate code sequences gives a surprisingly short average game length of 4.638, while interpreting each guess as a number and using the next higher number consistent with the known information gives a game of average length 4.758. 
@@ -50,6 +44,8 @@ This averages no more than 5 guesses.
 [By Wolfram](http://mathworld.wolfram.com/Mastermind.html)
 
 # Stats
+
+Benchmarks run on i5 3250M on Ubuntu 18.04
 
 ## Mastermind(4, 6)
 
@@ -87,11 +83,17 @@ Example with most rounds - 9 - is 43321
 Mean execution time is 52.277607244873 ms
 Longest execution time 134.2737 ms found for 21655
 
-For Knuth algo on Mastermind(5, 8):
+For Knuth algo on Mastermind(5, 8) (Take(1000)):
 Mean rounds per solution is 5.393
 Example with most rounds - 7 - is 55321
 Mean execution time is 55343.4596009 ms
 Longest execution time 149153.2444 ms found for 83721
+
+For KnuthParallel algo on Mastermind(5, 8) (Take(1000)):
+Mean rounds per solution is 5.393                                                                                          00]
+Example with most rounds - 7 - is 55321
+Mean execution time is 36764.7679221 ms
+Longest execution time 107419.7978 ms found for 37321
 
 For Swaszek algo on Mastermind(5, 8):
 Mean rounds per solution is 6.83413696289062
@@ -99,4 +101,18 @@ Example with most rounds - 12 - is 76588
 Mean execution time is 51.69709503479 ms
 Longest execution time 232.4573 ms found for 21762
 
+#Sources 🤔
 
+### Lai optimal strategy
+Depth-first backtracking algorithm.
+
+[An Optimal Mastermind (4,7) Strategy](https://arxiv.org/pdf/1305.1010.pdf)
+
+[Here](http://serkangur.freeservers.com) is Excel file with optimal algo as VBA script
+
+### Misc
+[YET ANOTHER MASTERMIND STRATEGY](http://www.philos.rug.nl/~barteld/master.pdf)
+
+[Efficient solutions for Mastermind using geneticalgorithms](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.496.276&rep=rep1&type=pdf)
+
+[Defeating Mastermind By Justin Dowell](http://mercury.webster.edu/aleshunas/Support%20Materials/Analysis/Dowelll%20-%20Mastermind%20v2-0.pdf)
