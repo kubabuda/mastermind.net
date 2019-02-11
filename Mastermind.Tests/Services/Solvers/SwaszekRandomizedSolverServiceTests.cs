@@ -8,16 +8,16 @@ using NUnit.Framework;
 
 namespace Mastermind.Tests.Services.Solvers
 {
-    public class EduinfSolverServiceTests
+    public class SwaszekRandomizedSolverServiceTests
     {
         IGenerateKeyRangesService _keyRangesGenerator;
-        EduinfSolverService _serviceUnderTests;
+        SwaszekRandomizedSolverService _serviceUnderTests;
 
         [SetUp]
         public void Setup()
         {
             _keyRangesGenerator = Substitute.For<IGenerateKeyRangesService>();
-            _serviceUnderTests = new EduinfSolverService(_keyRangesGenerator);
+            _serviceUnderTests = new SwaszekRandomizedSolverService(_keyRangesGenerator);
         }
 
         [TestCase(4, "1122")]

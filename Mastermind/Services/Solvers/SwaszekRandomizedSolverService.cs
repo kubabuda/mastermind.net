@@ -11,9 +11,9 @@ namespace Mastermind.Services.Solvers
     /*
         Swaszek heuristic with randomized selection
      */
-    public class EduinfSolverService : ASolverService
+    public class SwaszekRandomizedSolverService : ASolverService
     {
-        public EduinfSolverService(IGenerateKeyRangesService keyRangesGenerator)
+        public SwaszekRandomizedSolverService(IGenerateKeyRangesService keyRangesGenerator)
             : base(keyRangesGenerator, new AnswerCheckService())
         {
         

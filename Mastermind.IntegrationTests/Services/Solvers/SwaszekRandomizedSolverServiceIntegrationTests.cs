@@ -9,9 +9,9 @@ using System.Collections.Generic;
 namespace Mastermind.IntegrationTests.Services.Solvers
 {
     [TestFixture]
-    public class EduinfSolverServiceIntegrationTests
+    public class SwaszekRandomizedSolverServiceIntegrationTests
     {
-        EduinfSolverService _serviceUnderTests;
+        SwaszekRandomizedSolverService _serviceUnderTests;
         IGameFactory _gameFactory;
 
         [SetUp]
@@ -19,7 +19,7 @@ namespace Mastermind.IntegrationTests.Services.Solvers
         {
             _gameFactory = new GameFactory();
             var generator = new GenerateKeyRangesService();
-            _serviceUnderTests = new EduinfSolverService(generator);
+            _serviceUnderTests = new SwaszekRandomizedSolverService(generator);
         }
 
         [TestCase("1122", 6, 1)]

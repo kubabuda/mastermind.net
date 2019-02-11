@@ -28,7 +28,7 @@ namespace Mastermind
             // TestKnuthParallelOnRange(settings);
             TestKnuthRandomizedParallelOnRange(settings);
             // TestSwaszekOnRange(settings);
-            // TestEduInfOnRange(settings);
+            // TestSwaszekRandomizedOnRange(settings);
         }
 
         private static void PlayWithHumanCodeBreaker(string answer)
@@ -77,11 +77,11 @@ namespace Mastermind
             TestOnRange(serviceUnderTests, settings, "KnuthRandomizedParallel");
         }
 
-        public static void TestEduInfOnRange(IGameSettings settings){
+        public static void TestSwaszekRandomizedOnRange(IGameSettings settings){
             var generator = new GenerateKeyRangesService();
-            var serviceUnderTests = new EduinfSolverService(generator);
+            var serviceUnderTests = new SwaszekRandomizedSolverService(generator);
 
-            TestOnRange(serviceUnderTests, settings, "EduInf");
+            TestOnRange(serviceUnderTests, settings, "SwaszekRandomized");
         }
 
         public static void TestSwaszekOnRange(IGameSettings settings){

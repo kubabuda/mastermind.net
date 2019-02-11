@@ -49,12 +49,6 @@ Benchmarks run on i5 3250M on Ubuntu 18.04
 
 ## Mastermind(4, 6)
 
-For EduInf algo on Mastermind(4, 6):
-Mean rounds per solution is 4.65663580246914
-Example with most rounds - 8 - is 4356
-Mean execution time is 1.46097962962963 ms
-Longest execution time 7.7727 ms found for 1111
-
 For Knuth algo on Mastermind(4, 6):
 Mean rounds per solution is 4.47608024691358
 Example with most rounds - 5 - is 3111
@@ -79,15 +73,15 @@ Example with most rounds - 8 - is 5622
 Mean execution time is 1.4441050154321 ms
 Longest execution time 3.4595 ms found for 2653
 
+For SwaszekRandomized algo on Mastermind(4, 6):
+Mean rounds per solution is 4.65663580246914
+Example with most rounds - 8 - is 4356
+Mean execution time is 1.46097962962963 ms
+Longest execution time 7.7727 ms found for 1111
+
 
 ## Mastermind(5, 8)
 
-
-For EduInf algo on Mastermind(5, 8):
-Mean rounds per solution is 5.92037963867188
-Example with most rounds - 9 - is 43321
-Mean execution time is 52.277607244873 ms
-Longest execution time 134.2737 ms found for 21655
 
 For Knuth algo on Mastermind(5, 8) (Take(1000)):
 Mean rounds per solution is 5.393
@@ -113,6 +107,12 @@ Mean rounds per solution is 6.83413696289062
 Example with most rounds - 12 - is 76588
 Mean execution time is 51.69709503479 ms
 Longest execution time 232.4573 ms found for 21762
+
+For SwaszekRandomized algo on Mastermind(5, 8):
+Mean rounds per solution is 5.92037963867188
+Example with most rounds - 9 - is 43321
+Mean execution time is 52.277607244873 ms
+Longest execution time 134.2737 ms found for 21655
 
 
 #Sources 🤔
