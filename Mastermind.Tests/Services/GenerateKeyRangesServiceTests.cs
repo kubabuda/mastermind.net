@@ -78,7 +78,7 @@ namespace Mastermind.Tests.Services
         }
 
         [Test]
-        public void GenerateCodes_returnsAbcdeCodes_For5xx1Game()
+        public void GenerateCodes_returns12345Codes_For5xx1Game()
         {
             gameSettings.Colors.Returns(5);
             gameSettings.Digits.Returns(1);
@@ -86,6 +86,27 @@ namespace Mastermind.Tests.Services
             var result = _serviceUnderTests.GenerateCodes(gameSettings);
 
             Assert.AreEqual(new List<string>() { "1", "2", "3", "4", "5" }, result);
+        }
+
+        [Test]
+        public void GenerateByteCodes_returnsExpectedCodes_For3xx2Game()
+        {
+            gameSettings.Colors.Returns(3);
+            gameSettings.Digits.Returns(2);
+
+            var result = _serviceUnderTests.GenerateByteCodes(gameSettings);
+
+            Assert.AreEqual(new List<byte[]>() {
+                new byte[] { 1, 1 }, 
+                new byte[] { 2, 1 }, 
+                new byte[] { 3, 1 },
+                new byte[] { 1, 2 }, 
+                new byte[] { 2, 2 },
+                new byte[] { 3, 2 },
+                new byte[] { 1, 3 }, 
+                new byte[] { 2, 3 },
+                new byte[] { 3, 3 },
+            }, result);
         }
 
         [TestCase(0, 1, 1, "1")]

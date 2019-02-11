@@ -26,23 +26,9 @@ namespace Mastermind.IntegrationTests.Services.Solvers
         [TestCase("1234", 6, 6)]
         [TestCase("6666", 6, 6)]
         [TestCase("1234", 6, 6)]
-        public void SolveGame_SuccesfullyAt6MovesOrLess_GivenClassicMastermind(string answer, int colors, int roundsLimit)
-        {
-            // Arrange
-            var mastermindGame = _gameFactory.PrepareGame(answer, colors, roundsLimit);
-
-            // Act
-            var result = _serviceUnderTests.SolveGame(mastermindGame);
-
-            // Assert
-            Assert.True(result.IsAnswerFound);
-            Assert.True(result.Rounds <= roundsLimit);
-            Assert.AreEqual(answer, result.Answer);
-        }
-
         [TestCase("3456", 6, 7)]
         [TestCase("2621", 6, 7)]
-        public void SolveGame_SuccesfullyAt5MovesOrLess_GivenClassicMastermind(string answer, int colors, int roundsLimit)
+        public void SolveGame_SuccesfullyAt6MovesOrLess_GivenClassicMastermind(string answer, int colors, int roundsLimit)
         {
             // Arrange
             var mastermindGame = _gameFactory.PrepareGame(answer, colors, roundsLimit);
@@ -60,20 +46,6 @@ namespace Mastermind.IntegrationTests.Services.Solvers
         [TestCase("11111", 8, 6)]
         [TestCase("34651", 8, 7)]
         [TestCase("12346", 8, 8)]
-        public void SolveGame_SuccesfullyIn8MovesOrLess_GivenDeluxeMastermind(string answer, int colors, int roundsLimit)
-        {
-            // Arrange
-            var mastermindGame = _gameFactory.PrepareGame(answer, colors, roundsLimit);
-
-            // Act
-            var result = _serviceUnderTests.SolveGame(mastermindGame);
-
-            // Assert
-            Assert.True(result.IsAnswerFound);
-            Assert.True(result.Rounds <= roundsLimit);
-            Assert.AreEqual(answer, result.Answer);
-        }
-
         [TestCase("76588", 8, 12)]
         public void SolveGame_SuccesfullyIn12MovesOrLess_GivenDeluxeMastermind(string answer, int colors, int roundsLimit)
         {

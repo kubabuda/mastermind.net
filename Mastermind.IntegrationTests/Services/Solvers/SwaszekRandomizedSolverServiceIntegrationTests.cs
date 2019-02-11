@@ -74,33 +74,5 @@ namespace Mastermind.IntegrationTests.Services.Solvers
             Assert.True(result.Rounds <= roundsLimit);
             Assert.AreEqual(answer, result.Answer);
         }
-
-        public void SolveGame_SuccesfullyIn7MovesOrLess_GivenDeluxeMastermind(string answer, int colors, int roundsLimit)
-        {
-            // Arrange
-            var mastermindGame = _gameFactory.PrepareGame(answer, colors, roundsLimit);
-
-            // Act
-            var result = _serviceUnderTests.SolveGame(mastermindGame);
-
-            // Assert
-            Assert.True(result.IsAnswerFound);
-            Assert.True(result.Rounds <= roundsLimit);
-            Assert.AreEqual(answer, result.Answer);
-        }
-
-        public void SolveGame_SuccesfullyIn6MovesOrLess_GivenDeluxeMastermind(string answer, int colors, int roundsLimit)
-        {
-            // Arrange
-            var mastermindGame = _gameFactory.PrepareGame(answer, colors, roundsLimit);
-
-            // Act
-            var result = _serviceUnderTests.SolveGame(mastermindGame);
-
-            // Assert
-            Assert.True(result.IsAnswerFound);
-            Assert.True(result.Rounds <= roundsLimit);
-            Assert.AreEqual(answer, result.Answer);
-        }
     }
 }
