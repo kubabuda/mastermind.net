@@ -80,6 +80,18 @@ Example with most rounds - 8 - is 4356
 Mean execution time is 1.46097962962963 ms
 Longest execution time 7.7727 ms found for 1111
 
+For Swaszek algo with initial guess 3456 on Mastermind(4, 6):
+Mean rounds per solution is 4,68287037037037
+Example with most rounds - 7 - is 4341
+Mean execution time is 1,44617199074074 ms
+Longest execution time 12,8643 ms found for 3623
+
+For SwaszekRandomized algo with initial guess 3456 on Mastermind(4, 6):
+Mean rounds per solution is 4,66126543209877
+Example with most rounds - 7 - is 3162
+Mean execution time is 1,40633966049383 ms
+Longest execution time 5,9019 ms found for 1111
+
 
 ## Mastermind(5, 8)
 
@@ -114,6 +126,17 @@ Example with most rounds - 9 - is 43321
 Mean execution time is 52.277607244873 ms
 Longest execution time 134.2737 ms found for 21655
 
+For Swaszek algo with initial 45678 on Mastermind(5, 8):
+Mean rounds per solution is 5,95498657226562
+Example with most rounds - 9 - is 52451
+Mean execution time is 49,1665158203125 ms
+Longest execution time 99,7687 ms found for 14475
+
+For SwaszekRandomized algo with initial 45678 on Mastermind(5, 8):
+Mean rounds per solution is 5,88348388671875                                                                                        
+Example with most rounds - 10 - is 65461
+Mean execution time is 51,8383764038086 ms
+Longest execution time 125,6308 ms found for 34278
 
 #Sources 🤔
 
